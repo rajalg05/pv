@@ -10,47 +10,33 @@
       </div>    
     </div>    
   </div>  
-  <table mat-table [dataSource] = "dataSource" class = "mat-elevation-z8"> 
-    <ng-container matColumnDef = "education">
-       <mat-header-cell *matHeaderCellDef>Education  </mat-header-cell>
-       <mat-cell *matCellDef = "let element"> {{element.education}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef = "excelSkills">
-       <mat-header-cell *matHeaderCellDef>Excel_Skills  </mat-header-cell>
-       <mat-cell *matCellDef = "let element"> {{element.excelSkills}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef = "TLNonTL">
-       <mat-header-cell *matHeaderCellDef>TL_Non_TL  </mat-header-cell>
-       <mat-cell *matCellDef = "let element"> {{element.TLNonTL}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef = "city">
-       <mat-header-cell *matHeaderCellDef>City  </mat-header-cell>
-       <mat-cell *matCellDef = "let element"> {{element.city}} </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef = "state">
-       <mat-header-cell *matHeaderCellDef>State  </mat-header-cell>
-      <mat-cell *matCellDef = "let element"> {{element.state}} </mat-cell>
-    </ng-container> 
-    <ng-container matColumnDef = "frequency">
-      <mat-header-cell *matHeaderCellDef>Frequency  </mat-header-cell>
-      <mat-cell *matCellDef = "let element"> {{element.frequency}} </mat-cell>
-   </ng-container>
-   <ng-container matColumnDef = "tlPune">
-      <mat-header-cell *matHeaderCellDef>TL_Pune  </mat-header-cell>
-      <mat-cell *matCellDef = "let element"> {{element.tlPune}} </mat-cell>
-   </ng-container>
-   <ng-container matColumnDef = "tlMumbai">
-      <mat-header-cell *matHeaderCellDef>TL_Mumbai  </mat-header-cell>
-      <mat-cell *matCellDef = "let element"> {{element.tlMumbai}} </mat-cell>
-   </ng-container>
-   <ng-container matColumnDef = "tlOthers">
-      <mat-header-cell *matHeaderCellDef>TL_Others  </mat-header-cell>
-      <mat-cell *matCellDef = "let element"> {{element.tlOthers}} </mat-cell>
-   </ng-container>
-   <ng-container matColumnDef = "auditStatus">
-      <mat-header-cell *matHeaderCellDef>Audit_Status  </mat-header-cell>
-     <mat-cell *matCellDef = "let element"> {{element.auditStatus}} </mat-cell>
-   </ng-container> 
-    <mat-header-row mat-header-row *matHeaderRowDef = "displayedColumns"></mat-header-row>
-    <mat-row  *matRowDef = "let row; columns: displayedColumns;"></mat-row>
- </table>
+  <p-table [value]="_coreService.dataSourceManPower">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Education</th>
+            <th>Excel_Skills</th>
+            <th>TL_Non_TL</th>   
+            <th>City</th>
+            <th>State</th>
+            <th>Frequency</th> 
+            <th>TL_Pune</th>
+            <th>TL_Mumbai</th>
+            <th>TL_Others</th>
+            <th>Audit_Status</th> 
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-element>
+        <tr>
+            <td>{{element.education}}</td>
+            <td>{{element.excelSkills}}</td> 
+            <td>{{element.TLNonTL}}</td>    
+            <td>{{element.city}}</td>
+            <td>{{element.state}}</td> 
+            <td>{{element.frequency}}</td>  
+            <td>{{element.tlPune}}</td>
+            <td>{{element.tlMumbai}}</td> 
+            <td>{{element.tlOthers}}</td>  
+            <td>{{element.auditStatus}}</td>
+        </tr>
+    </ng-template>
+  </p-table> 

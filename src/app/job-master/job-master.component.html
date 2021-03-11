@@ -1,1 +1,23 @@
-<p>job-master works!</p>
+ 
+  <p-table [value]="_coreService.dataSourceJobMaster">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>S. No</th>
+            <th>Job</th>
+            <th>Associate</th>   
+            <th>Address</th>
+            <th>City</th>
+            <th>Frequency</th> 
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-element>
+        <tr>
+            <td>{{element.sNo}}</td>
+            <td>{{element.job}}</td> 
+            <td>{{element.associate}}</td>    
+            <td>{{element.address}}</td>
+            <td>{{element.city}}</td> 
+            <td>{{element.frequency}}</td>  
+        </tr>
+    </ng-template>
+  </p-table> 

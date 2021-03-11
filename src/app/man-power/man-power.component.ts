@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { ManPower } from '../model/manPower';
+import { CoreService } from '../service/core.service';
+import { JobMaster } from '../model/jobMaster';
 
 @Component({
   selector: 'app-man-power',
@@ -12,10 +14,9 @@ export class ManPowerComponent implements OnInit {
   storeData: any;
   csvData: any;
   fileUploaded: File;
-  worksheet: any;
-  dataSource: ManPower[] = [];
+  worksheet: any; 
   displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
-  constructor() { }
+  constructor(public _coreService: CoreService) { }
 
   ngOnInit(): void {
   }
@@ -34,13 +35,12 @@ export class ManPowerComponent implements OnInit {
       const wb: XLSX.WorkBook = XLSX.read(binarystr, { type: 'binary' });
 
       /* selected the first sheet */
-      const wsname: string = wb.SheetNames[0];
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+      wb.SheetNames.forEach(wsname => {
+        this.populateDataSource(wb, wsname);
+      });
 
-      /* save data */
-      const data = XLSX.utils.sheet_to_json(ws); // to get 2d array pass 2nd parameter as object {header: 1}
-      this.dataSource = data as ManPower[];
-      console.log(this.dataSource); // Data will be logged in array format containing objects
+
+
     };
   }
 
@@ -50,4 +50,39 @@ export class ManPowerComponent implements OnInit {
     const data: Blob = new Blob([this.csvData], { type: 'text/csv;charset=utf-8;' });
     FileSaver.saveAs(data, "CSVFile" + new Date().getTime() + '.csv');
   }
+  populateDataSource(wb: XLSX.WorkBook, wsname: string) {
+    const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+    switch (wsname) {
+      case 'Manpower': {
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        /* save data */
+        const data = XLSX.utils.sheet_to_json(ws); // to get 2d array pass 2nd parameter as object {header: 1}
+        this._coreService.dataSourceManPower = data as ManPower[];
+        console.log(this._coreService.dataSourceManPower); // Data will be logged in array format containing objects
+        break;
+      }
+
+      case 'ManpowerMaster': {
+        break;
+      }
+
+      case 'AssociateMaster': {
+        break;
+      }
+      case 'JobMaster': {
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        /* save data */
+        const data = XLSX.utils.sheet_to_json(ws); // to get 2d array pass 2nd parameter as object {header: 1}
+        this._coreService.dataSourceJobMaster = data as JobMaster[];
+        console.log(this._coreService.dataSourceJobMaster); // Data will be logged in array format containing objects
+        break;
+      }
+
+      case 'CostSheet': {
+        break;
+      }
+    }
+  }
 }
+
+

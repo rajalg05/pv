@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CoreService } from '../service/core.service';
 
 @Component({
   selector: 'app-job-master',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobMasterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _coreService: CoreService) { }
 
   ngOnInit(): void {
   }

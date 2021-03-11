@@ -13,6 +13,7 @@ import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreComponent } from './core/core.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTableModule,
     MatTabsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
