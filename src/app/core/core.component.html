@@ -1,1 +1,17 @@
-<p>core works!</p>
+  <mat-tab-group animationDuration="0ms" [selectedIndex]="0">
+    <mat-tab label="Manpower master">
+        <app-man-power></app-man-power>
+    </mat-tab>
+    <mat-tab label="Associate master">
+        <app-associate-master></app-associate-master>
+    </mat-tab>
+    <mat-tab label="Job master">
+        <app-job-master></app-job-master>
+    </mat-tab>
+    <mat-tab label="Job allocation">
+        <app-job-allocation></app-job-allocation>
+    </mat-tab>
+    <mat-tab label="Cost sheet">
+        <app-cost-sheet></app-cost-sheet>
+    </mat-tab>
+  </mat-tab-group> 

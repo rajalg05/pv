@@ -11,8 +11,8 @@ import { JobMasterComponent } from './job-master/job-master.component';
 import { JobAllocationComponent } from './job-allocation/job-allocation.component';
 import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { LeftNavComponent } from './left-nav/left-nav.component';
 import { CoreComponent } from './core/core.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,6 @@ import { CoreComponent } from './core/core.component';
     JobAllocationComponent,
     CostSheetComponent,
     PageNotFoundComponent,
-    LeftNavComponent,
     CoreComponent
   ],
   imports: [
@@ -31,6 +30,7 @@ import { CoreComponent } from './core/core.component';
     AppRoutingModule,
     FormsModule,
     MatTableModule,
+    MatTabsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],

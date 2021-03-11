@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CoreService } from '../service/core.service';
 
 @Component({
   selector: 'app-core',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./core.component.css']
 })
 export class CoreComponent implements OnInit {
+ 
 
-  constructor() { }
+  constructor(public _coreService: CoreService) { }
 
   ngOnInit(): void {
   }
-
+  
 }

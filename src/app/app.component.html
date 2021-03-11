@@ -1,14 +1,1 @@
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)">&times;</a>
-  <a routerLink="/manpowerMaster" (onClick)="loadChild('manpowerMaster')">Manpower master</a>
-  <a routerLink="/associateMaster" (onClick)="loadChild('associateMaster')">Associate master</a>
-  <a routerLink="/jobMaster" (onClick)="loadChild('jobMaster')">Job master</a>
-  <a routerLink="/jobAllocation" (onClick)="loadChild('jobAllocation')">Job allocation</a>
-  <a routerLink="/costSheet" (onClick)="loadChild('costSheet')">Cost sheet</a>
-</div>
-<app-man-power *ngIf="manpowerMaster"></app-man-power>
-<app-associate-master *ngIf="associateMaster"></app-associate-master>
-<app-job-master *ngIf="jobMaster"></app-job-master>
-<app-job-allocation *ngIf="jobAllocation"></app-job-allocation>
-<app-cost-sheet *ngIf="costSheet"></app-cost-sheet>
-<router-outlet></router-outlet> 
+<app-core></app-core>
