@@ -13,7 +13,12 @@ import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreComponent } from './core/core.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table'; 
+import { FileUploadModule } from 'primeng/fileupload'; 
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,13 @@ import {TableModule} from 'primeng/table';
     MatTabsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    TableModule
+    TableModule,
+    HttpClientModule,
+    // primeng modules
+    MessagesModule,
+    MessageModule,
+    ToastModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-<div class="container">    
+<!-- <div class="container">    
     <div class="row">    
       <div class="col-md-8 form-group">    
         <input type="file" class="form-control" (change)="uploadedFile($event.target.files)" placeholder="Upload file" accept=".xlsx">    
@@ -9,34 +9,49 @@
         <button type="button" class="btn btn-info" (click)="uploadFile()">Upload Excel</button>    
       </div>    
     </div>    
-  </div>  
-  <p-table [value]="_coreService.dataSourceManPower">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Education</th>
-            <th>Excel_Skills</th>
-            <th>TL_Non_TL</th>   
-            <th>City</th>
-            <th>State</th>
-            <th>Frequency</th> 
-            <th>TL_Pune</th>
-            <th>TL_Mumbai</th>
-            <th>TL_Others</th>
-            <th>Audit_Status</th> 
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-element>
-        <tr>
-            <td>{{element.education}}</td>
-            <td>{{element.excelSkills}}</td> 
-            <td>{{element.TLNonTL}}</td>    
-            <td>{{element.city}}</td>
-            <td>{{element.state}}</td> 
-            <td>{{element.frequency}}</td>  
-            <td>{{element.tlPune}}</td>
-            <td>{{element.tlMumbai}}</td> 
-            <td>{{element.tlOthers}}</td>  
-            <td>{{element.auditStatus}}</td>
-        </tr>
-    </ng-template>
-  </p-table> 
+  </div>   -->
+<p-toast></p-toast>
+
+<div class="card">
+   <h5>Advanced</h5>
+   <p-fileUpload name="demo[]" (onSelect)="onUpload($event)" customUpload="true" multiple="multiple"  
+      maxFileSize="100000000">
+      <ng-template pTemplate="content">
+         <ul *ngIf="uploadedFiles && uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+         </ul>
+      </ng-template>
+   </p-fileUpload>
+ 
+</div>
+
+<p-table [value]="_coreService.dataSourceManPower">
+   <ng-template pTemplate="header">
+      <tr>
+         <th>Education</th>
+         <th>Excel_Skills</th>
+         <th>TL_Non_TL</th>
+         <th>City</th>
+         <th>State</th>
+         <th>Frequency</th>
+         <th>TL_Pune</th>
+         <th>TL_Mumbai</th>
+         <th>TL_Others</th>
+         <th>Audit_Status</th>
+      </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-element>
+      <tr>
+         <td>{{element.education}}</td>
+         <td>{{element.excelSkills}}</td>
+         <td>{{element.TLNonTL}}</td>
+         <td>{{element.city}}</td>
+         <td>{{element.state}}</td>
+         <td>{{element.frequency}}</td>
+         <td>{{element.tlPune}}</td>
+         <td>{{element.tlMumbai}}</td>
+         <td>{{element.tlOthers}}</td>
+         <td>{{element.auditStatus}}</td>
+      </tr>
+   </ng-template>
+</p-table>

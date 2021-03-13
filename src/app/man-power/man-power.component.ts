@@ -4,31 +4,37 @@ import * as FileSaver from 'file-saver';
 import { ManPower } from '../model/manPower';
 import { CoreService } from '../service/core.service';
 import { JobMaster } from '../model/jobMaster';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-man-power',
   templateUrl: './man-power.component.html',
-  styleUrls: ['./man-power.component.css']
+  styleUrls: ['./man-power.component.css'],
+  providers: [MessageService]
 })
 export class ManPowerComponent implements OnInit {
   storeData: any;
   csvData: any;
   fileUploaded: File;
+  uploadedFiles: any[] = [];
   worksheet: any; 
   displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
-  constructor(public _coreService: CoreService) { }
+  constructor(public _coreService: CoreService, 
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
 
-
-  uploadedFile(files) {
+  onUpload(event) {
+    for(let file of event.files) {
+      this.uploadedFiles.push(file);
+  }
     /* wire up file reader */
-    if (files.length !== 1) {
+    if (event.files.length !== 1) {
       throw new Error('Cannot use multiple files');
     }
     const reader: FileReader = new FileReader();
-    reader.readAsBinaryString(files[0]);
+    reader.readAsBinaryString(event.files[0]);
     reader.onload = (e: any) => {
       /* create workbook */
       const binarystr: string = e.target.result;
@@ -38,10 +44,8 @@ export class ManPowerComponent implements OnInit {
       wb.SheetNames.forEach(wsname => {
         this.populateDataSource(wb, wsname);
       });
-
-
-
     };
+    this.messageService.add({severity: 'info', summary: 'File Selected', detail: ''});
   }
 
   uploadFile() {
