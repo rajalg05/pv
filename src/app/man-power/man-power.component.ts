@@ -87,6 +87,25 @@ export class ManPowerComponent implements OnInit {
       }
     }
   }
+
+  onRowEditInit(manPower: ManPower) {
+  }
+
+onRowEditSave(manPower: ManPower) {
+   /*  if (product.price > 0) {
+        delete this.clonedProducts[product.id]; */
+        this.messageService.add({severity:'success', summary: 'Success', detail:'ManPower is updated'});
+   /*  }  
+    else { */
+        /* this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
+    } */
+}
+
+onRowEditCancel(manPower: ManPower, index: number) {
+    /* this.products2[index] = this.clonedProducts[product.id];
+    delete this.clonedProducts[product.id]; */
+}
+
 }
 
 

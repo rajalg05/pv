@@ -6,15 +6,31 @@ import { JobAllocationComponent } from './job-allocation/job-allocation.componen
 import { JobMasterComponent } from './job-master/job-master.component';
 import { ManPowerComponent } from './man-power/man-power.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
   { path: 'manpowerMaster',   component: ManPowerComponent },
   { path: 'associateMaster',  component: AssociateMasterComponent },
   { path: 'jobMaster',        component: JobMasterComponent },
-  { path: 'jobAllocation',    component: JobAllocationComponent },
+  { path: 'jobAllocation',    
+    component: JobAllocationComponent,
+    canActivate: [RoleGuard], 
+    data: { 
+      expectedRole: 'subAssociate'
+    }  },
   { path: 'costSheet',        component: CostSheetComponent },
-  { path: '',                 redirectTo: '/jobMaster',       pathMatch: 'full' },
-  { path: '**',               component: PageNotFoundComponent }
+ // { path: '',                 redirectTo: '/jobMaster',       pathMatch: 'full' },
+ // { path: '**',               component: PageNotFoundComponent },
+ // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

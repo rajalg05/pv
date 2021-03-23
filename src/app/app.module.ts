@@ -2,8 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
+// used to create fake backend
+import { fakeBackendProvider } from './helpers/fake-backend.component';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
+import { ErrorInterceptor } from "./helpers/ErrorInterceptor";
+
 import { AppComponent } from './app.component';
 import { ManPowerComponent } from './man-power/man-power.component';
 import { AssociateMasterComponent } from './associate-master/associate-master.component';
@@ -18,7 +24,12 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
-import { HttpClientModule } from '@angular/common/http';
+import { AlertComponent } from './components/alert/alert.component';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { MisComponent } from './core/mis/mis.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +40,12 @@ import { HttpClientModule } from '@angular/common/http';
     JobAllocationComponent,
     CostSheetComponent,
     PageNotFoundComponent,
-    CoreComponent
+    CoreComponent,
+    AlertComponent,
+    HomeComponent,
+    LoginComponent,
+    RegisterComponent,
+    MisComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +63,14 @@ import { HttpClientModule } from '@angular/common/http';
     ToastModule,
     FileUploadModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    // provider used to create fake backend
+    fakeBackendProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
