@@ -1,1 +1,38 @@
-<p>job-allocation works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Jobs</h5>
+            <p-multiSelect [options]="jobs" [(ngModel)]="selectedJob" defaultLabel="Select a Job" optionLabel="name"
+                display="chip" appendTo="body" maxSelectedLabels=2 ></p-multiSelect>
+        </div>
+        <div class="col-md-4">
+            <h5>TL/NonTL</h5>
+            <p-multiSelect [options]="tlNonTls" [(ngModel)]="selectedTlNonTls" defaultLabel="Select a TL / Non TL"
+                optionLabel="name" display="chip" appendTo="body"></p-multiSelect>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- <h5>Due Date</h5>
+<p-multiSelect [options]="dueDates" [(ngModel)]="dueDate" defaultLabel="Select a Due Date" optionLabel="name"
+    display="chip"></p-multiSelect>
+
+<h5>Ratings</h5>
+<p-multiSelect [options]="ratings" [(ngModel)]="rating" defaultLabel="Select a Rating" optionLabel="name"
+    display="chip"></p-multiSelect>
+
+<h5>Availability</h5>
+<p-multiSelect [options]="availabilities" [(ngModel)]="availability" defaultLabel="Select Availability" optionLabel="name"
+    display="chip"></p-multiSelect>
+
+<h5>Total Experience</h5>
+<p-multiSelect [options]="totalExperiences" [(ngModel)]="totalExperience" defaultLabel="Select Total Experience" optionLabel="name"
+    display="chip"></p-multiSelect>
+
+<h5>Location</h5>
+<p-multiSelect [options]="locations" [(ngModel)]="location" defaultLabel="Select the location" optionLabel="name"
+    display="chip"></p-multiSelect> -->

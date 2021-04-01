@@ -30,6 +30,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MisComponent } from './core/mis/mis.component';
+import {MultiSelectModule} from 'primeng/multiselect';
+import { RoleGuard } from './guards/role.guard';
 
 @NgModule({
   declarations: [
@@ -61,13 +63,15 @@ import { MisComponent } from './core/mis/mis.component';
     MessagesModule,
     MessageModule,
     ToastModule,
-    FileUploadModule
+    FileUploadModule,
+    MultiSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
+    RoleGuard,
     // provider used to create fake backend
     fakeBackendProvider
   ],

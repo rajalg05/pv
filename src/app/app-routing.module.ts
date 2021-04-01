@@ -13,6 +13,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
+  { path: '',                 redirectTo: '/jobAllocation',       pathMatch: 'full' },
   { path: 'manpowerMaster',   component: ManPowerComponent },
   { path: 'associateMaster',  component: AssociateMasterComponent },
   { path: 'jobMaster',        component: JobMasterComponent },
@@ -23,7 +24,7 @@ const routes: Routes = [
       expectedRole: 'subAssociate'
     }  },
   { path: 'costSheet',        component: CostSheetComponent },
- // { path: '',                 redirectTo: '/jobMaster',       pathMatch: 'full' },
+  
  // { path: '**',               component: PageNotFoundComponent },
  // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
