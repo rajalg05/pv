@@ -19,19 +19,23 @@ import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreComponent } from './core/core.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { TableModule } from 'primeng/table'; 
-import { FileUploadModule } from 'primeng/fileupload'; 
+import { TableModule } from 'primeng/table';
+import { FileUploadModule } from 'primeng/fileupload';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { AlertComponent } from './components/alert/alert.component';
-import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MisComponent } from './core/mis/mis.component';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { RoleGuard } from './guards/role.guard';
+import { TabViewModule } from 'primeng/tabview';
+import { ResourceFormComponent } from './man-power/resource-form/resource-form.component';
+import { Ng2TelInputModule } from 'ng2-tel-input';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,8 @@ import { RoleGuard } from './guards/role.guard';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    MisComponent
+    MisComponent,
+    ResourceFormComponent
   ],
   imports: [
     BrowserModule,
@@ -59,12 +64,17 @@ import { RoleGuard } from './guards/role.guard';
     BrowserAnimationsModule,
     TableModule,
     HttpClientModule,
+    ReactiveFormsModule,
     // primeng modules
     MessagesModule,
     MessageModule,
     ToastModule,
     FileUploadModule,
-    MultiSelectModule
+    MultiSelectModule,
+    TabViewModule,
+    DropdownModule,
+    // Phone module
+    Ng2TelInputModule 
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

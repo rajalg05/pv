@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { ManPower } from '../model/manPower';
 import { CoreService } from '../service/core.service';
 import { JobMaster } from '../model/jobMaster';
 import { MessageService } from 'primeng/api';
+import { TabPanel, TabView, TabViewModule } from 'primeng/tabview';
 
 @Component({
   selector: 'app-man-power',
@@ -14,21 +15,38 @@ import { MessageService } from 'primeng/api';
 })
 export class ManPowerComponent implements OnInit {
   storeData: any;
+  condition: boolean;
   csvData: any;
   fileUploaded: File;
   uploadedFiles: any[] = [];
-  worksheet: any; 
+  worksheet: any;
   displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
-  constructor(public _coreService: CoreService, 
-    private messageService: MessageService) { }
+  searchValue: any;
+  tabs = [
+    {
+      'header': 'header1',
+      'content': 'content1'
+    },
+    {
+      'header': 'header2',
+      'content': 'content2'
+    }
+  ];
+  activeIndex: number = 0;
+  @ViewChild(TabView) tabView: TabView;
+
+  constructor(public _coreService: CoreService,
+    private messageService: MessageService,
+    private viewContainerRef: ViewContainerRef,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
   onUpload(event) {
-    for(let file of event.files) {
+    for (let file of event.files) {
       this.uploadedFiles.push(file);
-  }
+    }
     /* wire up file reader */
     if (event.files.length !== 1) {
       throw new Error('Cannot use multiple files');
@@ -45,7 +63,7 @@ export class ManPowerComponent implements OnInit {
         this.populateDataSource(wb, wsname);
       });
     };
-    this.messageService.add({severity: 'info', summary: 'File Selected', detail: ''});
+    this.messageService.add({ severity: 'info', summary: 'File Selected', detail: '' });
   }
 
   uploadFile() {
@@ -91,21 +109,32 @@ export class ManPowerComponent implements OnInit {
   onRowEditInit(manPower: ManPower) {
   }
 
-onRowEditSave(manPower: ManPower) {
-   /*  if (product.price > 0) {
-        delete this.clonedProducts[product.id]; */
-        this.messageService.add({severity:'success', summary: 'Success', detail:'ManPower is updated'});
-   /*  }  
-    else { */
-        /* this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
-    } */
-}
+  onRowEditSave(manPower: ManPower) {
+    /*  if (product.price > 0) {
+         delete this.clonedProducts[product.id]; */
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'ManPower is updated' });
+    /*  }  
+     else { */
+    /* this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
+} */
+  }
 
-onRowEditCancel(manPower: ManPower, index: number) {
+  onRowEditCancel(manPower: ManPower, index: number) {
     /* this.products2[index] = this.clonedProducts[product.id];
     delete this.clonedProducts[product.id]; */
-}
+  }
 
+  handleClose(e) {
+    if (this.condition)
+      e.close();
+  }
+
+  addTab() {
+    const tab: TabPanel = new TabPanel(this.tabView, this.viewContainerRef, this.cd);
+    tab.header = 'Tab3';
+    tab.closable = true;
+    this.tabView.tabs.push(tab);
+  }
 }
 
 

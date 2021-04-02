@@ -12,7 +12,22 @@
   </div>   -->
 <p-toast></p-toast>
 
-<div class="card">
+<div class="p-field p-col-12 p-md-4">
+    <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" id="inputtext-left" pInputText [(ngModel)]="searchValue"> 
+        <label for="inputtext-left">Search</label>
+    </span>
+</div>
+<button pButton (click)="addTab()" label="+" type="button" class="p-button-outlined p-button-rounded"></button>
+
+<p-tabView [controlClose]="true" (onClose)="handleClose($event)">
+    <p-tabPanel [closable]="true" [header]="tab.header" *ngFor="let tab of tabs; let i = index" [selected]="i == 0">
+        <app-resource-form ></app-resource-form>
+    </p-tabPanel>
+</p-tabView>
+
+<!-- <div class="card">
    <h5>Advanced</h5>
    <p-fileUpload name="demo[]" (onSelect)="onUpload($event)" customUpload="true" multiple="multiple"  
       maxFileSize="100000000">
@@ -148,32 +163,8 @@
                    {{element.auditStatus}}
                </ng-template>
            </p-cellEditor>
-         </td>
-         <!-- <td>{{element.education}}</td> -->
-         <!-- <td>{{element.excelSkills}}</td>
-         <td>{{element.TLNonTL}}</td>
-         <td>{{element.city}}</td>
-         <td>{{element.state}}</td>
-         <td>{{element.frequency}}</td>
-         <td>{{element.tlPune}}</td>
-         <td>{{element.tlMumbai}}</td>
-         <td>{{element.tlOthers}}</td>
-         <td>{{element.auditStatus}}</td> -->
+         </td> 
       </tr>
    </ng-template>
-
-   <!-- <ng-template pTemplate="body" let-element>
-      <tr>
-         <td>{{element.education}}</td>
-         <td>{{element.excelSkills}}</td>
-         <td>{{element.TLNonTL}}</td>
-         <td>{{element.city}}</td>
-         <td>{{element.state}}</td>
-         <td>{{element.frequency}}</td>
-         <td>{{element.tlPune}}</td>
-         <td>{{element.tlMumbai}}</td>
-         <td>{{element.tlOthers}}</td>
-         <td>{{element.auditStatus}}</td>
-      </tr>
-   </ng-template> -->
-</p-table>
+ 
+</p-table> -->

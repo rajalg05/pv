@@ -1,0 +1,122 @@
+<div class="container">
+    <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <!-- firstName -->
+                    <label for="firstName">Name: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="firstName" placeholder="First Name" class="form-control"
+                            formControlName="firstName">
+                        <p class="lblError" *ngIf="resourceForm.get('firstName').hasError('required')
+                              && !resourceForm.get('firstName').pristine">
+                            First Name is Required
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <!-- lastName -->
+                    <label for="lastName">Name: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="lastName" placeholder="Last Name" class="form-control"
+                            formControlName="lastName">
+                        <p class="lblError" *ngIf="resourceForm.get('lastName').hasError('required')
+                              && !resourceForm.get('lastName').pristine">
+                            Last Name is Required
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <!-- E-mail -->
+                    <label for="email">E-mail: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="email" placeholder="E-mail" class="form-control"
+                            formControlName="user_email">
+                        <p class="lblError"
+                            *ngIf="resourceForm.get('user_email').hasError('required') && !resourceForm.get('user_email').pristine">
+                            Please provide your E-mail
+                        </p>
+                        <p class="lblError"
+                            *ngIf="resourceForm.get('user_email').hasError('email') && !resourceForm.get('user_email').pristine">
+                            E-mail is Invalid</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="phone">WhatsApp Mobile Number * <span class="lblError"></span></label>
+                    <div class="controls">
+                        <input type="number" formControlName="phone" ng2TelInput
+                            [ng2TelInputOptions]="{initialCountry: 'in'}"
+                            [ngClass]="{ 'is-invalid': resourceForm.get('phone').errors }"
+                            (keypress)="numericOnly($event)" />
+                        <div *ngIf="resourceForm.get('phone').errors" class="invalid-feedback">
+                            <div *ngIf="resourceForm.get('phone').errors.required">Phone is required</div>
+                            <div *ngIf="resourceForm.get('phone').errors.minlength">Phone must be at least 10 numbers.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <!-- Gender -->
+                <input type="radio" id="genderMale" class="form-check-input" formControlName="user_gender" value="Male">
+                <label class="form-check-label" for="genderMale">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="genderFemale" class="form-check-input" formControlName="user_gender"
+                    value="Female">
+                <label class="form-check-label" for="genderFeMale">Female</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <!-- Username -->
+            <label for="username">Address: <span class="lblError">*</span></label>
+            <div class="controls">
+                <input type="text" id="addressLine1" placeholder="Address Line1" class="form-control"
+                    formControlName="addressLine1">
+                <p class="lblError" *ngIf="resourceForm.get('addressLine1').hasError('required')
+                              && !resourceForm.get('addressLine1').pristine">
+                    Address Line 1 is Required
+                </p>
+                <input type="text" id="addressLine2" placeholder="Address Line2" class="form-control"
+                    formControlName="addressLine2">
+            </div>
+
+            <div class="form-row">
+                <p-dropdown [options]="cities" formControlName="city" optionLabel="name" filter="true" editable="true"
+                    placeholder="Select a City" ></p-dropdown>
+                <div class="col">
+                    <input type="text" id="state" placeholder="State" class="form-control" formControlName="state">
+                </div>
+                <div class="col">
+                    <input type="text" id="zip" placeholder="Postal/Zip Code" class="form-control"
+                        formControlName="zip">
+                </div>
+                <div class="col">
+                    <input type="text" id="country" placeholder="country" class="form-control" readonly
+                        formControlName="country">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid" style="width: 15%">
+                Submit
+            </button>
+        </div>
+
+    </form>
+</div>
