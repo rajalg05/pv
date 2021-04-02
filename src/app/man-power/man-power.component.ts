@@ -131,10 +131,14 @@ export class ManPowerComponent implements OnInit {
 
   addTab() {
     const tab: TabPanel = new TabPanel(this.tabView, this.viewContainerRef, this.cd);
-    tab.header = 'Tab3';
+    tab.header = 'New Resource';
     tab.closable = true;
-    this.tabView.tabs.push(tab);
+    let index: number = this.tabView.tabs.findIndex(x => x.header === "New Resource");
+    if(index == -1) 
+      this.tabView.tabs.push(tab);
   }
+
+  
 }
 
 
