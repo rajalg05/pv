@@ -67,7 +67,35 @@
                 </div>
             </div>
         </div>
-
+        <div class="col">
+            <div class="form-group">
+                <label for="adhar">Aadhar (Add Front and back Side of Aadhar) * <span class="lblError"></span></label>
+            </div>
+            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+              </div>
+              <div  class="files-list" *ngFor="let file of files;let i= index">
+                  <p> {{ file }} </p>
+                  <button class="delete-file" (click)="deleteAttachment(i)">
+                    <img src="../../assets/Recycle_Bin_Full.png">
+                  </button>
+               </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="adhar">PAN * <span class="lblError"></span></label>
+            </div>
+            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+              </div>
+              <div  class="files-list" *ngFor="let file of files;let i= index">
+                  <p> {{ file }} </p>
+                  <button class="delete-file" (click)="deleteAttachment(i)">
+                    <img src="../../assets/Recycle_Bin_Full.png">
+                  </button>
+               </div>
+        </div>
+        
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <!-- Gender -->
@@ -111,7 +139,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="form-group">
             <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid" style="width: 15%">
                 Submit

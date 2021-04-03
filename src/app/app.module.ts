@@ -36,6 +36,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ResourceFormComponent } from './man-power/resource-form/resource-form.component';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 import { DropdownModule } from 'primeng/dropdown';
+import { DragDropDirective } from './directives/drag-drop.directive'; 
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { DropdownModule } from 'primeng/dropdown';
     LoginComponent,
     RegisterComponent,
     MisComponent,
-    ResourceFormComponent
+    ResourceFormComponent,
+    DragDropDirective 
   ],
   imports: [
     BrowserModule,

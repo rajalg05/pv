@@ -53,4 +53,15 @@ export class ResourceFormComponent implements OnInit {
     let result = patt.test(event.key);
     return result;
   }
+  files: any = [];
+
+  uploadFile(event) {
+    for (let index = 0; index < event.length; index++) {
+      const element = event[index];
+      this.files.push(element.name)
+    }  
+  }
+  deleteAttachment(index) {
+    this.files.splice(index, 1)
+  }
 }

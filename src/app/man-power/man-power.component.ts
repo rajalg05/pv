@@ -6,6 +6,7 @@ import { CoreService } from '../service/core.service';
 import { JobMaster } from '../model/jobMaster';
 import { MessageService } from 'primeng/api';
 import { TabPanel, TabView, TabViewModule } from 'primeng/tabview';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-man-power',
@@ -29,7 +30,8 @@ export class ManPowerComponent implements OnInit {
   constructor(public _coreService: CoreService,
     private messageService: MessageService,
     private viewContainerRef: ViewContainerRef,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -129,7 +131,7 @@ export class ManPowerComponent implements OnInit {
       });
   }
   public tabNameChangeEmit(data: any): void {
-   // console.log('data =' , data);
+    // console.log('data =' , data);
     let index: number = this.items.findIndex(x => x.header === "New Resource");
     this.items[index]['header'] = data;
   }
