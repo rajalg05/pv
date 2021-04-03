@@ -5,7 +5,7 @@
             <div class="col">
                 <div class="form-group">
                     <!-- firstName -->
-                    <label for="firstName">Name: <span class="lblError">*</span></label>
+                    <label for="firstName">First Name: <span class="lblError">*</span></label>
                     <div class="controls">
                         <input type="text" id="firstName" placeholder="First Name" class="form-control"
                             formControlName="firstName">
@@ -19,7 +19,7 @@
             <div class="col">
                 <div class="form-group">
                     <!-- lastName -->
-                    <label for="lastName">Name: <span class="lblError">*</span></label>
+                    <label for="lastName">Last Name: <span class="lblError">*</span></label>
                     <div class="controls">
                         <input type="text" id="lastName" placeholder="Last Name" class="form-control"
                             formControlName="lastName">
@@ -71,31 +71,33 @@
             <div class="form-group">
                 <label for="adhar">Aadhar (Add Front and back Side of Aadhar) * <span class="lblError"></span></label>
             </div>
-            <div class="uploadfilecontainer" (click)="adharFileInput.click()" appDragDrop (onFileDropped)="uploadAdharFile($event)">
+            <div class="uploadfilecontainer" (click)="adharFileInput.click()" appDragDrop
+                (onFileDropped)="uploadAdharFile($event)">
                 <input hidden type="file" #adharFileInput (change)="uploadAdharFile($event.target.adharFiles)">
-              </div>
-              <div  class="files-list" *ngFor="let file of adharFiles;let i= index">
-                  <p> {{ file }} </p>
-                  <button class="delete-file" (click)="deleteAdharAttachment(i)">
+            </div>
+            <div class="files-list" *ngFor="let file of adharFiles;let i= index">
+                <p> {{ file }} </p>
+                <button class="delete-file" (click)="deleteAdharAttachment(i)">
                     <img src="../../assets/Full_Recycle_Bin.png">
-                  </button>
-               </div>
+                </button>
+            </div>
         </div>
         <div class="col">
             <div class="form-group">
                 <label for="adhar">PAN * <span class="lblError"></span></label>
             </div>
-            <div class="uploadfilecontainer" (click)="panFileInput.click()" appDragDrop (onFileDropped)="uploadPanFile($event)">
+            <div class="uploadfilecontainer" (click)="panFileInput.click()" appDragDrop
+                (onFileDropped)="uploadPanFile($event)">
                 <input hidden type="file" #panFileInput (change)="uploadPanFile($event.target.panFiles)">
-              </div>
-              <div  class="files-list" *ngFor="let file of panFiles;let i= index">
-                  <p> {{ file }} </p>
-                  <button class="delete-file" (click)="deletePanAttachment(i)">
+            </div>
+            <div class="files-list" *ngFor="let file of panFiles;let i= index">
+                <p> {{ file }} </p>
+                <button class="delete-file" (click)="deletePanAttachment(i)">
                     <img src="../../assets/Full_Recycle_Bin.png">
-                  </button>
-               </div>
+                </button>
+            </div>
         </div>
-        
+
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <!-- Gender -->
@@ -125,7 +127,7 @@
 
             <div class="form-row">
                 <p-dropdown [options]="cities" formControlName="city" optionLabel="name" filter="true" editable="true"
-                    placeholder="Select a City" ></p-dropdown>
+                    placeholder="Select a City"></p-dropdown>
                 <div class="col">
                     <input type="text" id="state" placeholder="State" class="form-control" formControlName="state">
                 </div>
@@ -139,12 +141,28 @@
                 </div>
             </div>
         </div>
-        
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid" style="width: 15%">
-                Submit
-            </button>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid"  >
+                        Submit
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid"  >
+                        Modify
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" (click)="reset($event)" [disabled]="resourceForm.invalid"  >
+                        Reset
+                    </button>
+                </div>
+            </div>
         </div>
-
     </form>
 </div>

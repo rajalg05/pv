@@ -75,4 +75,11 @@ export class ResourceFormComponent implements OnInit {
   deletePanAttachment(index) {
     this.panFiles.splice(index, 1)
   }
+
+  reset(e: any) {
+    this.resourceForm.reset();
+    this.adharFiles = [];
+    this.panFiles = [];
+    this.resourceForm.get('country').setValue('India');
+  }
 }
