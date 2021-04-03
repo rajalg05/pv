@@ -126,8 +126,10 @@
             </div>
 
             <div class="form-row">
-                <p-dropdown [options]="cities" formControlName="city" optionLabel="name" filter="true" editable="true"
-                    placeholder="Select a City"></p-dropdown>
+                <div class="col">
+                    <p-dropdown [options]="cities" formControlName="city" optionLabel="name" filter="true"
+                         placeholder="Select a City"></p-dropdown>
+                </div>
                 <div class="col">
                     <input type="text" id="state" placeholder="State" class="form-control" formControlName="state">
                 </div>
@@ -140,25 +142,56 @@
                         formControlName="country">
                 </div>
             </div>
+            <div class="form-row">
+                <div class="col">
+                <p-calendar formControlName="dob" [showIcon]="true" dateFormat="dd/MM/yy" showButtonBar="true" 
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                </div>
+                <div class="col">
+                    <label for="username">Having a Bike<span class="lblError">*</span></label>
+                </div>
+                <div class="col">
+                    <p-dropdown [options]="bikes" formControlName="bike" optionLabel="label" filter="true"
+                         placeholder="-Select-"></p-dropdown>
+                </div> 
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="username">Qualification<span class="lblError">*</span></label>
+                </div>
+                <div class="col">
+                    <p-dropdown [options]="qualifications" formControlName="qualification" optionLabel="label" filter="true"
+                         placeholder="-Select-"></p-dropdown>
+                </div>                  
+                <div class="col">
+                    <label for="username">Excel Skills<span class="lblError">*</span></label>
+                </div>
+                <div class="col">
+                    <p-dropdown [options]="excelSkills" formControlName="excelSkill" optionLabel="label" filter="true"
+                         placeholder="-Select-"></p-dropdown>
+                </div> 
+            </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid"  >
+                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
                         Submit
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid"  >
+                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
                         Modify
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" (click)="reset($event)" [disabled]="resourceForm.invalid"  >
+                    <button class="btn btn-primary" type="submit" (click)="reset($event)"
+                        [disabled]="resourceForm.invalid">
                         Reset
                     </button>
                 </div>

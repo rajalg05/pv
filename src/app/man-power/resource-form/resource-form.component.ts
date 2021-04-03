@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
-import { City } from 'src/app/model/city';
+import { SelectItem } from 'primeng/api';
 @Component({
   selector: 'app-resource-form',
   templateUrl: './resource-form.component.html',
@@ -11,21 +10,59 @@ export class ResourceFormComponent implements OnInit {
   resourceForm: FormGroup;  //declaring our form variable
   // phone 
   separateDialCode = false;
-  cities: City[];
-  city: City;
+  cities: SelectItem[];
+  city: SelectItem;
 
-   @Output() public tabNameChangeEmit = new EventEmitter();
+  bikes: SelectItem[];
+  bike: SelectItem;
 
-  constructor() { 
+  
+  qualifications: SelectItem[];
+  excelSkills: SelectItem[];
+
+  stockAuditExps: SelectItem[];
+  tlNonTls: SelectItem[];
+  @Output() public tabNameChangeEmit = new EventEmitter();
+
+  constructor() {
     this.cities = [
-      {name: 'Pune', code: 'pun'},
-      {name: 'Mumbai', code: 'mum'},
-      {name: 'Nagpur', code: 'nag'},
-      {name: 'New Delhi', code: 'delhi'},
-      {name: 'Kolkata', code: 'klk'},
-      {name: 'Chennai', code: 'chn'}
-  ];
-   }
+      { label: 'Pune', value: 'pun' },
+      { label: 'Mumbai', value: 'mum' },
+      { label: 'Nagpur', value: 'nag' },
+      { label: 'New Delhi', value: 'delhi' },
+      { label: 'Kolkata', value: 'klk' },
+      { label: 'Chennai', value: 'chn' }
+    ];
+
+    this.bikes = [
+      { label: 'Yes', value: 'yes' },
+      { label: 'No', value: 'no' },
+      { label: 'Third Choice', value: 'thirdChoice' }
+    ];
+    
+    this.qualifications = [
+      { label: 'Graduate', value: 'graduate' },
+      { label: 'Post Graduate', value: 'postGraduate' },
+      { label: 'Under Grad', value: 'underGrad' }
+    ];
+
+    this.excelSkills = [
+      { label: 'Yes', value: 'yes' },
+      { label: 'No', value: 'no' },
+      { label: 'Third Choice', value: 'thirdChoice' }
+    ];
+
+    this.stockAuditExps = [
+      { label: '0', value: '0' },
+      { label: '1-3', value: '1-3' },
+      { label: '>3', value: '>3' }
+    ];
+
+    this.tlNonTls = [
+      { label: 'TL', value: 'tl' },
+      { label: 'Non TL', value: 'nonTl' }
+    ];
+  }
 
   ngOnInit(): void {
     this.resourceForm = new FormGroup({
@@ -38,6 +75,8 @@ export class ResourceFormComponent implements OnInit {
       state: new FormControl(null),
       zip: new FormControl(null),
       country: new FormControl('India'),
+      dob: new FormControl(null),
+      bike: new FormControl(null),
       phone: new FormControl(null),
       user_gender: new FormControl('Male')
     });
@@ -59,7 +98,7 @@ export class ResourceFormComponent implements OnInit {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       this.adharFiles.push(element.name)
-    }  
+    }
   }
   deleteAdharAttachment(index) {
     this.adharFiles.splice(index, 1)
@@ -70,7 +109,7 @@ export class ResourceFormComponent implements OnInit {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       this.panFiles.push(element.name)
-    }  
+    }
   }
   deletePanAttachment(index) {
     this.panFiles.splice(index, 1)

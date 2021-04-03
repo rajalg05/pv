@@ -37,7 +37,7 @@ import { ResourceFormComponent } from './man-power/resource-form/resource-form.c
 import { Ng2TelInputModule } from 'ng2-tel-input';
 import { DropdownModule } from 'primeng/dropdown';
 import { DragDropDirective } from './directives/drag-drop.directive'; 
-
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +75,7 @@ import { DragDropDirective } from './directives/drag-drop.directive';
     MultiSelectModule,
     TabViewModule,
     DropdownModule,
+    CalendarModule,
     // Phone module
     Ng2TelInputModule 
   ],
