@@ -22,16 +22,7 @@ export class ManPowerComponent implements OnInit {
   worksheet: any;
   displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
   searchValue: any;
-  tabs = [
-    {
-      'header': 'header1',
-      'content': 'content1'
-    },
-    {
-      'header': 'header2',
-      'content': 'content2'
-    }
-  ];
+  items = [];
   activeIndex: number = 0;
   @ViewChild(TabView) tabView: TabView;
 
@@ -130,15 +121,19 @@ export class ManPowerComponent implements OnInit {
   }
 
   addTab() {
-    const tab: TabPanel = new TabPanel(this.tabView, this.viewContainerRef, this.cd);
-    tab.header = 'New Resource';
-    tab.closable = true;
-    let index: number = this.tabView.tabs.findIndex(x => x.header === "New Resource");
-    if(index == -1) 
-      this.tabView.tabs.push(tab);
+    let index: number = this.items.findIndex(x => x.header === "New Resource");
+    if (index == -1)
+      this.items.push({
+        'header': 'New Resource',
+        'content': 'Content of New Resource'
+      });
+  }
+  public tabNameChangeEmit(data: any): void {
+   // console.log('data =' , data);
+    let index: number = this.items.findIndex(x => x.header === "New Resource");
+    this.items[index]['header'] = data;
   }
 
-  
 }
 
 

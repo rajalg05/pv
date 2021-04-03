@@ -22,8 +22,8 @@
 <button pButton (click)="addTab()" label="+" type="button" class="p-button-outlined p-button-rounded"></button>
 
 <p-tabView [controlClose]="true" (onClose)="handleClose($event)">
-    <p-tabPanel [closable]="true" [header]="tab.header" *ngFor="let tab of tabs; let i = index" [selected]="i == 0">
-        <app-resource-form ></app-resource-form>
+    <p-tabPanel [closable]="true" [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 0">
+        <app-resource-form (tabNameChangeEmit)="tabNameChangeEmit($event)"></app-resource-form>
     </p-tabPanel>
 </p-tabView>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { City } from 'src/app/model/city';
@@ -12,8 +12,10 @@ export class ResourceFormComponent implements OnInit {
   // phone 
   separateDialCode = false;
   cities: City[];
-
   city: City;
+
+   @Output() public tabNameChangeEmit = new EventEmitter();
+
   constructor() { 
     this.cities = [
       {name: 'Pune', code: 'pun'},
@@ -44,6 +46,7 @@ export class ResourceFormComponent implements OnInit {
     console.log(this.resourceForm);
     console.log(this.resourceForm.get('firstName').value);
     console.log(this.resourceForm.get('lastName').value);
+    this.tabNameChangeEmit.emit(this.resourceForm.get('firstName').value);
   }
   numericOnly(event) {
     let patt = /^([0-9])$/;
