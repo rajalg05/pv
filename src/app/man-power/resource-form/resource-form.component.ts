@@ -16,7 +16,7 @@ export class ResourceFormComponent implements OnInit {
   bikes: SelectItem[];
   bike: SelectItem;
 
-  
+
   qualifications: SelectItem[];
   excelSkills: SelectItem[];
 
@@ -39,7 +39,7 @@ export class ResourceFormComponent implements OnInit {
       { label: 'No', value: 'no' },
       { label: 'Third Choice', value: 'thirdChoice' }
     ];
-    
+
     this.qualifications = [
       { label: 'Graduate', value: 'graduate' },
       { label: 'Post Graduate', value: 'postGraduate' },
@@ -78,6 +78,10 @@ export class ResourceFormComponent implements OnInit {
       dob: new FormControl(null),
       bike: new FormControl(null),
       phone: new FormControl(null),
+      qualification: new FormControl(null),
+      excelSkill: new FormControl(null),
+      stockAuditExp: new FormControl(null),
+      tlNonTl: new FormControl(null),
       user_gender: new FormControl('Male')
     });
   }
@@ -120,5 +124,9 @@ export class ResourceFormComponent implements OnInit {
     this.adharFiles = [];
     this.panFiles = [];
     this.resourceForm.get('country').setValue('India');
+  }
+  displayReviewDialog: boolean = false;
+  reviewDialog() {
+    this.displayReviewDialog = true;
   }
 }

@@ -38,6 +38,7 @@ import { Ng2TelInputModule } from 'ng2-tel-input';
 import { DropdownModule } from 'primeng/dropdown';
 import { DragDropDirective } from './directives/drag-drop.directive'; 
 import { CalendarModule } from 'primeng/calendar';
+import {DialogModule} from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { CalendarModule } from 'primeng/calendar';
     TabViewModule,
     DropdownModule,
     CalendarModule,
+    DialogModule,
     // Phone module
     Ng2TelInputModule 
   ],

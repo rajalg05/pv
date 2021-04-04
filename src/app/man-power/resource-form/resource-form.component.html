@@ -172,25 +172,50 @@
                          placeholder="-Select-"></p-dropdown>
                 </div> 
             </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="username">Stock Audit Experience<span class="lblError">*</span></label>
+                </div>
+                <div class="col">
+                    <p-dropdown [options]="stockAuditExps" formControlName="stockAuditExp" optionLabel="label" filter="true"
+                         placeholder="-Select-"></p-dropdown>
+                </div>                  
+                <div class="col">
+                    <label for="username">TL/ Non TL<span class="lblError">*</span></label>
+                </div>
+                <div class="col">
+                    <p-dropdown [options]="tlNonTls" formControlName="tlNonTl" optionLabel="label" filter="true"
+                         placeholder="-Select-"></p-dropdown>
+                </div> 
+            </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
+                    <button class="btn btn-default" type="submit" [disabled]="resourceForm.invalid">
                         Submit
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
+                    <button class="btn btn-default" type="button" [disabled]="resourceForm.invalid"
+                    (click)="reviewDialog()">
+                        Review
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-default" type="submit" [disabled]="resourceForm.invalid">
                         Modify
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" (click)="reset($event)"
+                    <button class="btn btn-default" type="submit" (click)="reset($event)"
                         [disabled]="resourceForm.invalid">
                         Reset
                     </button>
@@ -199,3 +224,81 @@
         </div>
     </form>
 </div>
+<p-dialog header="Form Summary" [(visible)]="displayReviewDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+    <div class="container">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Name*</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" > 
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="phone">WhatsApp Mobile Number*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="phone" name="phone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Email*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="email" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="adhar">Aadhar (Add Front and back Side of Aadhar)*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="adhar" name="adhar">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="pan">PAN*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="pan" name="pan">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="address">Address*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="address" name="address">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="dob">Date of Birth*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="dob" name="dob">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="bike">Having Bike?*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="bike" name="bike">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="qualification">Qualification*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="qualification" name="qualification">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="excelSkill">Excel Skills*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="excelSkill" name="excelSkill">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="stockAuditExp">Stock Audit Experience*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="stockAuditExp" name="stockAuditExp">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="tlNonTl">TL/Non TL*</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" id="tlNonTl" name="tlNonTl">
+            </div>
+          </div>
+        </form>
+    </div>
+</p-dialog>
