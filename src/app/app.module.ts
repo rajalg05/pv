@@ -39,6 +39,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DragDropDirective } from './directives/drag-drop.directive'; 
 import { CalendarModule } from 'primeng/calendar';
 import {DialogModule} from 'primeng/dialog';
+import { SearchComponent } from './search/search.component';
+import {DataViewModule} from 'primeng/dataview';
+import { ProductService } from './service/product.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +58,8 @@ import {DialogModule} from 'primeng/dialog';
     RegisterComponent,
     MisComponent,
     ResourceFormComponent,
-    DragDropDirective 
+    DragDropDirective,
+    SearchComponent 
   ],
   imports: [
     BrowserModule,
@@ -78,6 +82,7 @@ import {DialogModule} from 'primeng/dialog';
     DropdownModule,
     CalendarModule,
     DialogModule,
+    DataViewModule,
     // Phone module
     Ng2TelInputModule 
   ],
@@ -87,6 +92,7 @@ import {DialogModule} from 'primeng/dialog';
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     RoleGuard,
+    ProductService,
     // provider used to create fake backend
     fakeBackendProvider
   ],

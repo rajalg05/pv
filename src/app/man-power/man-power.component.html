@@ -11,14 +11,14 @@
     </div>    
   </div>   -->
 <p-toast></p-toast>
-
-<div class="p-field p-col-12 p-md-4">
+<app-search></app-search>
+<!-- <div class="p-field p-col-12 p-md-4">
     <span class="p-float-label p-input-icon-left">
         <i class="pi pi-search"></i>
         <input type="text" id="inputtext-left" pInputText [(ngModel)]="searchValue"> 
         <label for="inputtext-left">Search</label>
     </span>
-</div>
+</div> -->
 <button pButton (click)="addTab()" label="+" type="button" class="p-button-outlined p-button-rounded"></button>
 
 <p-tabView [controlClose]="true" (onClose)="handleClose($event)">

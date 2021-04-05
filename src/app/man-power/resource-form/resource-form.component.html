@@ -224,7 +224,13 @@
         </div>
     </form>
 </div>
-<p-dialog header="Form Summary" [(visible)]="displayReviewDialog" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}">
+<p-dialog 
+header="Form Summary" 
+[(visible)]="displayReviewDialog" 
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}" 
+[style]="{width: '50vw'}"
+[maximizable]="true"
+>
     <div class="container">
         <form class="form-horizontal">
           <div class="form-group">

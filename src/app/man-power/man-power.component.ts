@@ -118,8 +118,9 @@ export class ManPowerComponent implements OnInit {
   }
 
   handleClose(e) {
-    if (this.condition)
+    //if (this.condition)
       e.close();
+      this.items.splice(e.index, 1);
   }
 
   addTab() {
