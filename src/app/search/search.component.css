@@ -1,4 +1,4 @@
-/* :host::ng-deep {
+/* :host::ng-deep { */
     .p-dropdown {
         width: 14rem;
         font-weight: normal;
@@ -28,7 +28,7 @@
         align-items: center;
         padding: 1rem;
         width: 100%;
-    
+    }
         img {
             width: 150px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -58,12 +58,12 @@
         .p-button {
             margin-bottom: .5rem;
         }
-    }
+    /* } */
     
     .product-grid-item {
         margin: .5em;
         border: 1px solid #dee2e6;
-    
+    }
         .product-grid-item-top,
         .product-grid-item-bottom {
             display: flex;
@@ -85,8 +85,8 @@
             font-size: 1.5rem;
             font-weight: 600;
         }
-    }
-}
+    /* } */
+/* } */
 
 .card {
     padding: 2rem;
@@ -96,10 +96,10 @@
 }
 
 @media screen and (max-width: 576px) {
-	:host ::ng-deep .product-list-item {
+	/* :host ::ng-deep */ .product-list-item {
 		flex-direction: column;
 		align-items: center;
-
+    }
 		img {
 			width: 75%;
 			margin: 2rem 0;
@@ -125,5 +125,7 @@
 			align-items: center;
 			width: 100%;
 		}
-	}
-} */
+	/* } */
+}
+
+/* } */
