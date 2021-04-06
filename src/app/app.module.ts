@@ -36,11 +36,14 @@ import { TabViewModule } from 'primeng/tabview';
 import { ResourceFormComponent } from './man-power/resource-form/resource-form.component';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 import { DropdownModule } from 'primeng/dropdown';
-import { DragDropDirective } from './directives/drag-drop.directive'; 
+import { DragDropDirective } from './directives/drag-drop.directive';
 import { CalendarModule } from 'primeng/calendar';
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
 import { SearchComponent } from './search/search.component';
-import {DataViewModule} from 'primeng/dataview';
+import { DataViewModule } from 'primeng/dataview';
+import { PickListModule } from 'primeng/picklist';
+import {GMapModule} from 'primeng/gmap';
+
 import { ProductService } from './service/product.service';
 @NgModule({
   declarations: [
@@ -59,7 +62,7 @@ import { ProductService } from './service/product.service';
     MisComponent,
     ResourceFormComponent,
     DragDropDirective,
-    SearchComponent 
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -83,8 +86,10 @@ import { ProductService } from './service/product.service';
     CalendarModule,
     DialogModule,
     DataViewModule,
+    PickListModule,
+    GMapModule,
     // Phone module
-    Ng2TelInputModule 
+    Ng2TelInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

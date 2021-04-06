@@ -8,7 +8,7 @@
     <mat-tab label="Job master">
         <app-job-master></app-job-master>
     </mat-tab>
-    <mat-tab label="Job allocation" *ngIf="authenticationService.currentUserValue && 
+    <mat-tab label="Audit allocation" *ngIf="authenticationService.currentUserValue && 
                                     authenticationService.currentUserValue.role == 'subAssociate'"> <!--Only subAssociate can view this -->
         <app-job-allocation></app-job-allocation>
     </mat-tab>
