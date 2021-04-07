@@ -13,11 +13,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
-  { path: '',                 redirectTo: '/jobAllocation',       pathMatch: 'full' },
+  { path: '',                 redirectTo: '/auditAllocation',       pathMatch: 'full' },
   { path: 'manpowerMaster',   component: ManPowerComponent },
   { path: 'associateMaster',  component: AssociateMasterComponent },
   { path: 'jobMaster',        component: JobMasterComponent },
-  { path: 'jobAllocation',    
+  { path: 'auditAllocation',    
     component: JobAllocationComponent,
     canActivate: [RoleGuard], 
     data: { 

@@ -39,13 +39,13 @@
                     <label for="email">E-mail: <span class="lblError">*</span></label>
                     <div class="controls">
                         <input type="text" id="email" placeholder="E-mail" class="form-control"
-                            formControlName="user_email">
+                            formControlName="email">
                         <p class="lblError"
-                            *ngIf="resourceForm.get('user_email').hasError('required') && !resourceForm.get('user_email').pristine">
+                            *ngIf="resourceForm.get('email').hasError('required') && !resourceForm.get('email').pristine">
                             Please provide your E-mail
                         </p>
                         <p class="lblError"
-                            *ngIf="resourceForm.get('user_email').hasError('email') && !resourceForm.get('user_email').pristine">
+                            *ngIf="resourceForm.get('email').hasError('email') && !resourceForm.get('email').pristine">
                             E-mail is Invalid</p>
                     </div>
                 </div>
@@ -121,21 +121,21 @@
                               && !resourceForm.get('addressLine1').pristine">
                     Address Line 1 is Required
                 </p>
-                <input type="text" id="addressLine2" placeholder="Address Line2" class="form-control"
-                    formControlName="addressLine2">
+                <input type="text" id="streetAddress2" placeholder="Address Line2" class="form-control"
+                    formControlName="streetAddress2">
             </div>
 
             <div class="form-row">
                 <div class="col">
-                    <p-dropdown [options]="cities" formControlName="city" optionLabel="name" filter="true"
+                    <p-dropdown [options]="cities" formControlName="city" optionLabel="label" filter="true"
                          placeholder="Select a City"></p-dropdown>
                 </div>
                 <div class="col">
                     <input type="text" id="state" placeholder="State" class="form-control" formControlName="state">
                 </div>
                 <div class="col">
-                    <input type="text" id="zip" placeholder="Postal/Zip Code" class="form-control"
-                        formControlName="zip">
+                    <input type="text" id="postalCode" placeholder="Postal/Zip Code" class="form-control"
+                        formControlName="postalCode">
                 </div>
                 <div class="col">
                     <input type="text" id="country" placeholder="country" class="form-control" readonly

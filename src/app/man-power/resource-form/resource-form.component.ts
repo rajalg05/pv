@@ -1,6 +1,11 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
+import { Address } from 'src/app/model/address';
+import { BasicContactDetail } from 'src/app/model/BasicContactDetail';
+import { KYC } from 'src/app/model/kyc';
+import { Resource } from 'src/app/model/resource';
+import { ResourceService } from 'src/app/service/resource.service';
 @Component({
   selector: 'app-resource-form',
   templateUrl: './resource-form.component.html',
@@ -24,7 +29,7 @@ export class ResourceFormComponent implements OnInit {
   tlNonTls: SelectItem[];
   @Output() public tabNameChangeEmit = new EventEmitter();
 
-  constructor() {
+  constructor(private resourceService: ResourceService) {
     this.cities = [
       { label: 'Pune', value: 'pun' },
       { label: 'Mumbai', value: 'mum' },
@@ -68,12 +73,12 @@ export class ResourceFormComponent implements OnInit {
     this.resourceForm = new FormGroup({
       firstName: new FormControl(null),
       lastName: new FormControl(null),
-      user_email: new FormControl(null),
+      email: new FormControl(null),
       addressLine1: new FormControl(null),
-      addressLine2: new FormControl(null),
+      streetAddress2: new FormControl(null),
       city: new FormControl(null),
       state: new FormControl(null),
-      zip: new FormControl(null),
+      postalCode: new FormControl(null),
       country: new FormControl('India'),
       dob: new FormControl(null),
       bike: new FormControl(null),
@@ -85,11 +90,41 @@ export class ResourceFormComponent implements OnInit {
       user_gender: new FormControl('Male')
     });
   }
-  onSubmit() {
-    console.log(this.resourceForm);
-    console.log(this.resourceForm.get('firstName').value);
-    console.log(this.resourceForm.get('lastName').value);
+  onSubmit() { 
     this.tabNameChangeEmit.emit(this.resourceForm.get('firstName').value);
+    let resource: Resource = new Resource();
+  
+    this.resourceService.saveResource(this.populateFormValues()).subscribe(data => {
+      console.log('resource data = ', data);
+    });
+  }
+  populateFormValues() {
+    let resource: Resource = new Resource();
+    let basicContactDetail = new BasicContactDetail();
+    let address = new Address();
+    let kyc = new KYC();
+
+    basicContactDetail.firstName = this.resourceForm.get('firstName').value;
+    basicContactDetail.lastName = this.resourceForm.get('lastName').value;
+    //basicContactDetail.whatsappCountryCode = this.resourceForm.get('whatsappCountryCode').value;
+    basicContactDetail.whatsappMobileNumber = this.resourceForm.get('phone').value;
+    basicContactDetail.email = this.resourceForm.get('email').value;
+
+    resource.basicContactDetail = basicContactDetail;
+
+    address.addressLine1 = this.resourceForm.get('addressLine1').value;
+    //address.streetAddress1 = this.resourceForm.get('streetAddress1').value;
+    address.streetAddress2 = this.resourceForm.get('streetAddress2').value;
+    address.city = this.resourceForm.get('city').value['label'];
+    address.state = this.resourceForm.get('state').value;
+    address.postalCode = this.resourceForm.get('postalCode').value;
+    address.country = this.resourceForm.get('country').value;
+
+    resource.address = address;
+
+    resource.kyc = kyc;
+
+    return resource;
   }
   numericOnly(event) {
     let patt = /^([0-9])$/;
@@ -130,3 +165,5 @@ export class ResourceFormComponent implements OnInit {
     this.displayReviewDialog = true;
   }
 }
+
+
