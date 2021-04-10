@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Product } from '../model/Product';
 import { Resource } from '../model/resource';
@@ -52,6 +52,11 @@ export class SearchComponent implements OnInit {
             this.sortOrder = 1;
             this.sortField = value;
         }
+    }
+    @Output() sendResourceEmitter = new EventEmitter();
+
+    openTab(resource: Resource) {
+        this.sendResourceEmitter.emit(resource);
     }
 
 }

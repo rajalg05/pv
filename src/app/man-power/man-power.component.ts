@@ -144,7 +144,10 @@ export class ManPowerComponent implements OnInit {
     let index: number = this.items.findIndex(x => x.header === "New Resource");
     this.items[index]['header'] = data;
   }
-
+  public receiveResource(data) {
+    this.items.push(data);
+    console.log('resource sent from List view tab = ', data)
+  }
 }
 
 
