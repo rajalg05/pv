@@ -145,7 +145,9 @@ export class ManPowerComponent implements OnInit {
     this.items[index]['header'] = data;
   }
   public receiveResource(data) {
-    this.items.push(data);
+    this.items.push({
+      'header': data['basicContactDetail']['firstName']
+    });
     console.log('resource sent from List view tab = ', data)
   }
 }
