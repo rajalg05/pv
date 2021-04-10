@@ -21,8 +21,8 @@
 </div> -->
 <button pButton (click)="addTab()" label="+" type="button" class="p-button-outlined p-button-rounded"></button>
 
-<p-tabView [controlClose]="true" (onClose)="handleClose($event)">
-    <p-tabPanel [closable]="true" [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == 0">
+<p-tabView [controlClose]="true" (onClose)="handleClose($event)" [activeIndex]="selectedTabIndex">
+    <p-tabPanel [closable]="true" [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == selectedTabIndex">
         <app-search *ngIf="i == 0" (sendResourceEmitter)="receiveResource($event)"></app-search>
         <app-resource-form (tabNameChangeEmit)="tabNameChangeEmit($event)" *ngIf="i != 0"></app-resource-form>
     </p-tabPanel>

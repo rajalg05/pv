@@ -25,7 +25,7 @@ export class ManPowerComponent implements OnInit {
   displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
   searchValue: any;
   public items = [];
-  activeIndex: number = 0;
+  public selectedTabIndex: number = 0;
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,
@@ -136,7 +136,8 @@ export class ManPowerComponent implements OnInit {
       this.items.push({
         'header': 'New Resource',
         'content': 'Content of New Resource'
-      });
+      }); 
+      this.selectedTabIndex = this.items.length - 1;
   }
 
   public tabNameChangeEmit(data: any): void {
@@ -148,6 +149,7 @@ export class ManPowerComponent implements OnInit {
     this.items.push({
       'header': data['basicContactDetail']['firstName']
     });
+    this.selectedTabIndex = this.items.length - 1;
     console.log('resource sent from List view tab = ', data)
   }
 }
