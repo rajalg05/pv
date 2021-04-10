@@ -7,6 +7,7 @@ import { JobMaster } from '../model/jobMaster';
 import { MessageService } from 'primeng/api';
 import { TabPanel, TabView, TabViewModule } from 'primeng/tabview';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ResourceService } from '../service/resource.service';
 
 @Component({
   selector: 'app-man-power',
@@ -23,7 +24,7 @@ export class ManPowerComponent implements OnInit {
   worksheet: any;
   displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
   searchValue: any;
-  items = [];
+  public items = [];
   activeIndex: number = 0;
   @ViewChild(TabView) tabView: TabView;
 
@@ -34,6 +35,10 @@ export class ManPowerComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.items.push({
+      'header': 'Resources',
+      'content': 'List of All Resources'
+    });
   }
 
   onUpload(event) {
@@ -119,18 +124,21 @@ export class ManPowerComponent implements OnInit {
 
   handleClose(e) {
     //if (this.condition)
+    if(e.index != 0) {
       e.close();
       this.items.splice(e.index, 1);
+    }
   }
 
   addTab() {
-    let index: number = this.items.findIndex(x => x.header === "New Resource");
-    if (index == -1)
+  let index: number = this.items.findIndex(x => x.header === "New Resource");
+   if (index == -1 )
       this.items.push({
         'header': 'New Resource',
         'content': 'Content of New Resource'
       });
   }
+
   public tabNameChangeEmit(data: any): void {
     // console.log('data =' , data);
     let index: number = this.items.findIndex(x => x.header === "New Resource");

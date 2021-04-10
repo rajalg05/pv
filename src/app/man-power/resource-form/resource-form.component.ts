@@ -83,6 +83,8 @@ export class ResourceFormComponent implements OnInit {
       dob: new FormControl(null),
       bike: new FormControl(null),
       phone: new FormControl(null),
+      firstKycId: new FormControl(null),
+      secondKycId: new FormControl(null),
       qualification: new FormControl(null),
       excelSkill: new FormControl(null),
       stockAuditExp: new FormControl(null),
@@ -104,6 +106,13 @@ export class ResourceFormComponent implements OnInit {
     let address = new Address();
     let kyc = new KYC();
 
+    resource.dateOfBirth = this.resourceForm.get('dob').value;
+    resource.excelSkills = this.resourceForm.get('excelSkill').value['label'];
+    resource.qualification = this.resourceForm.get('qualification').value['label'];
+    resource.resourceType = this.resourceForm.get('tlNonTl').value['label'];
+    resource.stockAuditExp = this.resourceForm.get('stockAuditExp').value['label'];
+    resource.bike = this.resourceForm.get('bike').value['label'];
+
     basicContactDetail.firstName = this.resourceForm.get('firstName').value;
     basicContactDetail.lastName = this.resourceForm.get('lastName').value;
     //basicContactDetail.whatsappCountryCode = this.resourceForm.get('whatsappCountryCode').value;
@@ -121,6 +130,11 @@ export class ResourceFormComponent implements OnInit {
     address.country = this.resourceForm.get('country').value;
 
     resource.address = address;
+
+    kyc.firstKycId = this.resourceForm.get('firstKycId').value;
+    kyc.firstKycType = 'Adhar';
+    kyc.secondKycId = this.resourceForm.get('secondKycId').value;
+    kyc.secondKycType = 'PAN';
 
     resource.kyc = kyc;
 

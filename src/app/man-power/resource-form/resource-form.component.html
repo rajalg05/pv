@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <!-- <div class="col">
                 <div class="form-group">
                     <label for="phone">WhatsApp Mobile Number * <span class="lblError"></span></label>
                     <div class="controls">
@@ -64,6 +64,23 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <!-- E-mail -->
+                <label for="firstKycId">Adhar: <span class="lblError">*</span></label>
+                <div class="controls">
+                    <input type="text" id="firstKycId" placeholder="Adhar Id" class="form-control"
+                        formControlName="firstKycId">
+                    <p class="lblError"
+                        *ngIf="resourceForm.get('firstKycId').hasError('required') && !resourceForm.get('adharId').pristine">
+                        Please provide your Adhar Id
+                    </p>
+                    <p class="lblError"
+                        *ngIf="resourceForm.get('firstKycId').hasError('adharId') && !resourceForm.get('adharId').pristine">
+                        Adhar Id is Invalid</p>
                 </div>
             </div>
         </div>
@@ -84,7 +101,23 @@
         </div>
         <div class="col">
             <div class="form-group">
-                <label for="adhar">PAN * <span class="lblError"></span></label>
+                <label for="secondKycId">PAN: <span class="lblError">*</span></label>
+                <div class="controls">
+                    <input type="text" id="secondKycId" placeholder="PAN" class="form-control"
+                        formControlName="secondKycId">
+                    <p class="lblError"
+                        *ngIf="resourceForm.get('secondKycId').hasError('required') && !resourceForm.get('adharId').pristine">
+                        Please provide your PAN
+                    </p>
+                    <p class="lblError"
+                        *ngIf="resourceForm.get('secondKycId').hasError('adharId') && !resourceForm.get('adharId').pristine">
+                        PAN is Invalid</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="pan">PAN * <span class="lblError"></span></label>
             </div>
             <div class="uploadfilecontainer" (click)="panFileInput.click()" appDragDrop
                 (onFileDropped)="uploadPanFile($event)">

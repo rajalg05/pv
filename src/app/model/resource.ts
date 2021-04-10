@@ -20,6 +20,8 @@ export class Resource {
 	public  stockAuditExp: string;
 	
 	public  resourceType: string;
+
+	public  bike: string;
 	
 	public  createdTs; Date;
 	

@@ -23,6 +23,17 @@ export class ResourceService {
         //catchError(this.handleError('saveResource'))
       );
   }
+
+  getResources(): Observable<Resource[]> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<Resource[]>(this.BASE_URL + '/getResources', {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('saveResource'))
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
