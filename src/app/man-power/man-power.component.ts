@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { TabPanel, TabView, TabViewModule } from 'primeng/tabview';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResourceService } from '../service/resource.service';
+import { Resource } from '../model/resource';
 
 @Component({
   selector: 'app-man-power',
@@ -26,6 +27,7 @@ export class ManPowerComponent implements OnInit {
   searchValue: any;
   public items = [];
   public selectedTabIndex: number = 0;
+  resource: Resource;
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,
@@ -145,12 +147,13 @@ export class ManPowerComponent implements OnInit {
     let index: number = this.items.findIndex(x => x.header === "New Resource");
     this.items[index]['header'] = data;
   }
-  public receiveResource(data) {
+  public receiveResource(resource: Resource) {
     this.items.push({
-      'header': data['basicContactDetail']['firstName']
+      'header': resource.basicContactDetail.firstName
     });
     this.selectedTabIndex = this.items.length - 1;
-    console.log('resource sent from List view tab = ', data)
+    console.log('resource sent from List view tab = ', resource)
+    this.resource = resource;
   }
 }
 

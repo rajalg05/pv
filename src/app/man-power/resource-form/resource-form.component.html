@@ -160,7 +160,7 @@
 
             <div class="form-row">
                 <div class="col">
-                    <p-dropdown [options]="cities" formControlName="city" optionLabel="label" filter="true"
+                    <p-dropdown [options]="cities" formControlName="city" optionLabel="label" optionValue="value" filter="true"
                          placeholder="Select a City"></p-dropdown>
                 </div>
                 <div class="col">
@@ -184,7 +184,7 @@
                     <label for="username">Having a Bike<span class="lblError">*</span></label>
                 </div>
                 <div class="col">
-                    <p-dropdown [options]="bikes" formControlName="bike" optionLabel="label" filter="true"
+                    <p-dropdown [options]="bikes" formControlName="bike" optionLabel="label" optionValue="value" filter="true"
                          placeholder="-Select-"></p-dropdown>
                 </div> 
             </div>
@@ -194,14 +194,14 @@
                     <label for="username">Qualification<span class="lblError">*</span></label>
                 </div>
                 <div class="col">
-                    <p-dropdown [options]="qualifications" formControlName="qualification" optionLabel="label" filter="true"
+                    <p-dropdown [options]="qualifications" formControlName="qualification" optionLabel="label" optionValue="value" filter="true"
                          placeholder="-Select-"></p-dropdown>
                 </div>                  
                 <div class="col">
                     <label for="username">Excel Skills<span class="lblError">*</span></label>
                 </div>
                 <div class="col">
-                    <p-dropdown [options]="excelSkills" formControlName="excelSkill" optionLabel="label" filter="true"
+                    <p-dropdown [options]="excelSkills" formControlName="excelSkill" optionLabel="label" optionValue="value" filter="true"
                          placeholder="-Select-"></p-dropdown>
                 </div> 
             </div>
@@ -211,14 +211,14 @@
                     <label for="username">Stock Audit Experience<span class="lblError">*</span></label>
                 </div>
                 <div class="col">
-                    <p-dropdown [options]="stockAuditExps" formControlName="stockAuditExp" optionLabel="label" filter="true"
+                    <p-dropdown [options]="stockAuditExps" formControlName="stockAuditExp" optionLabel="label" optionValue="value" filter="true"
                          placeholder="-Select-"></p-dropdown>
                 </div>                  
                 <div class="col">
                     <label for="username">TL/ Non TL<span class="lblError">*</span></label>
                 </div>
                 <div class="col">
-                    <p-dropdown [options]="tlNonTls" formControlName="tlNonTl" optionLabel="label" filter="true"
+                    <p-dropdown [options]="tlNonTls" formControlName="tlNonTl" optionLabel="label" optionValue="value" filter="true"
                          placeholder="-Select-"></p-dropdown>
                 </div> 
             </div>
@@ -226,14 +226,14 @@
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-default" type="submit" [disabled]="resourceForm.invalid">
+                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
                         Submit
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-default" type="button" [disabled]="resourceForm.invalid"
+                    <button class="btn btn-primary" type="button" [disabled]="resourceForm.invalid"
                     (click)="reviewDialog()">
                         Review
                     </button>
@@ -241,14 +241,14 @@
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-default" type="submit" [disabled]="resourceForm.invalid">
+                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
                         Modify
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-default" type="submit" (click)="reset($event)"
+                    <button class="btn btn-primary" type="submit" (click)="reset($event)"
                         [disabled]="resourceForm.invalid">
                         Reset
                     </button>

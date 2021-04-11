@@ -22,7 +22,9 @@ export class Resource {
 	public  resourceType: string;
 
 	public  bike: string;
-	
+
+	public  tlNonTl: string;
+
 	public  createdTs; Date;
 	
 	public  updatedTs: Date;

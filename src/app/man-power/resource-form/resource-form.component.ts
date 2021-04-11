@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Address } from 'src/app/model/address';
@@ -28,7 +28,7 @@ export class ResourceFormComponent implements OnInit {
   stockAuditExps: SelectItem[];
   tlNonTls: SelectItem[];
   @Output() public tabNameChangeEmit = new EventEmitter();
-
+  @Input() resource: Resource;
   constructor(private resourceService: ResourceService) {
     this.cities = [
       { label: 'Pune', value: 'pun' },
@@ -70,32 +70,56 @@ export class ResourceFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resourceForm = new FormGroup({
-      firstName: new FormControl(null),
-      lastName: new FormControl(null),
-      email: new FormControl(null),
-      addressLine1: new FormControl(null),
-      streetAddress2: new FormControl(null),
-      city: new FormControl(null),
-      state: new FormControl(null),
-      postalCode: new FormControl(null),
-      country: new FormControl('India'),
-      dob: new FormControl(null),
-      bike: new FormControl(null),
-      phone: new FormControl(null),
-      firstKycId: new FormControl(null),
-      secondKycId: new FormControl(null),
-      qualification: new FormControl(null),
-      excelSkill: new FormControl(null),
-      stockAuditExp: new FormControl(null),
-      tlNonTl: new FormControl(null),
-      user_gender: new FormControl('Male')
-    });
+    if (this.resource == null) {
+      this.resourceForm = new FormGroup({
+        firstName: new FormControl(null),
+        lastName: new FormControl(null),
+        email: new FormControl(null),
+        addressLine1: new FormControl(null),
+        streetAddress2: new FormControl(null),
+        city: new FormControl(null),
+        state: new FormControl(null),
+        postalCode: new FormControl(null),
+        country: new FormControl('India'),
+        dob: new FormControl(null),
+        bike: new FormControl(null),
+        phone: new FormControl(null),
+        firstKycId: new FormControl(null),
+        secondKycId: new FormControl(null),
+        qualification: new FormControl(null),
+        excelSkill: new FormControl(null),
+        stockAuditExp: new FormControl(null),
+        tlNonTl: new FormControl(null),
+        user_gender: new FormControl('Male')
+      });
+    } else {
+      this.resourceForm = new FormGroup({
+        firstName: new FormControl(this.resource.basicContactDetail.firstName),
+        lastName: new FormControl(this.resource.basicContactDetail.lastName),
+        email: new FormControl(this.resource.basicContactDetail.email),
+        addressLine1: new FormControl(this.resource.address.addressLine1),
+        streetAddress2: new FormControl(this.resource.address.streetAddress2),
+        city: new FormControl(this.resource.address.city),
+        state: new FormControl(this.resource.address.state),
+        postalCode: new FormControl(this.resource.address.postalCode),
+        country: new FormControl('India'),
+        dob: new FormControl(this.resource.dateOfBirth),
+        bike: new FormControl(this.resource.bike),
+        phone: new FormControl(null),
+        firstKycId: new FormControl(this.resource.kyc.firstKycId),
+        secondKycId: new FormControl(this.resource.kyc.secondKycId),
+        qualification: new FormControl(this.resource.qualification),
+        excelSkill: new FormControl(this.resource.excelSkills),
+        stockAuditExp: new FormControl(this.resource.stockAuditExp),
+        tlNonTl: new FormControl(this.resource.resourceType),
+        user_gender: new FormControl('Male')
+      });
+    }
   }
-  onSubmit() { 
+  onSubmit() {
     this.tabNameChangeEmit.emit(this.resourceForm.get('firstName').value);
     let resource: Resource = new Resource();
-  
+
     this.resourceService.saveResource(this.populateFormValues()).subscribe(data => {
       console.log('resource data = ', data);
     });
@@ -107,11 +131,11 @@ export class ResourceFormComponent implements OnInit {
     let kyc = new KYC();
 
     resource.dateOfBirth = this.resourceForm.get('dob').value;
-    resource.excelSkills = this.resourceForm.get('excelSkill').value['label'];
-    resource.qualification = this.resourceForm.get('qualification').value['label'];
-    resource.resourceType = this.resourceForm.get('tlNonTl').value['label'];
-    resource.stockAuditExp = this.resourceForm.get('stockAuditExp').value['label'];
-    resource.bike = this.resourceForm.get('bike').value['label'];
+    resource.excelSkills = this.resourceForm.get('excelSkill').value['value'];
+    resource.qualification = this.resourceForm.get('qualification').value['value'];
+    resource.resourceType = this.resourceForm.get('tlNonTl').value['value'];
+    resource.stockAuditExp = this.resourceForm.get('stockAuditExp').value['value'];
+    resource.bike = this.resourceForm.get('bike').value['value'];
 
     basicContactDetail.firstName = this.resourceForm.get('firstName').value;
     basicContactDetail.lastName = this.resourceForm.get('lastName').value;
@@ -124,7 +148,7 @@ export class ResourceFormComponent implements OnInit {
     address.addressLine1 = this.resourceForm.get('addressLine1').value;
     //address.streetAddress1 = this.resourceForm.get('streetAddress1').value;
     address.streetAddress2 = this.resourceForm.get('streetAddress2').value;
-    address.city = this.resourceForm.get('city').value['label'];
+    address.city = this.resourceForm.get('city').value['value'];
     address.state = this.resourceForm.get('state').value;
     address.postalCode = this.resourceForm.get('postalCode').value;
     address.country = this.resourceForm.get('country').value;
