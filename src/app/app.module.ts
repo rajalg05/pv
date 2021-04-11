@@ -45,6 +45,8 @@ import { PickListModule } from 'primeng/picklist';
 import {GMapModule} from 'primeng/gmap';
 
 import { ProductService } from './service/product.service';
+import { AssociateViewComponent } from './associate-master/associate-view/associate-view.component';
+import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +64,9 @@ import { ProductService } from './service/product.service';
     MisComponent,
     ResourceFormComponent,
     DragDropDirective,
-    SearchComponent
+    SearchComponent,
+    AssociateViewComponent,
+    AssociateFormComponent
   ],
   imports: [
     BrowserModule,
