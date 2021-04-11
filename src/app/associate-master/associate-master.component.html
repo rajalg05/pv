@@ -4,6 +4,6 @@
 <p-tabView [controlClose]="true" (onClose)="handleClose($event)" [activeIndex]="selectedTabIndex">
     <p-tabPanel [closable]="true" [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == selectedTabIndex">
         <app-associate-view *ngIf="i == 0" (sendResourceEmitter)="receiveResource($event)"></app-associate-view>
-        <app-associate-form (tabNameChangeEmit)="tabNameChangeEmit($event)" *ngIf="i != 0" [resource]="resource"></app-associate-form>
+        <app-associate-form (tabNameChangeEmit)="tabNameChangeEmit($event)" *ngIf="i != 0" [associate]="associate"></app-associate-form>
     </p-tabPanel>
 </p-tabView>

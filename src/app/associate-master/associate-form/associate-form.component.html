@@ -1,5 +1,5 @@
 <div class="container">
-    <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="associateForm" (ngSubmit)="onSubmit()">
 
         <div class="form-row">
             <div class="col">
@@ -9,8 +9,8 @@
                     <div class="controls">
                         <input type="text" id="firstName" placeholder="First Name" class="form-control"
                             formControlName="firstName">
-                        <p class="lblError" *ngIf="resourceForm.get('firstName').hasError('required')
-                              && !resourceForm.get('firstName').pristine">
+                        <p class="lblError" *ngIf="associateForm.get('firstName').hasError('required')
+                              && !associateForm.get('firstName').pristine">
                             First Name is Required
                         </p>
                     </div>
@@ -23,8 +23,8 @@
                     <div class="controls">
                         <input type="text" id="lastName" placeholder="Last Name" class="form-control"
                             formControlName="lastName">
-                        <p class="lblError" *ngIf="resourceForm.get('lastName').hasError('required')
-                              && !resourceForm.get('lastName').pristine">
+                        <p class="lblError" *ngIf="associateForm.get('lastName').hasError('required')
+                              && !associateForm.get('lastName').pristine">
                             Last Name is Required
                         </p>
                     </div>
@@ -41,11 +41,11 @@
                         <input type="text" id="email" placeholder="E-mail" class="form-control"
                             formControlName="email">
                         <p class="lblError"
-                            *ngIf="resourceForm.get('email').hasError('required') && !resourceForm.get('email').pristine">
+                            *ngIf="associateForm.get('email').hasError('required') && !associateForm.get('email').pristine">
                             Please provide your E-mail
                         </p>
                         <p class="lblError"
-                            *ngIf="resourceForm.get('email').hasError('email') && !resourceForm.get('email').pristine">
+                            *ngIf="associateForm.get('email').hasError('email') && !associateForm.get('email').pristine">
                             E-mail is Invalid</p>
                     </div>
                 </div>
@@ -56,11 +56,11 @@
                     <div class="controls">
                         <input type="number" formControlName="phone" ng2TelInput
                             [ng2TelInputOptions]="{initialCountry: 'in'}"
-                            [ngClass]="{ 'is-invalid': resourceForm.get('phone').errors }"
+                            [ngClass]="{ 'is-invalid': associateForm.get('phone').errors }"
                             (keypress)="numericOnly($event)" />
-                        <div *ngIf="resourceForm.get('phone').errors" class="invalid-feedback">
-                            <div *ngIf="resourceForm.get('phone').errors.required">Phone is required</div>
-                            <div *ngIf="resourceForm.get('phone').errors.minlength">Phone must be at least 10 numbers.
+                        <div *ngIf="associateForm.get('phone').errors" class="invalid-feedback">
+                            <div *ngIf="associateForm.get('phone').errors.required">Phone is required</div>
+                            <div *ngIf="associateForm.get('phone').errors.minlength">Phone must be at least 10 numbers.
                             </div>
                         </div>
                     </div>
@@ -75,30 +75,16 @@
                     <input type="text" id="firstKycId" placeholder="Adhar Id" class="form-control"
                         formControlName="firstKycId">
                     <p class="lblError"
-                        *ngIf="resourceForm.get('firstKycId').hasError('required') && !resourceForm.get('adharId').pristine">
+                        *ngIf="associateForm.get('firstKycId').hasError('required') && !associateForm.get('adharId').pristine">
                         Please provide your Adhar Id
                     </p>
                     <p class="lblError"
-                        *ngIf="resourceForm.get('firstKycId').hasError('adharId') && !resourceForm.get('adharId').pristine">
+                        *ngIf="associateForm.get('firstKycId').hasError('adharId') && !associateForm.get('adharId').pristine">
                         Adhar Id is Invalid</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="adhar">Aadhar (Add Front and back Side of Aadhar) * <span class="lblError"></span></label>
-            </div>
-            <div class="uploadfilecontainer" (click)="adharFileInput.click()" appDragDrop
-                (onFileDropped)="uploadAdharFile($event)">
-                <input hidden type="file" #adharFileInput (change)="uploadAdharFile($event.target.adharFiles)">
-            </div>
-            <div class="files-list" *ngFor="let file of adharFiles;let i= index">
-                <p> {{ file }} </p>
-                <button class="delete-file" (click)="deleteAdharAttachment(i)">
-                    <img src="../../assets/Full_Recycle_Bin.png">
-                </button>
-            </div>
-        </div>
+         
         <div class="col">
             <div class="form-group">
                 <label for="secondKycId">PAN: <span class="lblError">*</span></label>
@@ -106,31 +92,16 @@
                     <input type="text" id="secondKycId" placeholder="PAN" class="form-control"
                         formControlName="secondKycId">
                     <p class="lblError"
-                        *ngIf="resourceForm.get('secondKycId').hasError('required') && !resourceForm.get('adharId').pristine">
+                        *ngIf="associateForm.get('secondKycId').hasError('required') && !associateForm.get('adharId').pristine">
                         Please provide your PAN
                     </p>
                     <p class="lblError"
-                        *ngIf="resourceForm.get('secondKycId').hasError('adharId') && !resourceForm.get('adharId').pristine">
+                        *ngIf="associateForm.get('secondKycId').hasError('adharId') && !associateForm.get('adharId').pristine">
                         PAN is Invalid</p>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="pan">PAN * <span class="lblError"></span></label>
-            </div>
-            <div class="uploadfilecontainer" (click)="panFileInput.click()" appDragDrop
-                (onFileDropped)="uploadPanFile($event)">
-                <input hidden type="file" #panFileInput (change)="uploadPanFile($event.target.panFiles)">
-            </div>
-            <div class="files-list" *ngFor="let file of panFiles;let i= index">
-                <p> {{ file }} </p>
-                <button class="delete-file" (click)="deletePanAttachment(i)">
-                    <img src="../../assets/Full_Recycle_Bin.png">
-                </button>
-            </div>
-        </div>
-
+       
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <!-- Gender -->
@@ -150,8 +121,8 @@
             <div class="controls">
                 <input type="text" id="addressLine1" placeholder="Address Line1" class="form-control"
                     formControlName="addressLine1">
-                <p class="lblError" *ngIf="resourceForm.get('addressLine1').hasError('required')
-                              && !resourceForm.get('addressLine1').pristine">
+                <p class="lblError" *ngIf="associateForm.get('addressLine1').hasError('required')
+                              && !associateForm.get('addressLine1').pristine">
                     Address Line 1 is Required
                 </p>
                 <input type="text" id="streetAddress2" placeholder="Address Line2" class="form-control"
@@ -175,65 +146,18 @@
                         formControlName="country">
                 </div>
             </div>
-            <div class="form-row">
-                <div class="col">
-                <p-calendar formControlName="dob" [showIcon]="true" dateFormat="dd/MM/yy" showButtonBar="true" 
-                [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
-                </div>
-                <div class="col">
-                    <label for="username">Having a Bike<span class="lblError">*</span></label>
-                </div>
-                <div class="col">
-                    <p-dropdown [options]="bikes" formControlName="bike" optionLabel="label" optionValue="value" filter="true"
-                         placeholder="-Select-"></p-dropdown>
-                </div> 
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <label for="username">Qualification<span class="lblError">*</span></label>
-                </div>
-                <div class="col">
-                    <p-dropdown [options]="qualifications" formControlName="qualification" optionLabel="label" optionValue="value" filter="true"
-                         placeholder="-Select-"></p-dropdown>
-                </div>                  
-                <div class="col">
-                    <label for="username">Excel Skills<span class="lblError">*</span></label>
-                </div>
-                <div class="col">
-                    <p-dropdown [options]="excelSkills" formControlName="excelSkill" optionLabel="label" optionValue="value" filter="true"
-                         placeholder="-Select-"></p-dropdown>
-                </div> 
-            </div>
-
-            <div class="form-row">
-                <div class="col">
-                    <label for="username">Stock Audit Experience<span class="lblError">*</span></label>
-                </div>
-                <div class="col">
-                    <p-dropdown [options]="stockAuditExps" formControlName="stockAuditExp" optionLabel="label" optionValue="value" filter="true"
-                         placeholder="-Select-"></p-dropdown>
-                </div>                  
-                <div class="col">
-                    <label for="username">TL/ Non TL<span class="lblError">*</span></label>
-                </div>
-                <div class="col">
-                    <p-dropdown [options]="tlNonTls" formControlName="tlNonTl" optionLabel="label" optionValue="value" filter="true"
-                         placeholder="-Select-"></p-dropdown>
-                </div> 
-            </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" [disabled]="resourceForm.invalid">
+                    <button class="btn btn-primary" type="submit" [disabled]="associateForm.invalid">
                         Submit
                     </button>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="button" [disabled]="resourceForm.invalid"
+                    <button class="btn btn-primary" type="button" [disabled]="associateForm.invalid"
                     (click)="reviewDialog()">
                         Review
                     </button>
@@ -242,7 +166,7 @@
             <div class="col">
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit" (click)="reset($event)"
-                        [disabled]="resourceForm.invalid">
+                        [disabled]="associateForm.invalid">
                         Reset
                     </button>
                 </div>
@@ -293,42 +217,6 @@ header="Form Summary"
             <label class="control-label col-sm-2" for="address">Address*</label>
             <div class="col-sm-10">          
               <input type="text" class="form-control" id="address" name="address">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="dob">Date of Birth*</label>
-            <div class="col-sm-10">          
-              <input type="text" class="form-control" id="dob" name="dob">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="bike">Having Bike?*</label>
-            <div class="col-sm-10">          
-              <input type="text" class="form-control" id="bike" name="bike">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="qualification">Qualification*</label>
-            <div class="col-sm-10">          
-              <input type="text" class="form-control" id="qualification" name="qualification">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="excelSkill">Excel Skills*</label>
-            <div class="col-sm-10">          
-              <input type="text" class="form-control" id="excelSkill" name="excelSkill">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="stockAuditExp">Stock Audit Experience*</label>
-            <div class="col-sm-10">          
-              <input type="text" class="form-control" id="stockAuditExp" name="stockAuditExp">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2" for="tlNonTl">TL/Non TL*</label>
-            <div class="col-sm-10">          
-              <input type="text" class="form-control" id="tlNonTl" name="tlNonTl">
             </div>
           </div>
         </form>

@@ -3,11 +3,11 @@ import { Component, OnInit, Injectable, ViewChild, ViewContainerRef, ChangeDetec
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { MessageService } from 'primeng/api';
-import { TabView } from 'primeng/tabview';
-import { Resource } from '../model/resource';
+import { TabView } from 'primeng/tabview'; 
 import { CoreService } from '../service/core.service';
 import { ManPower } from '../model/manPower';
 import { JobMaster } from '../model/jobMaster';
+import { Associate } from '../model/associateMaster';
 
 @Component({
   selector: 'app-associate-master',
@@ -15,7 +15,7 @@ import { JobMaster } from '../model/jobMaster';
   styleUrls: ['./associate-master.component.css'],
   providers:[MessageService]
 })
-export class AssociateMasterComponent implements OnInit {
+export class AssociateComponent implements OnInit {
   
   storeData: any;
   condition: boolean;
@@ -27,7 +27,7 @@ export class AssociateMasterComponent implements OnInit {
   searchValue: any;
   public items = [];
   public selectedTabIndex: number = 0;
-  resource: Resource;
+  associate: Associate;
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,
@@ -88,7 +88,7 @@ export class AssociateMasterComponent implements OnInit {
         break;
       }
 
-      case 'AssociateMaster': {
+      case 'Associate': {
         break;
       }
       case 'JobMaster': {
@@ -147,13 +147,13 @@ export class AssociateMasterComponent implements OnInit {
     let index: number = this.items.findIndex(x => x.header === "New Associate");
     this.items[index]['header'] = data;
   }
-  public receiveResource(resource: Resource) {
+  public receiveAssociate(associate: Associate) {
     this.items.push({
-      'header': resource.basicContactDetail.firstName
+      'header': associate.basicContactDetail.firstName
     });
     this.selectedTabIndex = this.items.length - 1;
-    console.log('resource sent from List view tab = ', resource)
-    this.resource = resource;
+    console.log('associate sent from List view tab = ', associate)
+    this.associate = associate;
   }
 
 }

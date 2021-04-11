@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AssociateMasterComponent } from './associate-master/associate-master.component';
+import { AssociateComponent } from './associate-master/associate-master.component';
 import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { JobAllocationComponent } from './job-allocation/job-allocation.component';
 import { JobMasterComponent } from './job-master/job-master.component';
@@ -15,7 +15,7 @@ import { RoleGuard } from './guards/role.guard';
 const routes: Routes = [
   { path: '',                 redirectTo: '/auditAllocation',       pathMatch: 'full' },
   { path: 'manpowerMaster',   component: ManPowerComponent },
-  { path: 'associateMaster',  component: AssociateMasterComponent },
+  { path: 'associate',  component: AssociateComponent },
   { path: 'jobMaster',        component: JobMasterComponent },
   { path: 'auditAllocation',    
     component: JobAllocationComponent,

@@ -12,7 +12,7 @@ import { ErrorInterceptor } from "./helpers/ErrorInterceptor";
 
 import { AppComponent } from './app.component';
 import { ManPowerComponent } from './man-power/man-power.component';
-import { AssociateMasterComponent } from './associate-master/associate-master.component';
+import { AssociateComponent } from './associate-master/associate-master.component';
 import { JobMasterComponent } from './job-master/job-master.component';
 import { JobAllocationComponent } from './job-allocation/job-allocation.component';
 import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
@@ -51,7 +51,7 @@ import { AssociateFormComponent } from './associate-master/associate-form/associ
   declarations: [
     AppComponent,
     ManPowerComponent,
-    AssociateMasterComponent,
+    AssociateComponent,
     JobMasterComponent,
     JobAllocationComponent,
     CostSheetComponent,

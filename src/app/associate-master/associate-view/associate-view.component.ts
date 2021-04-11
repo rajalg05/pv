@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
+import { Associate } from 'src/app/model/associateMaster';
 import { Resource } from 'src/app/model/resource';
+import { AssociateService } from 'src/app/service/associate.service';
 import { ResourceService } from 'src/app/service/resource.service';
 
 @Component({
@@ -10,23 +12,26 @@ import { ResourceService } from 'src/app/service/resource.service';
 })
 export class AssociateViewComponent implements OnInit {
 
-
-  resources: Resource[];
+  associates: Associate[];
     
   sortOptions: SelectItem[];
 
   sortOrder: number;
 
   sortField: string;
+  
+  @Output() sendAssociateEmitter = new EventEmitter();
 
-  constructor(private primengConfig: PrimeNGConfig,
-      private resourceService: ResourceService) { }
+  constructor(
+      private primengConfig: PrimeNGConfig,
+      private resourceService: ResourceService,
+      private associateService: AssociateService) { }
 
   ngOnInit() {
-      this.resourceService.getResources().subscribe(data => {
-          console.log('resource = ', data);
-          this.resources = data;
-      })
+    this.associateService.findAllAssociates().subscribe(data => {
+        console.log('resource = ', data);
+        this.associates = data;
+    }) 
 
       this.sortOptions = [
           { label: 'Price High to Low', value: '!price' },
@@ -48,9 +53,7 @@ export class AssociateViewComponent implements OnInit {
           this.sortField = value;
       }
   }
-  @Output() sendResourceEmitter = new EventEmitter();
-
-  openTab(resource: Resource) {
-      this.sendResourceEmitter.emit(resource);
-  }
+  openAssociateTab(associate: Associate) {
+    this.sendAssociateEmitter.emit(associate);
+}
 }

@@ -88,7 +88,7 @@ export class ManPowerComponent implements OnInit {
         break;
       }
 
-      case 'AssociateMaster': {
+      case 'Associate': {
         break;
       }
       case 'JobMaster': {

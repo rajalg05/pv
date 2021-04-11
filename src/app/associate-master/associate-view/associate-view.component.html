@@ -1,5 +1,5 @@
 <div class="card">
-    <p-dataView #dv [value]="resources" [paginator]="true" [rows]="9" filterBy="basicContactDetail.firstName" [sortField]="sortField"
+    <p-dataView #dv [value]="associates" [paginator]="true" [rows]="9" filterBy="basicContactDetail.firstName" [sortField]="sortField"
         [sortOrder]="sortOrder" layout="list">
         <ng-template pTemplate="header">
             <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
@@ -13,30 +13,25 @@
                 <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
             </div>
         </ng-template>
-        <ng-template let-resource pTemplate="listItem">
+        <ng-template let-associate pTemplate="listItem">
             <div class="p-col-12">
                 <div class="product-list-item">
                     <div class="product-list-detail">
-                        <div class="product-name" style="cursor: pointer;" (click)="openTab(resource)">
-                            <span>{{resource.basicContactDetail.firstName}}</span>
-                            <span> {{resource.basicContactDetail.lastName}} </span>
+                        <div class="product-name" style="cursor: pointer;" (click)="openAssociateTab(associate)">
+                            <span>{{associate.basicContactDetail.firstName}}</span>
+                            <span> {{associate.basicContactDetail.lastName}} </span>
                             <i class="fa fa-edit" ></i>
-                        </div>
-                        <div>
-                            <span class="product-description">{{resource.resourceType}}</span>
-                            <span class="product-description">, {{resource.qualification}}</span>
-                            <span class="product-description">, Excel Skills : {{resource.stockauditexp}}</span>
-                        </div>
+                        </div> 
                         <!-- <p-rating [ngModel]="product.rating" ngDefaultControl [readonly]="true" [cancel]="false"></p-rating> -->
                         <i class="fa fa-phone"></i><span
-                            class="product-category">{{resource.basicContactDetail.whatsappMobileNumber}}</span>
+                            class="product-category">{{associate.basicContactDetail.whatsappMobileNumber}}</span>
                     </div>
                     <div class="product-list-action">
                         <div>
-                            <span class="product-price">{{resource.address.city}}</span>
+                            <span class="product-price">{{associate.address.city}}</span>
                         </div>
                         <div>
-                            <i class="fa fa-birthday-cake"></i> <span class="product-price">{{resource.dateOfBirth |
+                            <i class="fa fa-birthday-cake"></i> <span class="product-price">{{associate.dateOfBirth |
                                 date: 'dd/MM/yyyy'}}</span>
                         </div>
                         <!-- <p-button icon="pi pi-shopping-cart" label="Add to Cart"></p-button> -->
