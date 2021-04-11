@@ -103,7 +103,7 @@ export class ResourceFormComponent implements OnInit {
         state: new FormControl(this.resource.address.state),
         postalCode: new FormControl(this.resource.address.postalCode),
         country: new FormControl('India'),
-        dob: new FormControl(this.resource.dateOfBirth),
+        dob: new FormControl(new Date(this.resource.dateOfBirth)),
         bike: new FormControl(this.resource.bike),
         phone: new FormControl(null),
         firstKycId: new FormControl(this.resource.kyc.firstKycId),
@@ -113,7 +113,7 @@ export class ResourceFormComponent implements OnInit {
         stockAuditExp: new FormControl(this.resource.stockAuditExp),
         tlNonTl: new FormControl(this.resource.resourceType),
         user_gender: new FormControl('Male')
-      });
+      }); 
     }
   }
   onSubmit() {
