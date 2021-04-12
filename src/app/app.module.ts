@@ -47,6 +47,7 @@ import {GMapModule} from 'primeng/gmap';
 import { ProductService } from './service/product.service';
 import { AssociateViewComponent } from './associate-master/associate-view/associate-view.component';
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
+import { JobFormComponent } from './job-master/job-form/job-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { AssociateFormComponent } from './associate-master/associate-form/associ
     DragDropDirective,
     SearchComponent,
     AssociateViewComponent,
-    AssociateFormComponent
+    AssociateFormComponent,
+    JobFormComponent
   ],
   imports: [
     BrowserModule,

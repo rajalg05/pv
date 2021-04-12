@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api';
 import { TabView } from 'primeng/tabview'; 
 import { CoreService } from '../service/core.service';
 import { ManPower } from '../model/manPower';
-import { JobMaster } from '../model/jobMaster';
+import { Job } from '../model/job';
 import { Associate } from '../model/associateMaster';
 
 @Component({
@@ -95,7 +95,7 @@ export class AssociateComponent implements OnInit {
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
         /* save data */
         const data = XLSX.utils.sheet_to_json(ws); // to get 2d array pass 2nd parameter as object {header: 1}
-        this._coreService.dataSourceJobMaster = data as JobMaster[];
+        this._coreService.dataSourceJobMaster = data as Job[];
         console.log(this._coreService.dataSourceJobMaster); // Data will be logged in array format containing objects
         break;
       }

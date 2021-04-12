@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
-import { Associate } from 'src/app/model/associateMaster';
-import { Resource } from 'src/app/model/resource';
-import { AssociateService } from 'src/app/service/associate.service';
-import { ResourceService } from 'src/app/service/resource.service';
+import { Associate } from 'src/app/model/associateMaster'; 
+import { AssociateService } from 'src/app/service/associate.service'; 
 
 @Component({
   selector: 'app-associate-view',
@@ -23,13 +21,12 @@ export class AssociateViewComponent implements OnInit {
   @Output() sendAssociateEmitter = new EventEmitter();
 
   constructor(
-      private primengConfig: PrimeNGConfig,
-      private resourceService: ResourceService,
+      private primengConfig: PrimeNGConfig, 
       private associateService: AssociateService) { }
 
   ngOnInit() {
     this.associateService.findAllAssociates().subscribe(data => {
-        console.log('resource = ', data);
+        console.log('associate = ', data);
         this.associates = data;
     }) 
 

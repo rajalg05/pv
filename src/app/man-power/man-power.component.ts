@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { ManPower } from '../model/manPower';
 import { CoreService } from '../service/core.service';
-import { JobMaster } from '../model/jobMaster';
+import { Job } from '../model/job';
 import { MessageService } from 'primeng/api';
 import { TabPanel, TabView, TabViewModule } from 'primeng/tabview';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -95,7 +95,7 @@ export class ManPowerComponent implements OnInit {
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
         /* save data */
         const data = XLSX.utils.sheet_to_json(ws); // to get 2d array pass 2nd parameter as object {header: 1}
-        this._coreService.dataSourceJobMaster = data as JobMaster[];
+        this._coreService.dataSourceJobMaster = data as Job[];
         console.log(this._coreService.dataSourceJobMaster); // Data will be logged in array format containing objects
         break;
       }

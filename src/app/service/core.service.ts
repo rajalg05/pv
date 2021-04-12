@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { JobMaster } from '../model/jobMaster';
+import { Job } from '../model/job';
 import { ManPower } from '../model/manPower';
 
 @Injectable({
@@ -12,6 +12,6 @@ export class CoreService {
   public jobAllocation: boolean = false;
   public costSheet: boolean = false;
   dataSourceManPower: ManPower[] = [];
-  dataSourceJobMaster: JobMaster[] = [];
+  dataSourceJobMaster: Job[] = [];
   constructor() { }
 }

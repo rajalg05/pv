@@ -1,0 +1,64 @@
+<div class="container">
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <!-- jobName -->
+                    <label for="jobName">Job Name: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="jobName" placeholder="Job Name" class="form-control"
+                            formControlName="jobName">
+                        <p class="lblError" *ngIf="jobForm.get('jobName').hasError('required')
+                              && !jobForm.get('jobName').pristine">
+                            First Name is Required
+                        </p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" [disabled]="jobForm.invalid">
+                        Submit
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="button" [disabled]="jobForm.invalid"
+                    (click)="reviewDialog()">
+                        Review
+                    </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" (click)="reset($event)"
+                        [disabled]="jobForm.invalid">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<p-dialog 
+header="Form Summary" 
+[(visible)]="displayReviewDialog" 
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}" 
+[style]="{width: '50vw'}"
+[maximizable]="true"
+>
+    <div class="container">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="name">Job Name*</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="name" name="name" > 
+            </div>
+          </div>
+        </form>
+    </div>
+</p-dialog>
