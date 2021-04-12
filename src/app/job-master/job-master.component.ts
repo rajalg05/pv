@@ -155,4 +155,12 @@ export class JobMasterComponent implements OnInit {
     console.log('job sent from List view tab = ', job)
     this.job = job;
   }
+  public receiveAudit(job: Job) {
+    this.items.push({
+      'header': job.jobName + ' - New Audit'
+    });
+    this.selectedTabIndex = this.items.length - 1;
+    console.log('job sent from List view tab = ', job)
+    this.job = job;
+  }
 }

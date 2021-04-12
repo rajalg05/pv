@@ -43,7 +43,7 @@ import { SearchComponent } from './search/search.component';
 import { DataViewModule } from 'primeng/dataview';
 import { PickListModule } from 'primeng/picklist';
 import {GMapModule} from 'primeng/gmap';
-
+import {AccordionModule} from 'primeng/accordion';
 import { ProductService } from './service/product.service';
 import { AssociateViewComponent } from './associate-master/associate-view/associate-view.component';
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
@@ -96,6 +96,7 @@ import { JobViewComponent } from './job-master/job-view/job-view.component';
     DataViewModule,
     PickListModule,
     GMapModule,
+    AccordionModule,
     // Phone module
     Ng2TelInputModule
   ],
