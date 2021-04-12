@@ -22,34 +22,35 @@ export class JobFormComponent implements OnInit {
   cities: SelectItem[];
   city: SelectItem;
 
-  bikes: SelectItem[];
-  bike: SelectItem;
-
-
-  qualifications: SelectItem[];
-  excelSkills: SelectItem[];
-
-  stockAuditExps: SelectItem[];
-  tlNonTls: SelectItem[];
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
-  constructor(private jobService: JobService) {
-    
-  }
+  constructor(private jobService: JobService) {}
 
   ngOnInit(): void {
     if (this.job == null) {
       this.jobForm = new FormGroup({
-        jobName: new FormControl(null) 
+        jobName: new FormControl(null),
+        associate: new FormControl(null),
+        clientName: new FormControl(null),
+        frequencyOfAudit: new FormControl(null),
+        paymentType: new FormControl(null),
+        totalPayment: new FormControl(null),
+        resourcesNeeded: new FormControl(null),
       });
     } else {
       this.jobForm = new FormGroup({
-        jobName: new FormControl(this.job.jobName) 
-      }); 
+        jobName: new FormControl(null),
+        associate: new FormControl(null),
+        clientName: new FormControl(null),
+        frequencyOfAudit: new FormControl(null),
+        paymentType: new FormControl(null),
+        totalPayment: new FormControl(null),
+        resourcesNeeded: new FormControl(null),
+      });
     }
   }
   onSubmit() {
-    this.tabNameChangeEmit.emit(this.jobForm.get('firstName').value);
+    this.tabNameChangeEmit.emit(this.jobForm.get('jobName').value);
     let job: Job = new Job();
 
     this.jobService.saveJob(this.populateFormValues()).subscribe(data => {
@@ -60,12 +61,49 @@ export class JobFormComponent implements OnInit {
     let job: Job = new Job();
 
     job.jobName = this.jobForm.get('jobName').value;
- 
-    let associate = new Associate();
+    job.clientName = this.jobForm.get('clientName').value;
+    job.frequencyOfAudit = this.jobForm.get('frequencyOfAudit').value;
+    job.paymentType = this.jobForm.get('paymentType').value;
+    job.totalPayment = this.jobForm.get('totalPayment').value;
+    job.resourcesNeeded = this.jobForm.get('resourcesNeeded').value;
 
-    job.associate = associate;
+    job.associate = this.populateAssociate();
 
     return job;
+  }
+  populateAssociate() {
+    // TO DO - get the associate data from login module. 
+    let associate: Associate = new Associate();
+    let basicContactDetail = new BasicContactDetail();
+    let address = new Address();
+    let kyc = new KYC();
+
+    basicContactDetail.firstName = 'Munish';
+    basicContactDetail.lastName = 'Gupta';
+    //basicContactDetail.whatsappCountryCode = this.associateForm.get('whatsappCountryCode').value;
+    basicContactDetail.whatsappMobileNumber = 9999999;
+    basicContactDetail.email = 'sgupta@gmail.com';
+
+    associate.basicContactDetail = basicContactDetail;
+
+    address.addressLine1 = 'G302, Mystique moods';
+    //address.streetAddress1 = this.associateForm.get('streetAddress1').value;
+    address.streetAddress2 = 'Viman Nagar';
+    address.city = 'Pune';
+    address.state = 'Maharashtra';
+    address.postalCode = '411014';
+    address.country = 'India';
+
+    associate.address = address;
+
+    //kyc.firstKycId = this.associateForm.get('firstKycId').value;
+    kyc.firstKycType = 'Adhar';
+    //kyc.secondKycId = this.associateForm.get('secondKycId').value;
+    kyc.secondKycType = 'PAN';
+
+    associate.kyc = kyc;
+
+    return associate;
   }
   numericOnly(event) {
     let patt = /^([0-9])$/;
@@ -73,10 +111,10 @@ export class JobFormComponent implements OnInit {
     return result;
   }
   adharFiles: any = [];
- 
+
 
   reset(e: any) {
-    this.jobForm.reset();  
+    this.jobForm.reset();
   }
   displayReviewDialog: boolean = false;
   reviewDialog() {

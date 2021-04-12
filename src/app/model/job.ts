@@ -1,7 +1,7 @@
 import { Associate } from "./associateMaster";
 
 export class Job {
-  public associate: Associate;
+  	public associate: Associate;
 
 	public jobName: string;
 	

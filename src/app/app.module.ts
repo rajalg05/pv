@@ -48,6 +48,7 @@ import { ProductService } from './service/product.service';
 import { AssociateViewComponent } from './associate-master/associate-view/associate-view.component';
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
 import { JobFormComponent } from './job-master/job-form/job-form.component';
+import { JobViewComponent } from './job-master/job-view/job-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,8 @@ import { JobFormComponent } from './job-master/job-form/job-form.component';
     SearchComponent,
     AssociateViewComponent,
     AssociateFormComponent,
-    JobFormComponent
+    JobFormComponent,
+    JobViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,86 @@
 <div class="container">
     <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
-
+ 
         <div class="form-row">
             <div class="col">
                 <div class="form-group">
-                    <!-- jobName -->
                     <label for="jobName">Job Name: <span class="lblError">*</span></label>
                     <div class="controls">
                         <input type="text" id="jobName" placeholder="Job Name" class="form-control"
                             formControlName="jobName">
                         <p class="lblError" *ngIf="jobForm.get('jobName').hasError('required')
                               && !jobForm.get('jobName').pristine">
-                            First Name is Required
+                            Job Name is Required
+                        </p>
+                    </div>
+                </div>
+            </div> 
+            <div class="col">
+                <div class="form-group"> 
+                    <label for="clientName">Client Name: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="clientName" placeholder="Client Name" class="form-control"
+                            formControlName="clientName">
+                        <p class="lblError" *ngIf="jobForm.get('clientName').hasError('required')
+                              && !jobForm.get('clientName').pristine">
+                              Client Name is Required
+                        </p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="frequencyOfAudit">Frequency of Audit: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="frequencyOfAudit" placeholder="Frequency of Audit" class="form-control"
+                            formControlName="frequencyOfAudit">
+                        <p class="lblError" *ngIf="jobForm.get('frequencyOfAudit').hasError('required')
+                              && !jobForm.get('frequencyOfAudit').pristine">
+                              Frequency of Audit is Required
+                        </p>
+                    </div>
+                </div>
+            </div> 
+            <div class="col">
+                <div class="form-group">
+                   
+                    <label for="paymentType">Payment Type: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="paymentType" placeholder="Payment Type" class="form-control"
+                            formControlName="paymentType">
+                        <p class="lblError" *ngIf="jobForm.get('paymentType').hasError('required')
+                              && !jobForm.get('paymentType').pristine">
+                              Payment Type is Required
+                        </p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="totalPayment">Total Payment: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="totalPayment" placeholder="Total Payment" class="form-control"
+                            formControlName="totalPayment">
+                        <p class="lblError" *ngIf="jobForm.get('totalPayment').hasError('required')
+                              && !jobForm.get('totalPayment').pristine">
+                              Total Payment is Required
+                        </p>
+                    </div>
+                </div>
+            </div> 
+            <div class="col">
+                <div class="form-group">
+                    <label for="resourcesNeeded">Resources Needed: <span class="lblError">*</span></label>
+                    <div class="controls">
+                        <input type="text" id="resourcesNeeded" placeholder="Resources Needed" class="form-control"
+                            formControlName="resourcesNeeded">
+                        <p class="lblError" *ngIf="jobForm.get('resourcesNeeded').hasError('required')
+                              && !jobForm.get('resourcesNeeded').pristine">
+                              Resources Needed is Required
                         </p>
                     </div>
                 </div>

@@ -27,7 +27,7 @@ export class JobMasterComponent implements OnInit {
   searchValue: any;
   public items = [];
   public selectedTabIndex: number = 0;
-  resource: Resource;
+  job: Job;
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,
@@ -147,12 +147,12 @@ export class JobMasterComponent implements OnInit {
     let index: number = this.items.findIndex(x => x.header === "New Job");
     this.items[index]['header'] = data;
   }
-  public receiveResource(resource: Resource) {
+  public receiveJob(job: Job) {
     this.items.push({
-      'header': resource.basicContactDetail.firstName
+      'header': job.jobName
     });
     this.selectedTabIndex = this.items.length - 1;
-    console.log('resource sent from List view tab = ', resource)
-    this.resource = resource;
+    console.log('job sent from List view tab = ', job)
+    this.job = job;
   }
 }
