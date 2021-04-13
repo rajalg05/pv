@@ -1,14 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
-import { Resource } from '../model/resource';
-import { ResourceService } from '../service/resource.service';
+import { Resource } from '../../model/resource';
+import { ResourceService } from '../../service/resource.service';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css']
+    selector: 'app-resource-view',
+    templateUrl: './resource-view.component.html',
+    styleUrls: ['./resource-view.component.css']
 })
-export class SearchComponent implements OnInit {
+export class ResourceViewComponent implements OnInit {
 
     resources: Resource[];
     

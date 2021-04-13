@@ -39,7 +39,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DragDropDirective } from './directives/drag-drop.directive';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
-import { SearchComponent } from './search/search.component';
+import { ResourceViewComponent } from './man-power/resource-view/resource-view.component';
 import { DataViewModule } from 'primeng/dataview';
 import { PickListModule } from 'primeng/picklist';
 import { GMapModule } from 'primeng/gmap';
@@ -49,6 +49,8 @@ import { AssociateViewComponent } from './associate-master/associate-view/associ
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
 import { JobFormComponent } from './job-master/job-form/job-form.component';
 import { JobViewComponent } from './job-master/job-view/job-view.component';
+import {StepsModule} from 'primeng/steps'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +68,7 @@ import { JobViewComponent } from './job-master/job-view/job-view.component';
     MisComponent,
     ResourceFormComponent,
     DragDropDirective,
-    SearchComponent,
+    ResourceViewComponent,
     AssociateViewComponent,
     AssociateFormComponent,
     JobFormComponent,
@@ -97,6 +99,7 @@ import { JobViewComponent } from './job-master/job-view/job-view.component';
     PickListModule,
     GMapModule,
     AccordionModule,
+    StepsModule, 
     // Phone module
     Ng2TelInputModule
   ],

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
  
 
@@ -14,6 +14,8 @@ export class AuditStatusComponent implements OnInit {
   selectedJob: string;
 
   selectedTlNonTls: string;
+
+  stepItems: MenuItem[];
 
   items: SelectItem[];
 
@@ -39,6 +41,17 @@ export class AuditStatusComponent implements OnInit {
   constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
+
+    this.stepItems = [
+      {label: 'Job Created'},
+      {label: 'Audits Created'},
+      {label: 'Resources Allocated'},
+      {label: 'Audits Created'},
+      {label: 'Audit Started'},
+      {label: 'Audits Completed'},
+      {label: 'MIS Report sent'},
+  ];
+
     this.jobs = [
       { name: "JOB1", code: "job1" },
       { name: "JOB2", code: "job2" },
