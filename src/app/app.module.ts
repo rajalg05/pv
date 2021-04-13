@@ -29,7 +29,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { MisComponent } from './core/mis/mis.component';
+import { MisComponent } from './mis/mis.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RoleGuard } from './guards/role.guard';
 import { TabViewModule } from 'primeng/tabview';
