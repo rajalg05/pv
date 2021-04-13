@@ -21,12 +21,20 @@ export class JobFormComponent implements OnInit {
   separateDialCode = false;
   cities: SelectItem[];
   city: SelectItem;
+  list1: Resource[] = [];
+
+  list2: Resource[] = [];
 
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
-  constructor(private jobService: JobService) {}
+  constructor(private jobService: JobService,
+    private resourceService: ResourceService) {}
 
   ngOnInit(): void {
+    this.resourceService.getResources().subscribe(resources => {
+      this.list1 = resources;
+    });
+
     if (this.job == null) {
       this.jobForm = new FormGroup({
         jobName: new FormControl(null),

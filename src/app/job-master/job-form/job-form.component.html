@@ -131,3 +131,26 @@ header="Form Summary"
         </form>
     </div>
 </p-dialog>
+
+<p-pickList 
+[source]="list1" 
+[target]="list2" 
+sourceHeader="Available Resources" 
+targetHeader="Selected Resources"
+targetHeader="Selected" 
+[dragdrop]="true"
+[responsive]="true" 
+[sourceStyle]="{'height':'30rem'}" 
+[targetStyle]="{'height':'30rem'}" 
+filterBy="name"
+sourceFilterPlaceholder="Search by name" 
+targetFilterPlaceholder="Search by name"
+    >
+    <ng-template let-resource pTemplate="item">
+        <div>
+            <div style="font-size:14px;float:right;margin:15px 5px 0 0">
+                {{resource.basicContactDetail.firstName}}   {{resource.basicContactDetail.lastName}}
+            </div>
+        </div>
+    </ng-template>
+</p-pickList>
