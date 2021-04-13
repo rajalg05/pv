@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { ManPower } from '../model/manPower';
@@ -27,7 +27,7 @@ export class JobMasterComponent implements OnInit {
   searchValue: any;
   public items = [];
   public selectedTabIndex: number = 0;
-  job: Job;
+  @Input() job: Job;
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,

@@ -117,11 +117,13 @@ export class ResourceFormComponent implements OnInit {
     }
   }
   onSubmit() {
-    this.tabNameChangeEmit.emit(this.resourceForm.get('firstName').value);
-    let resource: Resource = new Resource();
+    let resource: Resource = this.populateFormValues();
+    //this.tabNameChangeEmit.emit(this.resourceForm.get('firstName').value);
+    this.tabNameChangeEmit.emit(resource);
 
-    this.resourceService.saveResource(this.populateFormValues()).subscribe(data => {
+    this.resourceService.saveResource(resource).subscribe(data => {
       console.log('resource data = ', data);
+      // update the Resources list
     });
   }
   populateFormValues() {

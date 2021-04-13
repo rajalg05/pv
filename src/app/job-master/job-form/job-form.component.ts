@@ -39,13 +39,13 @@ export class JobFormComponent implements OnInit {
       });
     } else {
       this.jobForm = new FormGroup({
-        jobName: new FormControl(null),
-        associate: new FormControl(null),
-        clientName: new FormControl(null),
-        frequencyOfAudit: new FormControl(null),
-        paymentType: new FormControl(null),
-        totalPayment: new FormControl(null),
-        resourcesNeeded: new FormControl(null),
+        jobName: new FormControl(this.job.jobName),
+        associate: new FormControl(this.job.associate),
+        clientName: new FormControl(this.job.clientName),
+        frequencyOfAudit: new FormControl(this.job.frequencyOfAudit),
+        paymentType: new FormControl(this.job.paymentType),
+        totalPayment: new FormControl(this.job.totalPayment),
+        resourcesNeeded: new FormControl(this.job.resourcesNeeded),
       });
     }
   }

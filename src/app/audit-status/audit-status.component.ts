@@ -5,12 +5,12 @@ import { SelectItem } from 'primeng/api/selectitem';
 
 declare var google: any;
 @Component({
-  selector: 'app-job-allocation',
-  templateUrl: './job-allocation.component.html',
-  styleUrls: ['./job-allocation.component.css'],
+  selector: 'app-audit-status',
+  templateUrl: './audit-status.component.html',
+  styleUrls: ['./audit-status.component.css'],
   providers: [MessageService]
 })
-export class JobAllocationComponent implements OnInit {
+export class AuditStatusComponent implements OnInit {
   selectedJob: string;
 
   selectedTlNonTls: string;

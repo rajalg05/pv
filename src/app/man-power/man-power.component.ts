@@ -142,10 +142,10 @@ export class ManPowerComponent implements OnInit {
       this.selectedTabIndex = this.items.length - 1;
   }
 
-  public tabNameChangeEmit(data: any): void {
+  public tabNameChangeEmit(resource: Resource): void {
     // console.log('data =' , data);
     let index: number = this.items.findIndex(x => x.header === "New Resource");
-    this.items[index]['header'] = data;
+    this.items[index]['header'] = resource.basicContactDetail.firstName;
   }
   public receiveResource(resource: Resource) {
     this.items.push({

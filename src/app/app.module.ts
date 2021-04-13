@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { ManPowerComponent } from './man-power/man-power.component';
 import { AssociateComponent } from './associate-master/associate-master.component';
 import { JobMasterComponent } from './job-master/job-master.component';
-import { JobAllocationComponent } from './job-allocation/job-allocation.component';
+import { AuditStatusComponent } from './audit-status/audit-status.component';
 import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CoreComponent } from './core/core.component';
@@ -42,8 +42,8 @@ import { DialogModule } from 'primeng/dialog';
 import { SearchComponent } from './search/search.component';
 import { DataViewModule } from 'primeng/dataview';
 import { PickListModule } from 'primeng/picklist';
-import {GMapModule} from 'primeng/gmap';
-import {AccordionModule} from 'primeng/accordion';
+import { GMapModule } from 'primeng/gmap';
+import { AccordionModule } from 'primeng/accordion';
 import { ProductService } from './service/product.service';
 import { AssociateViewComponent } from './associate-master/associate-view/associate-view.component';
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
@@ -55,7 +55,7 @@ import { JobViewComponent } from './job-master/job-view/job-view.component';
     ManPowerComponent,
     AssociateComponent,
     JobMasterComponent,
-    JobAllocationComponent,
+    AuditStatusComponent,
     CostSheetComponent,
     PageNotFoundComponent,
     CoreComponent,

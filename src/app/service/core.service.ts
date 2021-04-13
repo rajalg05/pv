@@ -9,7 +9,7 @@ export class CoreService {
   public manpowerMaster: boolean = false;
   public associate: boolean = false;
   public jobMaster: boolean = false;
-  public jobAllocation: boolean = false;
+  public auditStatus: boolean = false;
   public costSheet: boolean = false;
   dataSourceManPower: ManPower[] = [];
   dataSourceJobMaster: Job[] = [];
