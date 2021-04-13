@@ -50,7 +50,7 @@ import { AssociateFormComponent } from './associate-master/associate-form/associ
 import { JobFormComponent } from './job-master/job-form/job-form.component';
 import { JobViewComponent } from './job-master/job-view/job-view.component';
 import {StepsModule} from 'primeng/steps'; 
-
+import {EditorModule} from 'primeng/editor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +100,7 @@ import {StepsModule} from 'primeng/steps';
     GMapModule,
     AccordionModule,
     StepsModule, 
+    EditorModule,
     // Phone module
     Ng2TelInputModule
   ],
