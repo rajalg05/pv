@@ -11,7 +11,7 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from "./helpers/ErrorInterceptor";
 
 import { AppComponent } from './app.component';
-import { ManPowerComponent } from './man-power/man-power.component';
+import { ResourceComponent } from './resource-master/resource-master.component';
 import { AssociateComponent } from './associate-master/associate-master.component';
 import { JobMasterComponent } from './job-master/job-master.component';
 import { AuditStatusComponent } from './audit-status/audit-status.component';
@@ -33,13 +33,13 @@ import { MisComponent } from './mis/mis.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RoleGuard } from './guards/role.guard';
 import { TabViewModule } from 'primeng/tabview';
-import { ResourceFormComponent } from './man-power/resource-form/resource-form.component';
+import { ResourceFormComponent } from './resource-master/resource-form/resource-form.component';
 import { Ng2TelInputModule } from 'ng2-tel-input';
 import { DropdownModule } from 'primeng/dropdown';
 import { DragDropDirective } from './directives/drag-drop.directive';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
-import { ResourceViewComponent } from './man-power/resource-view/resource-view.component';
+import { ResourceViewComponent } from './resource-master/resource-view/resource-view.component';
 import { DataViewModule } from 'primeng/dataview';
 import { PickListModule } from 'primeng/picklist';
 import { GMapModule } from 'primeng/gmap';
@@ -51,10 +51,15 @@ import { JobFormComponent } from './job-master/job-form/job-form.component';
 import { JobViewComponent } from './job-master/job-view/job-view.component';
 import {StepsModule} from 'primeng/steps'; 
 import {EditorModule} from 'primeng/editor';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {CarouselModule} from 'primeng/carousel';
+import { ChartModule } from 'primeng/chart';
+import 'chart.js/dist/Chart.min.js';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ManPowerComponent,
+    ResourceComponent,
     AssociateComponent,
     JobMasterComponent,
     AuditStatusComponent,
@@ -72,7 +77,8 @@ import {EditorModule} from 'primeng/editor';
     AssociateViewComponent,
     AssociateFormComponent,
     JobFormComponent,
-    JobViewComponent
+    JobViewComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +107,8 @@ import {EditorModule} from 'primeng/editor';
     AccordionModule,
     StepsModule, 
     EditorModule,
+    ChartModule,
+    CarouselModule,
     // Phone module
     Ng2TelInputModule
   ],

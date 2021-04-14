@@ -1,0 +1,14 @@
+<p-carousel [value]="resources" [autoplayInterval]="5000" [numVisible]="3" [numScroll]="3" [circular]="true"
+[responsiveOptions]="responsiveOptions">
+    <ng-template pTemplate="header">
+        <h5>Upcomging Audits</h5>
+    </ng-template>
+    <ng-template let-resource pTemplate="item">
+        {{resource.basicContactDetail.firstName}}
+    </ng-template>
+</p-carousel>
+
+<div class="card">
+    <h5>Profit vs Cost</h5>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+</div>

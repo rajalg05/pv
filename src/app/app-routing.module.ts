@@ -4,7 +4,7 @@ import { AssociateComponent } from './associate-master/associate-master.componen
 import { CostSheetComponent } from './cost-sheet/cost-sheet.component';
 import { AuditStatusComponent } from './audit-status/audit-status.component';
 import { JobMasterComponent } from './job-master/job-master.component';
-import { ManPowerComponent } from './man-power/man-power.component';
+import { ResourceComponent } from './resource-master/resource-master.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -14,7 +14,7 @@ import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
   { path: '',                 redirectTo: '/auditAllocation',       pathMatch: 'full' },
-  { path: 'manpowerMaster',   component: ManPowerComponent },
+  { path: 'manpowerMaster',   component: ResourceComponent },
   { path: 'associate',  component: AssociateComponent },
   { path: 'jobMaster',        component: JobMasterComponent },
   { path: 'auditAllocation',    

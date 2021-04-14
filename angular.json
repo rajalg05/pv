@@ -38,7 +38,8 @@
               "node_modules/intl-tel-input/build/js/intlTelInput.min.js",
               "node_modules/intl-tel-input/build/js/utils.js",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {

@@ -11,19 +11,18 @@ import { ResourceService } from '../service/resource.service';
 import { Resource } from '../model/resource';
 
 @Component({
-  selector: 'app-man-power',
-  templateUrl: './man-power.component.html',
-  styleUrls: ['./man-power.component.css'],
+  selector: 'app-resource-master',
+  templateUrl: './resource-master.component.html',
+  styleUrls: ['./resource-master.component.css'],
   providers: [MessageService]
 })
-export class ManPowerComponent implements OnInit {
+export class ResourceComponent implements OnInit {
   storeData: any;
   condition: boolean;
   csvData: any;
   fileUploaded: File;
   uploadedFiles: any[] = [];
   worksheet: any;
-  displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
   searchValue: any;
   public items = [];
   public selectedTabIndex: number = 0;
@@ -126,20 +125,20 @@ export class ManPowerComponent implements OnInit {
 
   handleClose(e) {
     //if (this.condition)
-    if(e.index != 0) {
+    if (e.index != 0) {
       e.close();
       this.items.splice(e.index, 1);
     }
   }
 
   addTab() {
-  let index: number = this.items.findIndex(x => x.header === "New Resource");
-   if (index == -1 )
+    let index: number = this.items.findIndex(x => x.header === "New Resource");
+    if (index == -1)
       this.items.push({
         'header': 'New Resource',
         'content': 'Content of New Resource'
-      }); 
-      this.selectedTabIndex = this.items.length - 1;
+      });
+    this.selectedTabIndex = this.items.length - 1;
   }
 
   public tabNameChangeEmit(resource: Resource): void {

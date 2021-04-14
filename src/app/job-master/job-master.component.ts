@@ -23,7 +23,6 @@ export class JobMasterComponent implements OnInit {
   fileUploaded: File;
   uploadedFiles: any[] = [];
   worksheet: any;
-  displayedColumns: string[] = ['education', 'excelSkills', 'TLNonTL', 'city', 'state', 'frequency', 'tlPune', 'tlMumbai', 'tlOthers', 'auditStatus'];
   searchValue: any;
   public items = [];
   public selectedTabIndex: number = 0;

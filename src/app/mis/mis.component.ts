@@ -6,16 +6,10 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './mis.component.html',
   styleUrls: ['./mis.component.css']
 })
-export class MisComponent implements OnInit {
-  text: string;
-  misForm: FormGroup;  //declaring our form variable
+export class MisComponent implements OnInit { 
   constructor() { }
 
-  ngOnInit(): void {
-    this.misForm = new FormGroup({
-      recipients: new FormControl(null),
-      subject: new FormControl(null)
-    });
+  ngOnInit(): void {  
    
   }
 
