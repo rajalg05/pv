@@ -148,11 +148,12 @@ export class ResourceComponent implements OnInit {
   }
   public receiveResource(resource: Resource) {
     this.items.push({
-      'header': resource.basicContactDetail.firstName
+      'header': resource.basicContactDetail.firstName,
+      'content': 'Content of readonly Resource'
     });
-    this.selectedTabIndex = this.items.length - 1;
     console.log('resource sent from List view tab = ', resource)
     this.resource = resource;
+    this.selectedTabIndex = this.items.length - 1;
   }
 }
 
