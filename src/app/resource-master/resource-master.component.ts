@@ -132,6 +132,8 @@ export class ResourceComponent implements OnInit {
   }
 
   addTab() {
+    this.resource = null; // If other existing resource tabs are clicked before this, then resource will have data, so 
+    // on click of new tab , the filled tab will be opened, to avoid that we need to null
     let index: number = this.items.findIndex(x => x.header === "New Resource");
     if (index == -1)
       this.items.push({

@@ -131,6 +131,8 @@ export class AssociateComponent implements OnInit {
   }
 
   addTab() {
+    this.associate = null; // If other existing associate tabs are clicked before this, then associate will have data, so 
+    // on click of new tab , the filled tab will be opened, to avoid that we need to null
   let index: number = this.items.findIndex(x => x.header === "New Associate");
    if (index == -1 )
       this.items.push({

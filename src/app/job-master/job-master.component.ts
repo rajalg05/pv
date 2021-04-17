@@ -132,6 +132,8 @@ export class JobMasterComponent implements OnInit {
   }
 
   addTab() {
+    this.job = null; // If other existing job tabs are clicked before this, then job will have data, so 
+    // on click of new tab , the filled tab will be opened, to avoid that we need to null
   let index: number = this.items.findIndex(x => x.header === "New Job");
    if (index == -1 )
       this.items.push({
