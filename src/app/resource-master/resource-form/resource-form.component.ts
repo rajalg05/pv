@@ -6,10 +6,13 @@ import { BasicContactDetail } from 'src/app/model/BasicContactDetail';
 import { KYC } from 'src/app/model/kyc';
 import { Resource } from 'src/app/model/resource';
 import { ResourceService } from 'src/app/service/resource.service';
+import {DialogService} from 'primeng/dynamicdialog';
+import { ResourceDialogComponent } from './resource-dialog/resource-dialog.component';
 @Component({
   selector: 'app-resource-form',
   templateUrl: './resource-form.component.html',
-  styleUrls: ['./resource-form.component.css']
+  styleUrls: ['./resource-form.component.css'],
+  providers: [DialogService]
 })
 export class ResourceFormComponent implements OnInit {
   resourceForm: FormGroup;  //declaring our form variable
@@ -29,7 +32,8 @@ export class ResourceFormComponent implements OnInit {
   tlNonTls: SelectItem[];
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() resource: Resource;
-  constructor(private resourceService: ResourceService) {
+  constructor(private resourceService: ResourceService,
+    public dialogService: DialogService) {
     this.cities = [
       { label: 'Pune', value: 'pun' },
       { label: 'Mumbai', value: 'mum' },
@@ -202,7 +206,12 @@ export class ResourceFormComponent implements OnInit {
   }
   displayReviewDialog: boolean = false;
   reviewDialog() {
-    this.displayReviewDialog = true;
+    const ref = this.dialogService.open(ResourceDialogComponent, {
+      header: 'Form Summary',
+      width: '50%',
+      data: this.resource
+  });
+    //this.displayReviewDialog = true;
   }
 }
 

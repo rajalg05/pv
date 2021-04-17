@@ -53,9 +53,11 @@ import {StepsModule} from 'primeng/steps';
 import {EditorModule} from 'primeng/editor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {CarouselModule} from 'primeng/carousel';
+import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { ChartModule } from 'primeng/chart';
 import 'chart.js/dist/Chart.min.js';
 import {FullCalendarModule} from 'primeng/fullcalendar';
+import { ResourceDialogComponent } from './resource-master/resource-form/resource-dialog/resource-dialog.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import {FullCalendarModule} from 'primeng/fullcalendar';
     AssociateFormComponent,
     JobFormComponent,
     JobViewComponent,
-    DashboardComponent
+    DashboardComponent,
+    ResourceDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +114,7 @@ import {FullCalendarModule} from 'primeng/fullcalendar';
     ChartModule,
     CarouselModule,
     FullCalendarModule,
+    DynamicDialogModule,
     // Phone module
     Ng2TelInputModule
   ],
