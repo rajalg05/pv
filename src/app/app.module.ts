@@ -55,6 +55,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {CarouselModule} from 'primeng/carousel';
 import { ChartModule } from 'primeng/chart';
 import 'chart.js/dist/Chart.min.js';
+import {FullCalendarModule} from 'primeng/fullcalendar';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import 'chart.js/dist/Chart.min.js';
     EditorModule,
     ChartModule,
     CarouselModule,
+    FullCalendarModule,
     // Phone module
     Ng2TelInputModule
   ],

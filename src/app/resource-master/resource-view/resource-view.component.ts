@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Resource } from '../../model/resource';
 import { ResourceService } from '../../service/resource.service';
@@ -8,10 +8,12 @@ import { ResourceService } from '../../service/resource.service';
     templateUrl: './resource-view.component.html',
     styleUrls: ['./resource-view.component.css']
 })
-export class ResourceViewComponent implements OnInit {
+export class ResourceViewComponent implements OnInit, OnChanges {
 
     resources: Resource[];
-    
+
+    @Input() resource: Resource; // sent from resource-form on submit to resource-master which in turn sent via Input so update resource[] 
+
     sortOptions: SelectItem[];
 
     sortOrder: number;
@@ -20,6 +22,9 @@ export class ResourceViewComponent implements OnInit {
 
     constructor(private primengConfig: PrimeNGConfig,
         private resourceService: ResourceService) { }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.resources = [...this.resources, this.resource];
+    }
 
     ngOnInit() {
         this.resourceService.getResources().subscribe(data => {

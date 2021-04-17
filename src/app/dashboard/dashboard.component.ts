@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Resource } from '../model/resource';
 import { ResourceService } from '../service/resource.service';
-import * as Chart from 'chart.js';
+//import calendarevents from '../../assets/calendarevents';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,6 +13,11 @@ export class DashboardComponent implements OnInit {
   basicOptions: any;
   resources: Resource[] = [];
   responsiveOptions;
+
+  // full calendar fields
+  events: any[];
+
+  options: any;
   constructor(resourceService: ResourceService) {  
     this.responsiveOptions = [
       {
@@ -52,7 +57,11 @@ ngOnInit() {
         }
     ]
 };
-}
+
+// full calendar events
+/* this.events = calendarevents.data;
+*/
+} 
  
   }
 

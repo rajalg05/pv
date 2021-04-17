@@ -145,6 +145,7 @@ export class ResourceComponent implements OnInit {
     // console.log('data =' , data);
     let index: number = this.items.findIndex(x => x.header === "New Resource");
     this.items[index]['header'] = resource.basicContactDetail.firstName;
+    this.resource = resource; // pass this to resource view html so that it shows the newly added resource
   }
   public receiveResource(resource: Resource) {
     this.items.push({
