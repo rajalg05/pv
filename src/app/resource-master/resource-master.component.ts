@@ -155,6 +155,19 @@ export class ResourceComponent implements OnInit {
     console.log('resource sent from List view tab = ', resource)
     this.resource = resource;
     this.selectedTabIndex = this.items.length - 1;
+    this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
+    this.tabView.tabs[this.selectedTabIndex]._selected = true;
+  }
+
+  handleChange(e) {
+    this.resetTabIndexAndSelectActiveTab(e.index);
+  }
+
+  resetTabIndexAndSelectActiveTab(index:any ) {
+    this.tabView.tabs.forEach(tab => {
+      tab._selected = false;
+    });
+    this.tabView.tabs[index]._selected = true;
   }
 }
 
