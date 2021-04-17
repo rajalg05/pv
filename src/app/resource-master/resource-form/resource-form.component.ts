@@ -90,7 +90,7 @@ export class ResourceFormComponent implements OnInit {
         excelSkill: new FormControl(null),
         stockAuditExp: new FormControl(null),
         tlNonTl: new FormControl(null),
-        user_gender: new FormControl('Male')
+        gender: new FormControl('Male')
       });
     } else {
       this.resourceForm = new FormGroup({
@@ -112,7 +112,7 @@ export class ResourceFormComponent implements OnInit {
         excelSkill: new FormControl(this.resource.excelSkills),
         stockAuditExp: new FormControl(this.resource.stockAuditExp),
         tlNonTl: new FormControl(this.resource.resourceType),
-        user_gender: new FormControl('Male')
+        gender: new FormControl('Male')
       }); 
     }
   }
