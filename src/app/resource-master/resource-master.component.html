@@ -23,7 +23,7 @@
 
 <p-tabView [controlClose]="true" (onClose)="handleClose($event)"  >
     <p-tabPanel [closable]="true" [header]="item.header" *ngFor="let item of items; let i = index" [selected]="i == selectedTabIndex">
-        <app-resource-view *ngIf="i == 0" (sendResourceEmitter)="receiveResource($event)" [resource]="resource"></app-resource-view>
+        <app-resource-view *ngIf="i == 0" (openExistingResourceTabEmitter)="openExistingResourceTab($event)" [resource]="resource"></app-resource-view>
         <app-resource-form (tabNameChangeEmit)="tabNameChangeEmit($event)" *ngIf="i != 0" [resource]="resource"></app-resource-form>
     </p-tabPanel>
 </p-tabView>

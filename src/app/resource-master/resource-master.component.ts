@@ -147,7 +147,7 @@ export class ResourceComponent implements OnInit {
     this.items[index]['header'] = resource.basicContactDetail.firstName;
     this.resource = resource; // pass this to resource view html so that it shows the newly added resource
   }
-  public receiveResource(resource: Resource) {
+  public openExistingResourceTab(resource: Resource) {
     this.items.push({
       'header': resource.basicContactDetail.firstName,
       'content': 'Content of readonly Resource'
