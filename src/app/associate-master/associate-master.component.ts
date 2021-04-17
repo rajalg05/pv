@@ -124,7 +124,6 @@ export class AssociateComponent implements OnInit {
   }
 
   handleClose(e) {
-    //if (this.condition)
     if(e.index != 0) {
       e.close();
       this.items.splice(e.index, 1);
@@ -142,17 +141,26 @@ export class AssociateComponent implements OnInit {
   }
 
   public tabNameChangeEmit(data: any): void {
-    // console.log('data =' , data);
     let index: number = this.items.findIndex(x => x.header === "New Associate");
     this.items[index]['header'] = data;
+    this.associate = this.associate; // pass this to resource view html so that it shows the newly added resource
   }
-  public receiveAssociate(associate: Associate) {
+  public openExistingAssociateTab(associate: Associate) {
     this.items.push({
       'header': associate.basicContactDetail.firstName
     });
     this.selectedTabIndex = this.items.length - 1;
-    console.log('associate sent from List view tab = ', associate)
     this.associate = associate;
+    this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
+    this.tabView.tabs[this.selectedTabIndex]._selected = true;
   }
-
+  handleChange(e) {
+    this.resetTabIndexAndSelectActiveTab(e.index);
+  }
+  resetTabIndexAndSelectActiveTab(index:any ) {
+    this.tabView.tabs.forEach(tab => {
+      tab._selected = false;
+    });
+    this.tabView.tabs[index]._selected = true;
+  }
 }

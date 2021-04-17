@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Associate } from 'src/app/model/associateMaster';
 import { Job } from 'src/app/model/job';
@@ -10,9 +10,11 @@ import { JobService } from 'src/app/service/job.service';
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.css']
 })
-export class JobViewComponent implements OnInit {
+export class JobViewComponent implements OnInit, OnChanges {
 
   jobs: Job[];
+
+  @Input() job: Job; // sent from resource-form on submit to resource-master which in turn sent via Input so update resource[] 
 
   sortOptions: SelectItem[];
 
@@ -21,13 +23,16 @@ export class JobViewComponent implements OnInit {
   sortField: string;
 
   @Output() sendJobEmitter = new EventEmitter();
-  
+
   @Output() sendAuditEmitter = new EventEmitter();
 
-  constructor(
-    private primengConfig: PrimeNGConfig,
+  constructor(private primengConfig: PrimeNGConfig,
     private jobService: JobService) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.job)
+      this.jobs = [...this.jobs, this.job]; // update the Resource list tab when a new Resource is added in Resource form
+  }
   ngOnInit() {
     this.jobService.findAllJobs().subscribe(data => {
       console.log('associate = ', data);
@@ -58,13 +63,13 @@ export class JobViewComponent implements OnInit {
     this.sendJobEmitter.emit(job);
   }
   addAuditTab(job: Job) {
-    console.log('job = ' , job);
+    console.log('job = ', job);
     this.sendAuditEmitter.emit(job);
   }
   deleteJob(job: Job) {
-    this.jobs = this.jobs.filter(o => o!== job);
-        this.jobService.deleteJob(job).subscribe(job => {
-            console.log('jobs deleted = ', job);
-        });
+    this.jobs = this.jobs.filter(o => o !== job);
+    this.jobService.deleteJob(job).subscribe(job => {
+      console.log('jobs deleted = ', job);
+    });
   }
 }

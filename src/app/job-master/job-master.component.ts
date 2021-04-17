@@ -141,25 +141,36 @@ export class JobMasterComponent implements OnInit {
       this.selectedTabIndex = this.items.length - 1;
   }
 
-  public tabNameChangeEmit(data: any): void {
-    // console.log('data =' , data);
+  public tabNameChangeEmit(job: Job): void {
     let index: number = this.items.findIndex(x => x.header === "New Job");
-    this.items[index]['header'] = data;
+    this.items[index]['header'] = job.clientName;
+    this.job = job; // pass this to resource view html so that it shows the newly added resource
   }
   public receiveJob(job: Job) {
     this.items.push({
       'header': job.jobName
     });
+     this.job = job;
     this.selectedTabIndex = this.items.length - 1;
-    console.log('job sent from List view tab = ', job)
-    this.job = job;
+    this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
+    this.tabView.tabs[this.selectedTabIndex]._selected = true;
   }
   public receiveAudit(job: Job) {
     this.items.push({
       'header': job.jobName + ' - New Audit'
     });
     this.selectedTabIndex = this.items.length - 1;
-    console.log('job sent from List view tab = ', job)
     this.job = job;
+    this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
+    this.tabView.tabs[this.selectedTabIndex]._selected = true;
+  }
+  handleChange(e) {
+    this.resetTabIndexAndSelectActiveTab(e.index);
+  }
+  resetTabIndexAndSelectActiveTab(index:any ) {
+    this.tabView.tabs.forEach(tab => {
+      tab._selected = false;
+    });
+    this.tabView.tabs[index]._selected = true;
   }
 }
