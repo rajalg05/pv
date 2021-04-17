@@ -56,7 +56,7 @@ export class AssociateFormComponent implements OnInit {
         phone: new FormControl(null),
         firstKycId: new FormControl(null),
         secondKycId: new FormControl(null),
-        user_gender: new FormControl('Male')
+        gender: new FormControl('Male')
       });
     } else {
       this.associateForm = new FormGroup({
@@ -72,7 +72,7 @@ export class AssociateFormComponent implements OnInit {
         phone: new FormControl(null),
         firstKycId: new FormControl(this.associate.kyc.firstKycId),
         secondKycId: new FormControl(this.associate.kyc.secondKycId),
-        user_gender: new FormControl('Male')
+        gender: new FormControl('Male')
       }); 
     }
   }
