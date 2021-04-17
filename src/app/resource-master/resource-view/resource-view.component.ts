@@ -60,4 +60,11 @@ export class ResourceViewComponent implements OnInit, OnChanges {
         this.openExistingResourceTabEmitter.emit(resource);
     }
 
+    deleteResource(resource: Resource) {
+        this.resources = this.resources.filter(o => o!== resource);
+        this.resourceService.deleteResource(resource).subscribe(data => {
+            console.log('data = ', data);
+        });
+    }
+
 }

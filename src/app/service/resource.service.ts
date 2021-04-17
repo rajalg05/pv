@@ -24,6 +24,16 @@ export class ResourceService {
       );
   }
 
+  deleteResource(resource: Resource): Observable<string> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<string>(this.BASE_URL + '/deleteResource', resource, {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('saveResource'))
+      );
+  }
+
   getResources(): Observable<Resource[]> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');

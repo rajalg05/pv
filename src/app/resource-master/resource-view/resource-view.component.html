@@ -17,10 +17,11 @@
             <div class="p-col-12">
                 <div class="product-list-item">
                     <div class="product-list-detail">
-                        <div class="product-name" style="cursor: pointer;" (click)="openTab(resource)">
+                        <div class="product-name" style="cursor: pointer;" >
                             <span>{{resource.basicContactDetail.firstName}}</span>
                             <span> {{resource.basicContactDetail.lastName}} </span>
-                            <i class="fa fa-edit" ></i>
+                            <i class="fa fa-edit" (click)="openTab(resource)"></i>
+                            <i class="fa fa-trash" (click)="deleteResource(resource)"></i>
                         </div>
                         <div>
                             <span class="product-description">{{resource.resourceType}}</span>
