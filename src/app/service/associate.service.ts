@@ -22,6 +22,16 @@ export class AssociateService {
       );
   }
 
+  deleteAssociate(associate: Associate): Observable<string> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<string>(this.BASE_URL + '/deleteAssociate', associate, {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('saveResource'))
+      );
+  }
+
   findAllAssociates(): Observable<Associate[]> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');

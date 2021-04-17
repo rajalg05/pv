@@ -33,6 +33,16 @@ export class JobService {
       );
   }
 
+  deleteJob(job: Job): Observable<string> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<string>(this.BASE_URL + '/deleteJob', job, {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('saveJob'))
+      );
+  }
+
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

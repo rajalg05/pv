@@ -20,6 +20,7 @@
                         <ng-template pTemplate="header">
                             {{job.jobName}} - {{job.clientName}}
                               <button pButton (click)="addAuditTab(job)" label="+ Audit" type="button" class="p-button-outlined p-button-rounded"></button>
+                              <i class="fa fa-trash" (click)="deleteJob(job)"></i>
                         </ng-template>
                         <ng-template pTemplate="content">
                             <div class="product-list-action">

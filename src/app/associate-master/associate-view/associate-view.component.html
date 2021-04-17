@@ -17,10 +17,11 @@
             <div class="p-col-12">
                 <div class="product-list-item">
                     <div class="product-list-detail">
-                        <div class="product-name" style="cursor: pointer;" (click)="openAssociateTab(associate)">
+                        <div class="product-name" style="cursor: pointer;" >
                             <span>{{associate.basicContactDetail.firstName}}</span>
                             <span> {{associate.basicContactDetail.lastName}} </span>
-                            <i class="fa fa-edit" ></i>
+                            <i class="fa fa-edit" (click)="openAssociateTab(associate)"></i>
+                            <i class="fa fa-trash" (click)="deleteAssociate(associate)"></i>
                         </div> 
                         <!-- <p-rating [ngModel]="product.rating" ngDefaultControl [readonly]="true" [cancel]="false"></p-rating> -->
                         <i class="fa fa-phone"></i><span

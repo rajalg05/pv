@@ -61,4 +61,10 @@ export class JobViewComponent implements OnInit {
     console.log('job = ' , job);
     this.sendAuditEmitter.emit(job);
   }
+  deleteJob(job: Job) {
+    this.jobs = this.jobs.filter(o => o!== job);
+        this.jobService.deleteJob(job).subscribe(job => {
+            console.log('jobs deleted = ', job);
+        });
+  }
 }
