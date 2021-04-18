@@ -58,6 +58,7 @@ import { ChartModule } from 'primeng/chart';
 import 'chart.js/dist/Chart.min.js';
 import {FullCalendarModule} from 'primeng/fullcalendar';
 import { ResourceDialogComponent } from './resource-master/resource-form/resource-dialog/resource-dialog.component';
+import { AssociateDialogComponent } from './associate-master/associate-form/associate-dialog/associate-dialog.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { ResourceDialogComponent } from './resource-master/resource-form/resourc
     JobFormComponent,
     JobViewComponent,
     DashboardComponent,
-    ResourceDialogComponent
+    ResourceDialogComponent,
+    AssociateDialogComponent
   ],
   imports: [
     BrowserModule,

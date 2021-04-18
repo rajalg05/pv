@@ -12,7 +12,7 @@ export class AssociateViewComponent implements OnInit {
 
     associates: Associate[];
 
-    @Input() associate: Associate; // sent from resource-form on submit to resource-master which in turn sent via Input so update resource[] 
+    @Input() associate: Associate; // sent from Associate-form on submit to Associate-master which in turn sent via Input so update associate[] 
     
     sortOptions: SelectItem[];
 
@@ -27,7 +27,7 @@ export class AssociateViewComponent implements OnInit {
         private associateService: AssociateService) { }
         ngOnChanges(changes: SimpleChanges): void {
             if (this.associate)
-              this.associates = [...this.associates, this.associate]; // update the Resource list tab when a new Resource is added in Resource form
+              this.associates = [...this.associates, this.associate]; // update the Associate list tab when a new Associate is added in Associate form
           }
     ngOnInit() {
         this.associateService.findAllAssociates().subscribe(data => {

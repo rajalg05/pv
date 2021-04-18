@@ -1,17 +1,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { Address } from 'src/app/model/address';
 import { Associate } from 'src/app/model/associateMaster';
 import { BasicContactDetail } from 'src/app/model/BasicContactDetail';
 import { KYC } from 'src/app/model/kyc';
 import { Resource } from 'src/app/model/resource';
 import { AssociateService } from 'src/app/service/associate.service'; 
+import { AssociateDialogComponent } from './associate-dialog/associate-dialog.component';
 
 @Component({
   selector: 'app-associate-form',
   templateUrl: './associate-form.component.html',
-  styleUrls: ['./associate-form.component.css']
+  styleUrls: ['./associate-form.component.css'],
+  providers: [DialogService]
 })
 export class AssociateFormComponent implements OnInit {
   
@@ -30,7 +33,8 @@ export class AssociateFormComponent implements OnInit {
   tlNonTls: SelectItem[];
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() associate: Associate;
-  constructor(private associateService: AssociateService) {
+  constructor(private associateService: AssociateService,
+    public dialogService: DialogService) {
     this.cities = [
       { label: 'Pune', value: 'pun' },
       { label: 'Mumbai', value: 'mum' },
@@ -77,7 +81,9 @@ export class AssociateFormComponent implements OnInit {
     }
   }
   onSubmit() {
-    this.tabNameChangeEmit.emit(this.associateForm.get('firstName').value);
+    //this.tabNameChangeEmit.emit(this.associateForm.get('firstName').value);
+    let associate: Associate = this.populateFormValues();
+    this.tabNameChangeEmit.emit(associate);
 
     this.associateService.saveAssociate(this.populateFormValues()).subscribe(data => {
       console.log('resource data = ', data);
@@ -127,7 +133,12 @@ export class AssociateFormComponent implements OnInit {
   }
   displayReviewDialog: boolean = false;
   reviewDialog() {
-    this.displayReviewDialog = true;
+    const ref = this.dialogService.open(AssociateDialogComponent, {
+      header: 'Form Summary',
+      width: '50%',
+      data: this.associate
+  });
+    //this.displayReviewDialog = true;
   }
 
 }

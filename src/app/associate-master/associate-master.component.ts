@@ -142,10 +142,11 @@ export class AssociateComponent implements OnInit {
       this.selectedTabIndex = this.items.length - 1;
   }
 
-  public tabNameChangeEmit(data: any): void {
+  public tabNameChangeEmit(associate: Associate): void {
     let index: number = this.items.findIndex(x => x.header === "New Associate");
-    this.items[index]['header'] = data;
-    this.associate = this.associate; // pass this to resource view html so that it shows the newly added resource
+    if(index == -1)
+      this.items[index]['header'] = associate.basicContactDetail.firstName;;
+    this.associate = associate; // pass this to resource view html so that it shows the newly added resource
   }
   public openExistingAssociateTab(associate: Associate) {
     this.items.push({
