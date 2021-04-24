@@ -9,6 +9,7 @@ import { TabPanel, TabView, TabViewModule } from 'primeng/tabview';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResourceService } from '../service/resource.service';
 import { Resource } from '../model/resource';
+import { Audit } from '../model/audit';
 
 @Component({
   selector: 'app-job-master',
@@ -130,7 +131,6 @@ export class JobMasterComponent implements OnInit {
       this.items.splice(e.index, 1);
     }
   }
-
   addTab() {
     this.job = null; // If other existing job tabs are clicked before this, then job will have data, so 
     // on click of new tab , the filled tab will be opened, to avoid that we need to null
@@ -142,11 +142,16 @@ export class JobMasterComponent implements OnInit {
       }); 
       this.selectedTabIndex = this.items.length - 1;
   }
-
   public tabNameChangeEmit(job: Job): void {
-    let index: number = this.items.findIndex(x => x.header === "New Job");
-    this.items[index]['header'] = job.clientName;
-    this.job = job; // pass this to resource view html so that it shows the newly added resource
+    let indexOfJobTab: number = this.items.findIndex(x => x.header === 'New Job');
+    if(indexOfJobTab != -1)
+      this.items[indexOfJobTab]['header'] = job.jobName;
+
+    let indexOfAuditTab: number = this.items.findIndex(x => x.header.includes('New Audit'));  
+    if(indexOfAuditTab != -1)
+      this.items[indexOfAuditTab]['header'] = job.jobName + ' - '+ job.audit[job.audit.length - 1].auditName;
+
+      this.job = job; // pass this to job view html so that it shows the newly added job
   }
   public receiveJob(job: Job) {
     this.items.push({
@@ -164,7 +169,8 @@ export class JobMasterComponent implements OnInit {
     this.selectedTabIndex = this.items.length - 1;
     this.job = job;
     this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
-    this.tabView.tabs[this.selectedTabIndex]._selected = true;
+    if(this.tabView.tabs[this.selectedTabIndex] != undefined)
+      this.tabView.tabs[this.selectedTabIndex]._selected = true;
   }
   handleChange(e) {
     this.resetTabIndexAndSelectActiveTab(e.index);
@@ -173,6 +179,7 @@ export class JobMasterComponent implements OnInit {
     this.tabView.tabs.forEach(tab => {
       tab._selected = false;
     });
-    this.tabView.tabs[index]._selected = true;
+    if(this.tabView.tabs[index] != undefined)
+      this.tabView.tabs[index]._selected = true;
   }
 }

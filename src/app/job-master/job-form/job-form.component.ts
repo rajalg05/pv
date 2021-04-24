@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Address } from 'src/app/model/address';
 import { Associate } from 'src/app/model/associateMaster';
+import { Audit } from 'src/app/model/audit';
 import { BasicContactDetail } from 'src/app/model/BasicContactDetail';
 import { Job } from 'src/app/model/job';
 import { KYC } from 'src/app/model/kyc';
@@ -28,7 +29,16 @@ export class JobFormComponent implements OnInit {
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
   constructor(private jobService: JobService,
-    private resourceService: ResourceService) {}
+    private resourceService: ResourceService) {
+      this.cities = [
+        { label: 'Pune', value: 'pun' },
+        { label: 'Mumbai', value: 'mum' },
+        { label: 'Nagpur', value: 'nag' },
+        { label: 'New Delhi', value: 'delhi' },
+        { label: 'Kolkata', value: 'klk' },
+        { label: 'Chennai', value: 'chn' }
+      ];
+    }
 
   ngOnInit(): void {
     this.resourceService.getResources().subscribe(resources => {
@@ -44,6 +54,15 @@ export class JobFormComponent implements OnInit {
         paymentType: new FormControl(null),
         totalPayment: new FormControl(null),
         resourcesNeeded: new FormControl(null),
+        dateOfAudit: new FormControl(new Date()),
+        paymentReceived: new FormControl(null),
+        auditName: new FormControl(null),
+        addressLine1: new FormControl(null),
+        streetAddress2: new FormControl(null),
+        city: new FormControl(null),
+        state: new FormControl(null),
+        postalCode: new FormControl(null),
+        country: new FormControl('India')
       });
     } else {
       this.jobForm = new FormGroup({
@@ -54,14 +73,29 @@ export class JobFormComponent implements OnInit {
         paymentType: new FormControl(this.job.paymentType),
         totalPayment: new FormControl(this.job.totalPayment),
         resourcesNeeded: new FormControl(this.job.resourcesNeeded),
+        dateOfAudit: new FormControl(new Date()),
+        paymentReceived: new FormControl(null),
+        auditName: new FormControl(null),
+        addressLine1: new FormControl(null),
+        streetAddress2: new FormControl(null),
+        city: new FormControl(null),
+        state: new FormControl(null),
+        postalCode: new FormControl(null),
+        /* addressLine1: new FormControl(this.job.address.addressLine1),
+        streetAddress2: new FormControl(this.job.address.streetAddress2),
+        city: new FormControl(this.job.address.city),
+        state: new FormControl(this.job.address.state),
+        postalCode: new FormControl(this.job.address.postalCode), */
+        country: new FormControl('India'),
       });
     }
   }
   onSubmit() {
-    this.tabNameChangeEmit.emit(this.jobForm.get('jobName').value);
-    let job: Job = new Job();
+    let job: Job = this.populateFormValues();
+    this.tabNameChangeEmit.emit(job);
+    
 
-    this.jobService.saveJob(this.populateFormValues()).subscribe(data => {
+    this.jobService.saveJob(job).subscribe(data => {
       console.log('resource data = ', data);
     });
   }
@@ -77,6 +111,12 @@ export class JobFormComponent implements OnInit {
 
     job.associate = this.populateAssociate();
 
+    if(this.job !== null) {
+      let audit: Audit = this.populateAudit();
+      job.audit = [];
+      job.audit.push(audit);
+    }
+    
     return job;
   }
   populateAssociate() {
@@ -112,6 +152,32 @@ export class JobFormComponent implements OnInit {
     associate.kyc = kyc;
 
     return associate;
+  }
+
+  populateAudit() {
+    let audit: Audit = new Audit();
+    let address = new Address();
+
+    audit.jobId = this.job.id;
+
+    address.addressLine1 = 'G302, Mystique moods';
+    //address.streetAddress1 = this.associateForm.get('streetAddress1').value;
+    address.streetAddress2 = 'Viman Nagar';
+    address.city = 'Pune';
+    address.state = 'Maharashtra';
+    address.postalCode = '411014';
+    address.country = 'India';
+
+    audit.address = address;
+
+    //audit.auditLocationAddressId = null;
+    audit.auditStatus = 'Audit created';
+    audit.dateOfAudit = this.jobForm.get('dateOfAudit').value;
+    audit.paymentReceived = this.jobForm.get('paymentReceived').value; 
+    audit.auditName = this.jobForm.get('auditName').value; 
+    audit.statusUpdatedBy = 'LG';
+
+    return audit;
   }
   numericOnly(event) {
     let patt = /^([0-9])$/;

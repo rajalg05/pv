@@ -1,8 +1,15 @@
+
 import { Associate } from "./associateMaster";
+import { Audit } from "./audit";
 
 export class Job {
+
+	public id: number;
+
   	public associate: Associate;
 
+	public audit: Audit[];
+	  
 	public jobName: string;
 	
 	public clientName: number;
@@ -18,4 +25,6 @@ export class Job {
 	public createdTs: Date;
 
 	public updatedTs: Date;
+
+	public auditOrJob: string; // This is to identify if a job or audit tab is opened
   }
