@@ -40,6 +40,7 @@
     "intl-tel-input": "^17.0.12",
     "ng2-tel-input": "^2.3.0",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-spinner": "^11.0.1",
     "nodemailer": "^6.5.0",
     "primeicons": "^4.1.0",
     "primeng": "^11.3.2",

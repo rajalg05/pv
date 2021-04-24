@@ -10,6 +10,7 @@ import { KYC } from 'src/app/model/kyc';
 import { Resource } from 'src/app/model/resource';
 import { JobService } from 'src/app/service/job.service';
 import { ResourceService } from 'src/app/service/resource.service';
+import { NgxSpinnerService } from "ngx-spinner"; 
 
 @Component({
   selector: 'app-job-form',
@@ -29,7 +30,8 @@ export class JobFormComponent implements OnInit {
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
   constructor(private jobService: JobService,
-    private resourceService: ResourceService) {
+    private resourceService: ResourceService,  
+    private SpinnerService: NgxSpinnerService) {
       this.cities = [
         { label: 'Pune', value: 'pun' },
         { label: 'Mumbai', value: 'mum' },
@@ -91,11 +93,13 @@ export class JobFormComponent implements OnInit {
     }
   }
   onSubmit() {
+    this.SpinnerService.show();
     let job: Job = this.populateFormValues();
 
     this.jobService.saveJob(job).subscribe(data => {
       console.log('saveJob data = ', data);
       this.tabNameChangeEmit.emit(job);
+      this.SpinnerService.hide();  
     });
   }
   populateFormValues() {

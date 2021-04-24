@@ -59,6 +59,7 @@ import 'chart.js/dist/Chart.min.js';
 import {FullCalendarModule} from 'primeng/fullcalendar';
 import { ResourceDialogComponent } from './resource-master/resource-form/resource-dialog/resource-dialog.component';
 import { AssociateDialogComponent } from './associate-master/associate-form/associate-dialog/associate-dialog.component';
+import { NgxSpinnerModule } from "ngx-spinner"; 
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { AssociateDialogComponent } from './associate-master/associate-form/asso
     CarouselModule,
     FullCalendarModule,
     DynamicDialogModule,
+    NgxSpinnerModule,  
     // Phone module
     Ng2TelInputModule
   ],
