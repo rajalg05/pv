@@ -11,8 +11,6 @@ export class JobService {
   constructor(private http: HttpClient) { }
   BASE_URL: string = 'http://localhost:8080/audit';
   
-  
-  
   saveJob(job: Job): Observable<string> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');

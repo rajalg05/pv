@@ -92,11 +92,10 @@ export class JobFormComponent implements OnInit {
   }
   onSubmit() {
     let job: Job = this.populateFormValues();
-    this.tabNameChangeEmit.emit(job);
-    
 
     this.jobService.saveJob(job).subscribe(data => {
-      console.log('resource data = ', data);
+      console.log('saveJob data = ', data);
+      this.tabNameChangeEmit.emit(job);
     });
   }
   populateFormValues() {
