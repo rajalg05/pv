@@ -113,8 +113,9 @@ export class JobFormComponent implements OnInit {
 
     if(this.job !== null) {
       let audit: Audit = this.populateAudit();
-      job.audit = [];
-      job.audit.push(audit);
+      job.audits = [];
+      job.audits.push(audit);
+      job.auditOrJob = 'Audit'; // to display Audit fields in job form. Pls remember there is not separate Audit form, rather its embedded inside job form
     }
     
     return job;
@@ -174,7 +175,13 @@ export class JobFormComponent implements OnInit {
     audit.auditStatus = 'Audit created';
     audit.dateOfAudit = this.jobForm.get('dateOfAudit').value;
     audit.paymentReceived = this.jobForm.get('paymentReceived').value; 
-    audit.auditName = this.jobForm.get('auditName').value; 
+    let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
+    if(auditNameIndex == -1) { // TO DO add unique audit under job 
+      audit.auditName = this.jobForm.get('auditName').value; 
+    } else {
+
+    }
+    
     audit.statusUpdatedBy = 'LG';
 
     return audit;

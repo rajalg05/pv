@@ -149,7 +149,7 @@ export class JobMasterComponent implements OnInit {
 
     let indexOfAuditTab: number = this.items.findIndex(x => x.header.includes('New Audit'));  
     if(indexOfAuditTab != -1)
-      this.items[indexOfAuditTab]['header'] = job.jobName + ' - '+ job.audit[job.audit.length - 1].auditName;
+      this.items[indexOfAuditTab]['header'] = job.jobName + ' - '+ job.audits[job.audits.length - 1].auditName;
 
       this.job = job; // pass this to job view html so that it shows the newly added job
   }

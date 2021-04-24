@@ -8,7 +8,7 @@ export class Job {
 
   	public associate: Associate;
 
-	public audit: Audit[];
+	public audits: Audit[];
 	  
 	public jobName: string;
 	

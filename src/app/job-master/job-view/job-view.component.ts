@@ -30,8 +30,9 @@ export class JobViewComponent implements OnInit, OnChanges {
     private jobService: JobService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.job)
-      this.jobs = [...this.jobs, this.job]; // update the Resource list tab when a new Resource is added in Resource form
+    // console.log('changes = ', changes);
+    // if (this.job)
+    //   this.jobs = [...this.jobs, this.job]; // update the Resource list tab when a new Resource is added in Resource form
   }
   ngOnInit() {
     this.jobService.findAllJobs().subscribe(data => {
