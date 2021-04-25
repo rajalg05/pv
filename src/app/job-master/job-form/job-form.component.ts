@@ -92,10 +92,12 @@ export class JobFormComponent implements OnInit {
       });
     }
   }
+  auditNameDuplicate: boolean = false;
   handleInput(e: any) {
     let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
     if(auditNameIndex != -1) { // TO DO add unique audit under job 
         this.jobForm.controls['auditName'].setErrors({'incorrect': true});
+        this.auditNameDuplicate = true;
     }
   }
   onSubmit() {

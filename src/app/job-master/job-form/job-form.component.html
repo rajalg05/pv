@@ -139,9 +139,8 @@
                               && !jobForm.get('auditName').pristine">
                               Audit Name is Required
                         </p>
-                        <p class="lblError" *ngIf="jobForm.get('auditName').hasError('required')
-                              && !jobForm.get('auditName').pristine">
-                              Audit Name is Duplicate!!
+                        <p class="lblError" *ngIf="auditNameDuplicate">
+                              Audit Name Entered for the job {{job.jobName}} is Duplicate!!
                         </p>
                     </div>
                 </div>
@@ -182,7 +181,7 @@
                     </div>
                 </div>
                 <div class="col-1">
-                    <label for="username">Address Line2: <span class="lblError">*</span></label>
+                    <label for="username">Address Line2: </label>
                 </div>
                 <div class="col-5">
                     <input type="text" id="streetAddress2" placeholder="Address Line2" class="form-control"
