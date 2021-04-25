@@ -11,11 +11,14 @@ import { Resource } from 'src/app/model/resource';
 import { JobService } from 'src/app/service/job.service';
 import { ResourceService } from 'src/app/service/resource.service';
 import { NgxSpinnerService } from "ngx-spinner"; 
+import { DialogService } from 'primeng/dynamicdialog';
+import { JobDialogComponent } from './job-dialog/job-dialog.component';
 
 @Component({
   selector: 'app-job-form',
   templateUrl: './job-form.component.html',
-  styleUrls: ['./job-form.component.css']
+  styleUrls: ['./job-form.component.css'],
+  providers: [DialogService]
 })
 export class JobFormComponent implements OnInit {
   jobForm: FormGroup;  //declaring our form variable
@@ -30,7 +33,8 @@ export class JobFormComponent implements OnInit {
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
   constructor(private jobService: JobService,
-    private resourceService: ResourceService,  
+    private resourceService: ResourceService,
+    public dialogService: DialogService,  
     private SpinnerService: NgxSpinnerService) {
       this.cities = [
         { label: 'Pune', value: 'pun' },
@@ -83,11 +87,6 @@ export class JobFormComponent implements OnInit {
         city: new FormControl(null),
         state: new FormControl(null),
         postalCode: new FormControl(null),
-        /* addressLine1: new FormControl(this.job.address.addressLine1),
-        streetAddress2: new FormControl(this.job.address.streetAddress2),
-        city: new FormControl(this.job.address.city),
-        state: new FormControl(this.job.address.state),
-        postalCode: new FormControl(this.job.address.postalCode), */
         country: new FormControl('India'),
       });
     }
@@ -180,14 +179,14 @@ export class JobFormComponent implements OnInit {
     let audit: Audit = new Audit();
     let address = new Address();
 
-    audit.jobId = this.job.id;
-    
-    address.addressLine1 = 'G302, Mystique moods';
+    audit.jobId = this.job.id; 
+
+    address.addressLine1 = this.jobForm.get('addressLine1').value;
     //address.streetAddress1 = this.associateForm.get('streetAddress1').value;
-    address.streetAddress2 = 'Viman Nagar';
-    address.city = 'Pune';
-    address.state = 'Maharashtra';
-    address.postalCode = '411014';
+    address.streetAddress2 = this.jobForm.get('streetAddress2').value;
+    address.city = this.jobForm.get('city').value;
+    address.state = this.jobForm.get('state').value;
+    address.postalCode = this.jobForm.get('postalCode').value;
     address.country = 'India';
 
     audit.address = address;
@@ -213,8 +212,16 @@ export class JobFormComponent implements OnInit {
   reset(e: any) {
     this.jobForm.reset();
   }
-  displayReviewDialog: boolean = false;
   reviewDialog() {
-    this.displayReviewDialog = true;
+    let audit: Audit = this.populateAudit();
+    const ref = this.dialogService.open(JobDialogComponent, {
+      header: 'Form Summary',
+      width: '50%',
+      // data: this.job
+      data: {
+        "job": this.job,
+        "audit": audit
+      }
+  });
   }
 }

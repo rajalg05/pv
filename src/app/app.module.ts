@@ -59,7 +59,8 @@ import 'chart.js/dist/Chart.min.js';
 import {FullCalendarModule} from 'primeng/fullcalendar';
 import { ResourceDialogComponent } from './resource-master/resource-form/resource-dialog/resource-dialog.component';
 import { AssociateDialogComponent } from './associate-master/associate-form/associate-dialog/associate-dialog.component';
-import { NgxSpinnerModule } from "ngx-spinner"; 
+import { NgxSpinnerModule } from "ngx-spinner";
+import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.component'; 
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     JobViewComponent,
     DashboardComponent,
     ResourceDialogComponent,
-    AssociateDialogComponent
+    AssociateDialogComponent,
+    JobDialogComponent
   ],
   imports: [
     BrowserModule,
