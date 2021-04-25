@@ -133,11 +133,15 @@
                 </div> 
                 <div class="col-5">
                     <div class="controls">
-                        <input type="text" id="auditName" placeholder="Audit Name:" class="form-control"
-                            formControlName="auditName">
+                        <input type="text" id="auditName" placeholder="Audit Name" class="form-control"
+                            formControlName="auditName" (focusout)="handleInput($event.target.value)">
                         <p class="lblError" *ngIf="jobForm.get('auditName').hasError('required')
                               && !jobForm.get('auditName').pristine">
                               Audit Name is Required
+                        </p>
+                        <p class="lblError" *ngIf="jobForm.get('auditName').hasError('required')
+                              && !jobForm.get('auditName').pristine">
+                              Audit Name is Duplicate!!
                         </p>
                     </div>
                 </div>
@@ -151,7 +155,7 @@
                 </div> 
                 <div class="col-5">
                     <div class="controls">
-                        <input type="text" id="paymentReceived" placeholder="Payment Received:" class="form-control"
+                        <input type="text" id="paymentReceived" placeholder="Payment Received" class="form-control"
                             formControlName="paymentReceived">
                         <p class="lblError" *ngIf="jobForm.get('paymentReceived').hasError('required')
                               && !jobForm.get('paymentReceived').pristine">
@@ -250,23 +254,21 @@
         <div class="form-row">
             <div class="col-1">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" [disabled]="jobForm.invalid">
+                    <button class="btn btn-primary" type="submit" [disabled]="!jobForm.valid">
                         Save
                     </button>
                 </div>
             </div>
             <div class="col-1">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="button" [disabled]="jobForm.invalid"
-                    (click)="reviewDialog()">
+                    <button class="btn btn-primary" type="button" (click)="reviewDialog()">
                         Review
                     </button>
                 </div>
             </div>
             <div class="col-1">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" (click)="reset($event)"
-                        [disabled]="jobForm.invalid">
+                    <button class="btn btn-primary" type="button" (click)="reset($event)">
                         Reset
                     </button>
                 </div>

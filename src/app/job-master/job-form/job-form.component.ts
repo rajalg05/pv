@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Address } from 'src/app/model/address';
 import { Associate } from 'src/app/model/associateMaster';
@@ -77,7 +77,7 @@ export class JobFormComponent implements OnInit {
         resourcesNeeded: new FormControl(this.job.resourcesNeeded),
         dateOfAudit: new FormControl(new Date()),
         paymentReceived: new FormControl(null),
-        auditName: new FormControl(null),
+        auditName: new FormControl(null, {validators: [Validators.required], updateOn: 'blur'}),
         addressLine1: new FormControl(null),
         streetAddress2: new FormControl(null),
         city: new FormControl(null),
@@ -92,13 +92,22 @@ export class JobFormComponent implements OnInit {
       });
     }
   }
+  handleInput(e: any) {
+    let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
+    if(auditNameIndex != -1) { // TO DO add unique audit under job 
+        this.jobForm.controls['auditName'].setErrors({'incorrect': true});
+    }
+  }
   onSubmit() {
     this.SpinnerService.show();
     let job: Job = this.populateFormValues();
+    this.tabNameChangeEmit.emit(job);
 
     this.jobService.saveJob(job).subscribe(data => {
       console.log('saveJob data = ', data);
-      this.tabNameChangeEmit.emit(job);
+      this.SpinnerService.hide();  
+    }, 
+    error => {
       this.SpinnerService.hide();  
     });
   }
@@ -116,8 +125,15 @@ export class JobFormComponent implements OnInit {
 
     if(this.job !== null) {
       let audit: Audit = this.populateAudit();
-      job.audits = [];
-      job.audits.push(audit);
+      //job.audits = []; // Check if the original this.job has audits not null, if yes then take this.job.audits as base. Then the new audit is pushed in that job.audits
+      if(this.job.audits !=  null) {
+        job.audits = this.job.audits;
+        job.audits.push(audit);
+      } else {
+        job.audits = [];  
+        job.audits.push(audit);
+      } 
+        
       job.auditOrJob = 'Audit'; // to display Audit fields in job form. Pls remember there is not separate Audit form, rather its embedded inside job form
     }
     
@@ -163,7 +179,7 @@ export class JobFormComponent implements OnInit {
     let address = new Address();
 
     audit.jobId = this.job.id;
-
+    
     address.addressLine1 = 'G302, Mystique moods';
     //address.streetAddress1 = this.associateForm.get('streetAddress1').value;
     address.streetAddress2 = 'Viman Nagar';
@@ -178,12 +194,7 @@ export class JobFormComponent implements OnInit {
     audit.auditStatus = 'Audit created';
     audit.dateOfAudit = this.jobForm.get('dateOfAudit').value;
     audit.paymentReceived = this.jobForm.get('paymentReceived').value; 
-    let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
-    if(auditNameIndex == -1) { // TO DO add unique audit under job 
-      audit.auditName = this.jobForm.get('auditName').value; 
-    } else {
-
-    }
+    audit.auditName = this.jobForm.get('auditName').value; 
     
     audit.statusUpdatedBy = 'LG';
 
