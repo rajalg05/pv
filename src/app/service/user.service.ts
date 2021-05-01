@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { config } from '../environment';
 import { User } from '../model/user';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
     constructor(private http: HttpClient) { }
-
+    BASE_URL: string = 'http://localhost:8080/audit';
     getAll() {
-        return this.http.get<User[]>(`${config.apiUrl}/users`);
+       // return this.http.get<User[]>(`${config.apiUrl}/users`);
+       const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+       headers.set('Access-Control-Allow-Origin', '*');
+       return this.http.get<User[]>(this.BASE_URL + '/getUsers', {headers: headers})
+         .pipe(
+           //catchError(this.handleError('getUsers'))
+         );
     }
 
     getById(id: number) {
@@ -16,7 +22,15 @@ export class UserService {
     }
 
     register(user: User) {
-        return this.http.post(`${config.apiUrl}/users/register`, user);
+        // return this.http.post(`${config.apiUrl}/users/register`, user);
+        // const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+        // headers.set('Access-Control-Allow-Origin', '*');
+        const headers = new HttpHeaders();
+        return this.http.post<string>(this.BASE_URL + '/saveUser', user, { headers: headers })
+
+            .pipe(
+                //catchError(this.handleError('saveUser'))
+            );
     }
 
     update(user: User) {
@@ -24,6 +38,12 @@ export class UserService {
     }
 
     delete(id: number) {
-        return this.http.delete(`${config.apiUrl}/users/${id}`);
+        const headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
+        headers.set('Access-Control-Allow-Origin', '*');
+        return this.http.post<string>(this.BASE_URL + '/deleteuser', id, {headers: headers})
+        
+          .pipe(
+            //catchError(this.handleError('deleteuser'))
+          );
     }
 }

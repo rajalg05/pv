@@ -1,8 +1,8 @@
 <!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+<nav class="navbar navbar-expand " *ngIf="currentUser">
     <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/">Home</a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+        <app-core></app-core>
+        <a class="nav-item nav-link" (click)="logout()"><i class="fa fa-sign-out" style="font-size:48px;color:red"></i></a>
     </div>
 </nav>
 
@@ -17,6 +17,8 @@
         </div>
     </div>
 </div>
+<!-- <div  *ngIf="currentUser">
+    <app-core></app-core>
+</div> -->
 
-<app-core *ngIf="currentUser"></app-core>
 

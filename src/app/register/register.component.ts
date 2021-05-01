@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AlertService } from '../service/alert.service';
 import { UserService } from '../service/user.service';
 import { AuthenticationService } from '../service/authentication.service';
+import { AESEncryptDecryptService } from '../service/aesencrypt-decrypt-service.service';
 
 @Component({templateUrl: 'register.component.html'})
 export class RegisterComponent implements OnInit {
@@ -24,7 +25,8 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private userService: UserService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private _AESEncryptDecryptService: AESEncryptDecryptService
     ) { 
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) { 
@@ -37,8 +39,10 @@ export class RegisterComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             role: [this.roleOptions['id'], Validators.required],
-            username: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)]]
+            userName: ['', Validators.required],
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            status: 'pending',
+            comments: ''
         });
     }
 
@@ -54,11 +58,22 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
+        this.registerForm.patchValue(
+            {
+                "password":  this._AESEncryptDecryptService.encrypt(this.registerForm.get("password").value)
+            });
+        console.log('password =', this.registerForm.get("password").value);
         this.userService.register(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', true);
+                    console.log('data = ', data);
+                    if(data == 'user exists') {
+                        this.alertService.error('Username ' + this.registerForm.get("userName")?.value + ' exists', true);
+                    } else {
+                        this.alertService.success('Registration successful', true);
+                    }
+                    
                     this.router.navigate(['/login']);
                 },
                 error => {
