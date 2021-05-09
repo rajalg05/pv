@@ -13,6 +13,7 @@ import { ResourceService } from 'src/app/service/resource.service';
 import { NgxSpinnerService } from "ngx-spinner"; 
 import { DialogService } from 'primeng/dynamicdialog';
 import { JobDialogComponent } from './job-dialog/job-dialog.component';
+import { AuditService } from 'src/app/service/audit.service';
 
 @Component({
   selector: 'app-job-form',
@@ -33,6 +34,7 @@ export class JobFormComponent implements OnInit {
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
   constructor(private jobService: JobService,
+    private auditService: AuditService,
     private resourceService: ResourceService,
     public dialogService: DialogService,  
     private SpinnerService: NgxSpinnerService) {
@@ -103,17 +105,17 @@ export class JobFormComponent implements OnInit {
     this.SpinnerService.show();
     let job: Job = this.populateFormValues();
     this.tabNameChangeEmit.emit(job);
-
     this.jobService.saveJob(job).subscribe(data => {
       console.log('saveJob data = ', data);
-      this.SpinnerService.hide();  
-    }, 
-    error => {
       this.SpinnerService.hide();  
     });
   }
   populateFormValues() {
-    let job: Job = new Job();
+    let job: Job;
+    if(this.job != null)
+      job = Object.assign({}, this.job); 
+    else
+      job = new Job();  
 
     job.jobName = this.jobForm.get('jobName').value;
     job.clientName = this.jobForm.get('clientName').value;
@@ -123,23 +125,27 @@ export class JobFormComponent implements OnInit {
     job.resourcesNeeded = this.jobForm.get('resourcesNeeded').value;
 
     job.associate = this.populateAssociate();
-
+    let audit: Audit =  null;
     if(this.job !== null) {
-      let audit: Audit = this.populateAudit();
+      audit = this.populateAudit();
+
       //job.audits = []; // Check if the original this.job has audits not null, if yes then take this.job.audits as base. Then the new audit is pushed in that job.audits
       if(this.job.audits !=  null) {
         job.audits = this.job.audits;
-        job.audits.push(audit);
       } else {
         job.audits = [];  
-        job.audits.push(audit);
       } 
-        
+      job.audits.push(audit);
       job.auditOrJob = 'Audit'; // to display Audit fields in job form. Pls remember there is not separate Audit form, rather its embedded inside job form
     }
-    
+    if(audit != null) {
+      this.auditService.saveAudit(audit).subscribe(
+        data => console.log('success', data) 
+      );
+    }
+     
     return job;
-  }
+  } 
   populateAssociate() {
     // TO DO - get the associate data from login module. 
     let associate: Associate = new Associate();
@@ -180,7 +186,8 @@ export class JobFormComponent implements OnInit {
     let address = new Address();
 
     audit.jobId = this.job.id; 
-
+    //audit.job = this.job;
+    
     address.addressLine1 = this.jobForm.get('addressLine1').value;
     //address.streetAddress1 = this.associateForm.get('streetAddress1').value;
     address.streetAddress2 = this.jobForm.get('streetAddress2').value;
@@ -198,7 +205,7 @@ export class JobFormComponent implements OnInit {
     audit.auditName = this.jobForm.get('auditName').value; 
     
     audit.statusUpdatedBy = 'LG';
-
+    this.SpinnerService.hide();  
     return audit;
   }
   numericOnly(event) {

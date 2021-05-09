@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { config } from '../environment';
 import { User } from '../model/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AESEncryptDecryptService } from './aesencrypt-decrypt-service.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-
-    constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {
+    BASE_URL: string = 'http://localhost:8080/audit';
+    constructor(private http: HttpClient, public jwtHelper: JwtHelperService,
+        private _AESEncryptDecryptService: AESEncryptDecryptService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -20,8 +22,21 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    public login(username: string, password: string) {
-        return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })
+    public login(userName: string, password: string) {
+        let user: User = new User();
+        user.userName = userName;
+        user.password = this._AESEncryptDecryptService.encrypt(password);
+        console.log('user.password = ', user.password);
+        const headers = new HttpHeaders();
+        return this.http.post<User>(this.BASE_URL + '/login', user, { headers: headers })
+
+            .pipe(map(user => { // TO DO - the username & password need to be fixed    
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+            })
+                //catchError(this.handleError('saveUser'))
+            );
+        /* return this.http.post<any>(`${config.apiUrl}/users/authenticate`, { username, password })
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -30,7 +45,7 @@ export class AuthenticationService {
                     this.currentUserSubject.next(user);
                 }
                 return user;
-            }));
+            })); */
     }
 
     logout() {

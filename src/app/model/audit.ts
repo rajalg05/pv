@@ -5,6 +5,8 @@ export class Audit {
 
 	public jobId: number;
 
+	//public job: Job;
+	
 	public address: Address;
 	
 	public auditStatus: string;

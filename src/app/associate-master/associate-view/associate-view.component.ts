@@ -26,7 +26,7 @@ export class AssociateViewComponent implements OnInit {
         private primengConfig: PrimeNGConfig,
         private associateService: AssociateService) { }
         ngOnChanges(changes: SimpleChanges): void {
-            if (this.associate)
+            if (this.associate && this.associates)
               this.associates = [...this.associates, this.associate]; // update the Associate list tab when a new Associate is added in Associate form
           }
     ngOnInit() {

@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
+import { Audit } from '../model/audit';
 import { Job } from '../model/job';
 
 @Injectable({
@@ -14,11 +15,7 @@ export class JobService {
   saveJob(job: Job): Observable<string> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<string>(this.BASE_URL + '/saveJob', job, {headers: headers})
-    
-      .pipe(
-        //catchError(this.handleError('saveJob'))
-      );
+    return this.http.post<string>(this.BASE_URL + '/saveJob', job, {headers: headers});
   }
 
   findAllJobs(): Observable<Job[]> {

@@ -25,7 +25,7 @@ export class ResourceViewComponent implements OnInit, OnChanges {
     constructor(private primengConfig: PrimeNGConfig,
         private resourceService: ResourceService) { }
     ngOnChanges(changes: SimpleChanges): void {
-        if(this.resource) 
+        if(this.resource && this.resources) 
         this.resources = [...this.resources, this.resource]; // update the Resource list tab when a new Resource is added in Resource form
     }
 
