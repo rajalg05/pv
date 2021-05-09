@@ -30,6 +30,12 @@
                                 <div>
                                     <span class="product-price">Total Payment : {{job.totalPayment}}</span>
                                 </div>
+                                <div>
+                                    Audit Name : 
+                                    <span *ngFor="let i of job.audits">
+                                        <a  href="#"  >{{i.auditName}}  ,  </a>
+                                    </span>
+                                </div>
                             </div>
                         </ng-template>
                     </p-accordionTab> 
