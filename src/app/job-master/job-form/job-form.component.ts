@@ -10,7 +10,7 @@ import { KYC } from 'src/app/model/kyc';
 import { Resource } from 'src/app/model/resource';
 import { JobService } from 'src/app/service/job.service';
 import { ResourceService } from 'src/app/service/resource.service';
-import { NgxSpinnerService } from "ngx-spinner"; 
+import { NgxSpinnerService } from "ngx-spinner";
 import { DialogService } from 'primeng/dynamicdialog';
 import { JobDialogComponent } from './job-dialog/job-dialog.component';
 import { AuditService } from 'src/app/service/audit.service';
@@ -36,17 +36,17 @@ export class JobFormComponent implements OnInit {
   constructor(private jobService: JobService,
     private auditService: AuditService,
     private resourceService: ResourceService,
-    public dialogService: DialogService,  
+    public dialogService: DialogService,
     private SpinnerService: NgxSpinnerService) {
-      this.cities = [
-        { label: 'Pune', value: 'pun' },
-        { label: 'Mumbai', value: 'mum' },
-        { label: 'Nagpur', value: 'nag' },
-        { label: 'New Delhi', value: 'delhi' },
-        { label: 'Kolkata', value: 'klk' },
-        { label: 'Chennai', value: 'chn' }
-      ];
-    }
+    this.cities = [
+      { label: 'Pune', value: 'pun' },
+      { label: 'Mumbai', value: 'mum' },
+      { label: 'Nagpur', value: 'nag' },
+      { label: 'New Delhi', value: 'delhi' },
+      { label: 'Kolkata', value: 'klk' },
+      { label: 'Chennai', value: 'chn' }
+    ];
+  }
 
   ngOnInit(): void {
     this.resourceService.getResources().subscribe(resources => {
@@ -83,7 +83,7 @@ export class JobFormComponent implements OnInit {
         resourcesNeeded: new FormControl(this.job.resourcesNeeded),
         dateOfAudit: new FormControl(new Date()),
         paymentReceived: new FormControl(null),
-        auditName: new FormControl(null, {validators: [Validators.required], updateOn: 'blur'}),
+        auditName: new FormControl(null, { validators: [Validators.required], updateOn: 'blur' }),
         addressLine1: new FormControl(null),
         streetAddress2: new FormControl(null),
         city: new FormControl(null),
@@ -94,28 +94,47 @@ export class JobFormComponent implements OnInit {
     }
   }
   auditNameDuplicate: boolean = false;
+  jobNameDuplicate: boolean = false;
   handleInput(e: any) {
-    let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
-    if(auditNameIndex != -1) { // TO DO add unique audit under job 
-        this.jobForm.controls['auditName'].setErrors({'incorrect': true});
+    if (this.job.audits != null) {
+      let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
+      if (auditNameIndex != -1) {
+        this.jobForm.controls['auditName'].setErrors({ 'incorrect': true });
         this.auditNameDuplicate = true;
+      } else {
+        this.auditNameDuplicate = false;
+      }
+    }
+  }
+  handleDuplicateJob(e: any) {
+    if (this.jobService.jobs != null) {
+      let jobNameIndex: number = this.jobService.jobs.findIndex(job => job.jobName == this.jobForm.get('jobName').value);
+      if (jobNameIndex != -1) {
+        this.jobForm.controls['jobName'].setErrors({ 'incorrect': true });
+        this.jobNameDuplicate = true;
+      } else {
+        this.jobNameDuplicate = false;
+      }
     }
   }
   onSubmit() {
     this.SpinnerService.show();
     let job: Job = this.populateFormValues();
     this.tabNameChangeEmit.emit(job);
-    this.jobService.saveJob(job).subscribe(data => {
-      console.log('saveJob data = ', data);
-      this.SpinnerService.hide();  
-    });
+    if (this.job == null) { // only for Add job, save the job, not during save Audit, you should be able to edit job  
+      this.jobService.saveJob(job).subscribe(data => {
+        console.log('saveJob data = ', data);
+        this.SpinnerService.hide();
+      });
+    }
+    
   }
   populateFormValues() {
     let job: Job;
-    if(this.job != null)
-      job = Object.assign({}, this.job); 
+    if (this.job != null)
+      job = Object.assign({}, this.job);
     else
-      job = new Job();  
+      job = new Job();
 
     job.jobName = this.jobForm.get('jobName').value;
     job.clientName = this.jobForm.get('clientName').value;
@@ -125,27 +144,27 @@ export class JobFormComponent implements OnInit {
     job.resourcesNeeded = this.jobForm.get('resourcesNeeded').value;
 
     job.associate = this.populateAssociate();
-    let audit: Audit =  null;
-    if(this.job !== null) {
+    let audit: Audit = null;
+    if (this.job !== null) {
       audit = this.populateAudit();
 
       //job.audits = []; // Check if the original this.job has audits not null, if yes then take this.job.audits as base. Then the new audit is pushed in that job.audits
-      if(this.job.audits !=  null) {
+      if (this.job.audits != null) {
         job.audits = this.job.audits;
       } else {
-        job.audits = [];  
-      } 
+        job.audits = [];
+      }
       job.audits.push(audit);
       job.auditOrJob = 'Audit'; // to display Audit fields in job form. Pls remember there is not separate Audit form, rather its embedded inside job form
     }
-    if(audit != null) {
+    if (audit != null) {
       this.auditService.saveAudit(audit).subscribe(
-        data => console.log('success', data) 
+        data => console.log('success', data)
       );
     }
-     
+
     return job;
-  } 
+  }
   populateAssociate() {
     // TO DO - get the associate data from login module. 
     let associate: Associate = new Associate();
@@ -185,9 +204,9 @@ export class JobFormComponent implements OnInit {
     let audit: Audit = new Audit();
     let address = new Address();
 
-    audit.jobId = this.job.id; 
+    audit.jobId = this.job.id;
     //audit.job = this.job;
-    
+
     address.addressLine1 = this.jobForm.get('addressLine1').value;
     //address.streetAddress1 = this.associateForm.get('streetAddress1').value;
     address.streetAddress2 = this.jobForm.get('streetAddress2').value;
@@ -201,11 +220,11 @@ export class JobFormComponent implements OnInit {
     //audit.auditLocationAddressId = null;
     audit.auditStatus = 'Audit created';
     audit.dateOfAudit = this.jobForm.get('dateOfAudit').value;
-    audit.paymentReceived = this.jobForm.get('paymentReceived').value; 
-    audit.auditName = this.jobForm.get('auditName').value; 
-    
+    audit.paymentReceived = this.jobForm.get('paymentReceived').value;
+    audit.auditName = this.jobForm.get('auditName').value;
+
     audit.statusUpdatedBy = 'LG';
-    this.SpinnerService.hide();  
+    this.SpinnerService.hide();
     return audit;
   }
   numericOnly(event) {
@@ -229,6 +248,6 @@ export class JobFormComponent implements OnInit {
         "job": this.job,
         "audit": audit
       }
-  });
+    });
   }
 }

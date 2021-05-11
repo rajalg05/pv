@@ -9,6 +9,7 @@ import { Job } from '../model/job';
 })
 export class JobService {
 
+  jobs: Job[] = []; // Used to check the duplicate job name enter check 
   constructor(private http: HttpClient) { }
   BASE_URL: string = 'http://localhost:8080/audit';
   

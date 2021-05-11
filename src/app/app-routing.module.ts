@@ -27,7 +27,7 @@ const routes: Routes = [
   
  // { path: '**',               component: PageNotFoundComponent },
  // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 
   // otherwise redirect to home

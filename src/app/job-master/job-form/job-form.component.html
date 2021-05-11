@@ -11,11 +11,14 @@
             <div class="col-5">
                 <div class="controls">
                     <input type="text" id="jobName" placeholder="Job Name" class="form-control"
-                        formControlName="jobName">
+                        formControlName="jobName" (focusout)="handleDuplicateJob($event.target.value)">
                     <p class="lblError" *ngIf="jobForm.get('jobName').hasError('required')
                           && !jobForm.get('jobName').pristine">
                         Job Name is Required
                     </p>
+                    <p class="lblError" *ngIf="jobNameDuplicate">
+                        The job name entered is Duplicate!!
+                  </p>
                 </div>
             </div>
             <div class="col-1">
@@ -140,7 +143,7 @@
                               Audit Name is Required
                         </p>
                         <p class="lblError" *ngIf="auditNameDuplicate">
-                              Audit Name Entered for the job {{job.jobName}} is Duplicate!!
+                              Audit Name Entered for the job <b>{{job.jobName}}</b> is Duplicate!!
                         </p>
                     </div>
                 </div>
