@@ -8,6 +8,8 @@ import { Resource } from 'src/app/model/resource';
 import { ResourceService } from 'src/app/service/resource.service';
 import {DialogService} from 'primeng/dynamicdialog';
 import { ResourceDialogComponent } from './resource-dialog/resource-dialog.component';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+
 @Component({
   selector: 'app-resource-form',
   templateUrl: './resource-form.component.html',
@@ -18,6 +20,10 @@ export class ResourceFormComponent implements OnInit {
   resourceForm: FormGroup;  //declaring our form variable
   // phone 
   separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
   cities: SelectItem[];
   city: SelectItem;
 

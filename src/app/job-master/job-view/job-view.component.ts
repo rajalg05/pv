@@ -71,6 +71,7 @@ export class JobViewComponent implements OnInit, OnChanges {
   }
   openJobTab(job: Job) {
     this.sendJobEmitter.emit(job);
+    job.auditOrJob = 'Job';
   }
   addAuditTab(job: Job) {
     console.log('job = ', job);

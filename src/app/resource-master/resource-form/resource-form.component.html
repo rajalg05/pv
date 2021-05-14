@@ -57,27 +57,23 @@
                 </div>
             </div>
             <div class="col-1">
-
+                <label for="phone">WhatsApp Number * <span class="lblError"></span></label>
             </div>
             <div class="col-5">
-
-            </div>
-            <!-- <div class="col">
-                <div class="form-group">
-                    <label for="phone">WhatsApp Mobile Number * <span class="lblError"></span></label>
-                    <div class="controls">
-                        <input type="number" formControlName="phone" ng2TelInput
-                            [ng2TelInputOptions]="{initialCountry: 'in'}"
-                            [ngClass]="{ 'is-invalid': resourceForm.get('phone').errors }"
-                            (keypress)="numericOnly($event)" />
-                        <div *ngIf="resourceForm.get('phone').errors" class="invalid-feedback">
-                            <div *ngIf="resourceForm.get('phone').errors.required">Phone is required</div>
-                            <div *ngIf="resourceForm.get('phone').errors.minlength">Phone must be at least 10 numbers.
-                            </div>
+                <div class="controls">
+                    <ngx-intl-tel-input  
+                        [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
+                        [enableAutoCountrySelect]="false" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15"
+                        [phoneValidation]="true" name="phone" formControlName="phone"></ngx-intl-tel-input> 
+                    <div *ngIf="resourceForm.get('phone').errors" class="invalid-feedback">
+                        <div *ngIf="resourceForm.get('phone').errors.required">Phone is required</div>
+                        <div *ngIf="resourceForm.get('phone').errors.minlength">Phone must be at least 10 numbers.
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div> 
         </div>
         <div class="form-row">
             <div class="col-1">
@@ -121,11 +117,10 @@
             </div>
         </div>
         <div class="form-row">
-            
+
             <div class="col-1">
                 <div class="form-group">
-                    <label for="adhar">Aadhar (Add Front and back Side) * <span
-                            class="lblError"></span></label>
+                    <label for="adhar">Aadhar (Add Front and back Side) * <span class="lblError"></span></label>
                 </div>
 
             </div>

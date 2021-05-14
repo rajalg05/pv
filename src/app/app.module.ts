@@ -61,6 +61,7 @@ import { ResourceDialogComponent } from './resource-master/resource-form/resourc
 import { AssociateDialogComponent } from './associate-master/associate-form/associate-dialog/associate-dialog.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.component'; 
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -122,7 +123,7 @@ import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.
     DynamicDialogModule,
     NgxSpinnerModule,  
     // Phone module
-    Ng2TelInputModule
+    NgxIntlTelInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
