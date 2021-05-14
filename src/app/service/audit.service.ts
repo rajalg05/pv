@@ -17,4 +17,14 @@ export class AuditService {
     headers.set('Access-Control-Allow-Origin', '*');
     return this.http.post<string>(this.BASE_URL + '/saveAudit', audit, {headers: headers});
   }
+
+  findAllAudits(): Observable<Audit[]> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<Audit[]>(this.BASE_URL + '/findAllAudits', {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('findAllJobs'))
+      );
+  }
 }

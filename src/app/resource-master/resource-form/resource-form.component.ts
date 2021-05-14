@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Address } from 'src/app/model/address';
 import { BasicContactDetail } from 'src/app/model/BasicContactDetail';
 import { KYC } from 'src/app/model/kyc';
@@ -14,7 +14,7 @@ import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-
   selector: 'app-resource-form',
   templateUrl: './resource-form.component.html',
   styleUrls: ['./resource-form.component.css'],
-  providers: [DialogService]
+  providers: [DialogService, MessageService]
 })
 export class ResourceFormComponent implements OnInit {
   resourceForm: FormGroup;  //declaring our form variable
@@ -39,7 +39,8 @@ export class ResourceFormComponent implements OnInit {
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() resource: Resource;
   constructor(private resourceService: ResourceService,
-    public dialogService: DialogService) {
+    public dialogService: DialogService,
+    private messageService: MessageService) {
     this.cities = [
       { label: 'Pune', value: 'pun' },
       { label: 'Mumbai', value: 'mum' },
@@ -133,6 +134,7 @@ export class ResourceFormComponent implements OnInit {
 
     this.resourceService.saveResource(resource).subscribe(data => {
       console.log('resource data = ', data);
+      this.messageService.add({ severity: 'info', summary: 'Resource Saved', detail: '' });
       // update the Resources list
     });
   }
@@ -151,8 +153,11 @@ export class ResourceFormComponent implements OnInit {
 
     basicContactDetail.firstName = this.resourceForm.get('firstName').value;
     basicContactDetail.lastName = this.resourceForm.get('lastName').value;
-    //basicContactDetail.whatsappCountryCode = this.resourceForm.get('whatsappCountryCode').value;
-    basicContactDetail.whatsappMobileNumber = this.resourceForm.get('phone').value;
+    
+    let phoneNumber: number = this.resourceForm.get('phone').value;
+    basicContactDetail.whatsappMobileNumber = phoneNumber['number'];
+    basicContactDetail.whatsappCountryCode = phoneNumber['dialCode'];
+
     basicContactDetail.email = this.resourceForm.get('email').value;
 
     resource.basicContactDetail = basicContactDetail;

@@ -1,4 +1,4 @@
-<p-carousel [value]="resources" [autoplayInterval]="5000" [numVisible]="3" [numScroll]="3" [circular]="true"
+<!-- <p-carousel [value]="resources" [autoplayInterval]="5000" [numVisible]="3" [numScroll]="3" [circular]="true"
 [responsiveOptions]="responsiveOptions">
     <ng-template pTemplate="header">
         <h5>Upcomging Audits</h5>
@@ -6,7 +6,118 @@
     <ng-template let-resource pTemplate="item">
         {{resource.basicContactDetail.firstName}}
     </ng-template>
-</p-carousel>
+</p-carousel> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+
+        </div>
+        <div class="col-6">
+            
+        </div>
+    </div>
+    <p-table #dt [value]="audits" [(selection)]="selectedAudits" dataKey="id" styleClass="p-datatable-audits" [rowHover]="true"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+    <ng-template pTemplate="caption">
+        <div class="table-header">
+            List of Audits
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="auditName">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Name
+                    <p-sortIcon field="auditName"></p-sortIcon>
+                    <p-columnFilter type="text" field="auditName" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="dateOfAudit">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Date
+                    <p-sortIcon field="dateOfAudit"></p-sortIcon>
+                    <p-columnFilter type="date" field="dateOfAudit" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="paymentReceived">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Payment Received
+                    <p-sortIcon field="paymentReceived"></p-sortIcon>
+                    <p-columnFilter type="numeric" field="paymentReceived" display="menu" currency="INR" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="address.city">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    City
+                    <p-sortIcon field="address.city"></p-sortIcon>
+                    <p-columnFilter type="text" field="address.city" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="address.streetAddress2">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Location
+                    <p-sortIcon field="address.streetAddress2"></p-sortIcon>
+                    <p-columnFilter type="text" field="address.streetAddress2" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="auditStatus">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Audit Status
+                    <p-sortIcon field="auditStatus"></p-sortIcon>
+                    <p-columnFilter type="text" field="auditStatus" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th style="width: 8rem">Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-audit>
+        <tr class="p-selectable-row">
+            <td>
+                <p-tableCheckbox [value]="audit"></p-tableCheckbox>
+            </td>
+            <td>
+                {{audit.auditName}}
+            </td> 
+            <td>
+                {{audit.dateOfAudit | date: 'MM/dd/yyyy'}}
+            </td>
+            <td>
+                {{audit.paymentReceived}}
+            </td>
+            <td>
+                {{audit.address.city}}
+            </td>
+            <td>
+                {{audit.address.streetAddress2}}
+            </td>
+            <td>
+                {{audit.auditStatus}}
+            </td>
+            <td>
+                    <i style="padding-left:10px;" class="fa fa-tasks"></i> 
+                    <i style="padding-left:10px;" class="fa fa-edit"></i> 
+                    <i style="padding-left:10px;" class="fa fa-trash"></i> 
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No audits found.</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+
 <br>
 <br>
 <div class="container">

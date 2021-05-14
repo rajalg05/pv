@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="container">
     <form [formGroup]="resourceForm" (ngSubmit)="onSubmit()">
 
@@ -66,7 +67,7 @@
                         [enableAutoCountrySelect]="false" [enablePlaceholder]="false" [searchCountryFlag]="true"
                         [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
                         [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.India" [maxLength]="15"
-                        [phoneValidation]="true" name="phone" formControlName="phone"></ngx-intl-tel-input> 
+                        [phoneValidation]="false" name="phone" formControlName="phone"></ngx-intl-tel-input> 
                     <div *ngIf="resourceForm.get('phone').errors" class="invalid-feedback">
                         <div *ngIf="resourceForm.get('phone').errors.required">Phone is required</div>
                         <div *ngIf="resourceForm.get('phone').errors.minlength">Phone must be at least 10 numbers.
@@ -285,7 +286,7 @@
             </div>
             <div class="col-1">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="button" [disabled]="resourceForm.invalid"
+                    <button class="btn btn-primary" type="button" 
                         (click)="reviewDialog()">
                         Review
                     </button>
@@ -293,8 +294,7 @@
             </div>
             <div class="col-1">
                 <div class="form-group">
-                    <button class="btn btn-primary" type="submit" (click)="reset($event)"
-                        [disabled]="resourceForm.invalid">
+                    <button class="btn btn-primary" type="submit" (click)="reset($event)" >
                         Reset
                     </button>
                 </div>
