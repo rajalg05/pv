@@ -23,10 +23,10 @@
     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
     <ng-template pTemplate="caption">
         <div class="table-header">
-            List of Audits
+            Pending Audits
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="      Global Search" />
             </span>
         </div>
     </ng-template>

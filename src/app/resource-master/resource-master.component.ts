@@ -165,11 +165,12 @@ export class ResourceComponent implements OnInit {
     this.resetTabIndexAndSelectActiveTab(e.index);
   }
 
-  resetTabIndexAndSelectActiveTab(index:any ) {
+  resetTabIndexAndSelectActiveTab(index: any) {
     this.tabView.tabs.forEach(tab => {
       tab._selected = false;
     });
-    this.tabView.tabs[index]._selected = true;
+    if (this.tabView.tabs[index] != undefined)
+      this.tabView.tabs[index]._selected = true;
   }
 }
 

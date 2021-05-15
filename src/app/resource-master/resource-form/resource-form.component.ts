@@ -42,30 +42,30 @@ export class ResourceFormComponent implements OnInit {
     public dialogService: DialogService,
     private messageService: MessageService) {
     this.cities = [
-      { label: 'Pune', value: 'pun' },
-      { label: 'Mumbai', value: 'mum' },
-      { label: 'Nagpur', value: 'nag' },
-      { label: 'New Delhi', value: 'delhi' },
-      { label: 'Kolkata', value: 'klk' },
-      { label: 'Chennai', value: 'chn' }
+      { label: 'Pune', value: 'Pune' },
+      { label: 'Mumbai', value: 'Mumbai' },
+      { label: 'Nagpur', value: 'Nagpur' },
+      { label: 'New Delhi', value: 'New Delhi' },
+      { label: 'Kolkata', value: 'Kolkata' },
+      { label: 'Chennai', value: 'Chennai' }
     ];
 
     this.bikes = [
-      { label: 'Yes', value: 'yes' },
-      { label: 'No', value: 'no' },
-      { label: 'Third Choice', value: 'thirdChoice' }
+      { label: 'Yes', value: 'Yes' },
+      { label: 'No', value: 'No' },
+      { label: 'Third Choice', value: 'Third Choice' }
     ];
 
     this.qualifications = [
-      { label: 'Graduate', value: 'graduate' },
-      { label: 'Post Graduate', value: 'postGraduate' },
-      { label: 'Under Grad', value: 'underGrad' }
+      { label: 'Graduate', value: 'Graduate' },
+      { label: 'Post Graduate', value: 'Post Graduate' },
+      { label: 'Under Grad', value: 'Under Grad' }
     ];
 
     this.excelSkills = [
-      { label: 'Yes', value: 'yes' },
-      { label: 'No', value: 'no' },
-      { label: 'Third Choice', value: 'thirdChoice' }
+      { label: 'Yes', value: 'Yes' },
+      { label: 'No', value: 'No' },
+      { label: 'Third Choice', value: 'Third Choice' }
     ];
 
     this.stockAuditExps = [
@@ -75,8 +75,8 @@ export class ResourceFormComponent implements OnInit {
     ];
 
     this.tlNonTls = [
-      { label: 'TL', value: 'tl' },
-      { label: 'Non TL', value: 'nonTl' }
+      { label: 'TL', value: 'TL' },
+      { label: 'Non TL', value: 'Non TL' }
     ];
   }
 
@@ -145,11 +145,11 @@ export class ResourceFormComponent implements OnInit {
     let kyc = new KYC();
 
     resource.dateOfBirth = this.resourceForm.get('dob').value;
-    resource.excelSkills = this.resourceForm.get('excelSkill').value['value'];
-    resource.qualification = this.resourceForm.get('qualification').value['value'];
-    resource.resourceType = this.resourceForm.get('tlNonTl').value['value'];
-    resource.stockAuditExp = this.resourceForm.get('stockAuditExp').value['value'];
-    resource.bike = this.resourceForm.get('bike').value['value'];
+    resource.excelSkills = this.resourceForm.get('excelSkill').value;
+    resource.qualification = this.resourceForm.get('qualification').value;
+    resource.resourceType = this.resourceForm.get('tlNonTl').value;
+    resource.stockAuditExp = this.resourceForm.get('stockAuditExp').value;
+    resource.bike = this.resourceForm.get('bike').value;
 
     basicContactDetail.firstName = this.resourceForm.get('firstName').value;
     basicContactDetail.lastName = this.resourceForm.get('lastName').value;
@@ -165,7 +165,7 @@ export class ResourceFormComponent implements OnInit {
     address.addressLine1 = this.resourceForm.get('addressLine1').value;
     //address.streetAddress1 = this.resourceForm.get('streetAddress1').value;
     address.streetAddress2 = this.resourceForm.get('streetAddress2').value;
-    address.city = this.resourceForm.get('city').value['value'];
+    address.city = this.resourceForm.get('city').value;
     address.state = this.resourceForm.get('state').value;
     address.postalCode = this.resourceForm.get('postalCode').value;
     address.country = this.resourceForm.get('country').value;

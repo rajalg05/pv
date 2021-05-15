@@ -25,16 +25,21 @@
                         <div>
                             <span class="product-description">{{resource.resourceType}}</span>
                             <span class="product-description">, {{resource.qualification}}</span>
-                            <span class="product-description">, Excel Skills : {{resource.stockauditexp}}</span>
+                            <span class="product-description">, Excel Skills : {{resource.excelSkills}}</span>
+                            <span class="product-description">, Stock Audit Exp : {{resource.stockAuditExp}}</span>
+                            <span class="product-description">, Having Bike : {{resource.bike}}</span>
                         </div>
                         <!-- <p-rating [ngModel]="product.rating" ngDefaultControl [readonly]="true" [cancel]="false"></p-rating> -->
                         <div>
                             <i class="fa fa-phone"></i><span
-                                class="product-description">{{resource.basicContactDetail.whatsappMobileNumber}}</span>
+                                class="product-description"> 
+                                {{resource.basicContactDetail.whatsappCountryCode}}  
+                                {{resource.basicContactDetail.whatsappMobileNumber}}</span>
 
-                            <span class="product-description">{{resource.address.city}}</span>
+                            <span class="product-description">, {{resource.address.city}}, </span>
+                            <span class="product-description"> {{resource.address.state}}, </span>
 
-                            <i class="fa fa-birthday-cake"></i> <span>{{resource.dateOfBirth |
+                            <i class="fa fa-birthday-cake"></i> <span> {{resource.dateOfBirth |
                                 date: 'dd/MM/yyyy'}}</span>
                         </div>
                     </div>

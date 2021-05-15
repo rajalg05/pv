@@ -19,26 +19,34 @@ export class ResourceViewComponent implements OnInit, OnChanges, OnDestroy {
     sortOrder: number;
 
     sortField: string;
-    
+
     private subsriptionResource: any = null;
 
     @Output() openExistingResourceTabEmitter = new EventEmitter();
-    
+
     constructor(private primengConfig: PrimeNGConfig,
         private resourceService: ResourceService) { }
     ngOnChanges(changes: SimpleChanges): void {
-        if(this.resource && this.resources) 
-        this.resources = [...this.resources, this.resource]; // update the Resource list tab when a new Resource is added in Resource form
-    }
+        if (this.resource != undefined && this.resource.basicContactDetail.firstName && this.resources.length == 0) { // if jobs array is empty and job added first time
+            this.resources = [...this.resources, this.resource]; // update the Resource list tab when a new Resource is added in Resource form
+        } else if (this.resource != undefined && this.resource.basicContactDetail.firstName && this.resources.length > 0) {
+            let index: number = this.resources.findIndex(resource => resource.basicContactDetail.firstName == this.resource.basicContactDetail.firstName);
+            if (index == -1)
+                this.resources = [...this.resources, this.resource]; // update the Resource list tab when a new Resource is added in Resource form
+            else {
+                this.resources[index] = this.resource;
+            }
+        }
 
+    }
     ngOnInit() {
-        this.subsriptionResource =  this.resourceService.getResources().subscribe(data => {
+        this.subsriptionResource = this.resourceService.getResources().subscribe(data => {
             console.log('resource = ', data);
             this.resources = data;
         },
-        error => {
-          console.log('error getResources : ', error)
-        })
+            error => {
+                console.log('error getResources : ', error)
+            })
 
         this.sortOptions = [
             { label: 'Price High to Low', value: '!price' },
@@ -66,7 +74,7 @@ export class ResourceViewComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     deleteResource(resource: Resource) {
-        this.resources = this.resources.filter(o => o!== resource);
+        this.resources = this.resources.filter(o => o !== resource);
         this.resourceService.deleteResource(resource).subscribe(data => {
             console.log('data = ', data);
         });
@@ -74,5 +82,5 @@ export class ResourceViewComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnDestroy() {
         this.subsriptionResource.unsubscribe();
-      }
+    }
 }

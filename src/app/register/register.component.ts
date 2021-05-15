@@ -14,9 +14,9 @@ export class RegisterComponent implements OnInit {
     loading = false;
     submitted = false;
     roleOptions = [
-        {id: 'subAssociate', name: 'Sub Associate'},
-        {id: 'tl', name: 'TL'},
-        {id: 'nonTl', name: 'Non TL'},
+        {label: 'Non TL', value: 'Non TL'},
+        {label: 'Sub Associate', value: 'Sub Associate'},
+        {label: 'TL', value: 'TL'}
       ]
     
       selectedRoleValue = 1;
