@@ -26,10 +26,9 @@ export class AuthenticationService {
         let user: User = new User();
         user.userName = userName;
         user.password = this._AESEncryptDecryptService.encrypt(password);
-        console.log('user.password = ', user.password);
-        const headers = new HttpHeaders();
+        const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+        headers.set('Access-Control-Allow-Origin', '*');
         return this.http.post<User>(this.BASE_URL + '/login', user, { headers: headers })
-
             .pipe(map(user => { // TO DO - the username & password need to be fixed    
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);

@@ -44,7 +44,6 @@ import { DataViewModule } from 'primeng/dataview';
 import { PickListModule } from 'primeng/picklist';
 import { GMapModule } from 'primeng/gmap';
 import { AccordionModule } from 'primeng/accordion';
-import { ProductService } from './service/product.service';
 import { AssociateViewComponent } from './associate-master/associate-view/associate-view.component';
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
 import { JobFormComponent } from './job-master/job-form/job-form.component';
@@ -131,7 +130,6 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     RoleGuard,
-    ProductService,
     // provider used to create fake backend
     fakeBackendProvider
   ],

@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
         this.loading = true;
         this.registerForm.patchValue(
             {
-                "password":  this._AESEncryptDecryptService.encrypt(this.registerForm.get("password").value)
+                "password":  this._AESEncryptDecryptService.encrypt(this.registerForm.get("password").value).toString()
             });
         console.log('password =', this.registerForm.get("password").value);
         this.userService.register(this.registerForm.value)

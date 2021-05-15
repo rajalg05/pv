@@ -1,26 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../service/authentication.service';
 import { AlertService } from '../service/alert.service';
+import { AESEncryptDecryptService } from '../service/aesencrypt-decrypt-service.service';
 
-@Component({templateUrl: 'login.component.html'})
-export class LoginComponent implements OnInit {
+@Component({ templateUrl: 'login.component.html' })
+export class LoginComponent implements OnInit, OnDestroy {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
-
+    private sub: any;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
+        private _AESEncryptDecryptService: AESEncryptDecryptService,
         private alertService: AlertService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
@@ -47,15 +49,19 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
+        this.sub = this.authenticationService.login(this.f.username.value, this.f.password.value)
             .subscribe(
                 data => {
+                    console.log('data = ', data);
                     this.router.navigate([this.returnUrl]);
+                    this.loading = false;
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.alertService.error(error.error);
                     this.loading = false;
                 });
+    }
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 }
