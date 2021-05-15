@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Associate } from 'src/app/model/associateMaster';
 import { AssociateService } from 'src/app/service/associate.service';
@@ -8,7 +8,7 @@ import { AssociateService } from 'src/app/service/associate.service';
     templateUrl: './associate-view.component.html',
     styleUrls: ['./associate-view.component.css']
 })
-export class AssociateViewComponent implements OnInit {
+export class AssociateViewComponent implements OnInit, OnDestroy {
 
     associates: Associate[];
 
@@ -19,6 +19,8 @@ export class AssociateViewComponent implements OnInit {
     sortOrder: number;
 
     sortField: string;
+    
+    private subsriptionAssociate: any = null;
 
     @Output() openExistingAssociateTabEmitter = new EventEmitter();
 
@@ -30,7 +32,7 @@ export class AssociateViewComponent implements OnInit {
               this.associates = [...this.associates, this.associate]; // update the Associate list tab when a new Associate is added in Associate form
           }
     ngOnInit() {
-        this.associateService.findAllAssociates().subscribe(data => {
+        this.subsriptionAssociate = this.associateService.findAllAssociates().subscribe(data => {
             console.log('associate = ', data);
             this.associates = data;
         })
@@ -64,4 +66,8 @@ export class AssociateViewComponent implements OnInit {
             console.log('associates deleted = ', associate);
         });
     }
+   
+    ngOnDestroy() {
+        this.subsriptionAssociate.unsubscribe();
+    } 
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Resource } from '../../model/resource';
 import { ResourceService } from '../../service/resource.service';
@@ -8,7 +8,7 @@ import { ResourceService } from '../../service/resource.service';
     templateUrl: './resource-view.component.html',
     styleUrls: ['./resource-view.component.css']
 })
-export class ResourceViewComponent implements OnInit, OnChanges {
+export class ResourceViewComponent implements OnInit, OnChanges, OnDestroy {
 
     resources: Resource[];
 
@@ -19,6 +19,8 @@ export class ResourceViewComponent implements OnInit, OnChanges {
     sortOrder: number;
 
     sortField: string;
+    
+    private subsriptionResource: any = null;
 
     @Output() openExistingResourceTabEmitter = new EventEmitter();
     
@@ -30,9 +32,12 @@ export class ResourceViewComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.resourceService.getResources().subscribe(data => {
+        this.subsriptionResource =  this.resourceService.getResources().subscribe(data => {
             console.log('resource = ', data);
             this.resources = data;
+        },
+        error => {
+          console.log('error getResources : ', error)
         })
 
         this.sortOptions = [
@@ -67,4 +72,7 @@ export class ResourceViewComponent implements OnInit, OnChanges {
         });
     }
 
+    ngOnDestroy() {
+        this.subsriptionResource.unsubscribe();
+      }
 }

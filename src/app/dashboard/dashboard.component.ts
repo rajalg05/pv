@@ -28,14 +28,17 @@ export class DashboardComponent implements OnInit {
   audits: Audit[] = [];
 
   selectedAudits: Audit[] = [];
- 
+
+  private subscriptionResource: any = null;
+
+  private subscriptionAudit: any = null;
 
   statuses: any[];
 
-  loading: boolean = true;
+  loading: boolean = false;
 
   @ViewChild('dt') table: Table;
-  
+
   activityValues: number[] = [0, 100];
   constructor(resourceService: ResourceService,
     private primengConfig: PrimeNGConfig,
@@ -58,27 +61,32 @@ export class DashboardComponent implements OnInit {
         numScroll: 1
       }
     ];
-    resourceService.getResources().subscribe(resources => {
+    this.subscriptionResource = resourceService.getResources().subscribe(resources => {
       this.resources = resources;
+    },
+    error => {
+      console.log('error getResources : ', error)
     });
 
-   
   }
-  ngOnInit() { 
-  this.auditService.findAllAudits().subscribe(audits => {
-    this.audits = audits;
-  });
-  console.log('this.audits = ', this.audits); 
+  ngOnInit() {
+    this.subscriptionAudit = this.auditService.findAllAudits().subscribe(audits => {
+      this.audits = audits;
+      this.loading = false
+    },
+    error => {
+      console.log('error findAllAudits : ', error)
+    });
 
-  this.statuses = [
-      {label: 'Unqualified', value: 'unqualified'},
-      {label: 'Qualified', value: 'qualified'},
-      {label: 'New', value: 'new'},
-      {label: 'Negotiation', value: 'negotiation'},
-      {label: 'Renewal', value: 'renewal'},
-      {label: 'Proposal', value: 'proposal'}
-  ]
-  this.primengConfig.ripple = true;
+    this.statuses = [
+      { label: 'Unqualified', value: 'unqualified' },
+      { label: 'Qualified', value: 'qualified' },
+      { label: 'New', value: 'new' },
+      { label: 'Negotiation', value: 'negotiation' },
+      { label: 'Renewal', value: 'renewal' },
+      { label: 'Proposal', value: 'proposal' }
+    ]
+    this.primengConfig.ripple = true;
     this.basicData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
@@ -102,36 +110,41 @@ export class DashboardComponent implements OnInit {
   onActivityChange(event) {
     const value = event.target.value;
     if (value && value.trim().length) {
-        const activity = parseInt(value);
+      const activity = parseInt(value);
 
-        if (!isNaN(activity)) {
-            this.table.filter(activity, 'activity', 'gte');
-        }
+      if (!isNaN(activity)) {
+        this.table.filter(activity, 'activity', 'gte');
+      }
     }
-}
+  }
 
-onDateSelect(value) {
+  onDateSelect(value) {
     this.table.filter(this.formatDate(value), 'date', 'equals')
-}
+  }
 
-formatDate(date) {
+  formatDate(date) {
     let month = date.getMonth() + 1;
     let day = date.getDate();
 
     if (month < 10) {
-        month = '0' + month;
+      month = '0' + month;
     }
 
     if (day < 10) {
-        day = '0' + day;
+      day = '0' + day;
     }
 
     return date.getFullYear() + '-' + month + '-' + day;
-}
+  }
 
-onRepresentativeChange(event) {
+  onRepresentativeChange(event) {
     this.table.filter(event.value, 'representative', 'in')
-}
+  }
+
+  ngOnDestroy() {
+    this.subscriptionResource.unsubscribe();
+    this.subscriptionAudit.unsubscribe();
+  }
 }
 
 

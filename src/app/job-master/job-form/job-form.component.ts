@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Address } from 'src/app/model/address';
@@ -21,7 +21,7 @@ import { AuditService } from 'src/app/service/audit.service';
   styleUrls: ['./job-form.component.css'],
   providers: [DialogService]
 })
-export class JobFormComponent implements OnInit {
+export class JobFormComponent implements OnInit, OnDestroy {
   jobForm: FormGroup;  //declaring our form variable
   // phone 
   separateDialCode = false;
@@ -30,7 +30,7 @@ export class JobFormComponent implements OnInit {
   list1: Resource[] = [];
 
   list2: Resource[] = [];
-
+  private subsriptionResource: any = null;
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
   constructor(private jobService: JobService,
@@ -49,9 +49,12 @@ export class JobFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.resourceService.getResources().subscribe(resources => {
+    this.subsriptionResource = this.resourceService.getResources().subscribe(resources => {
       this.list1 = resources;
-    });
+    },
+      error => {
+        console.log('error getResources : ', error)
+      });
 
     if (this.job == null) {
       this.jobForm = new FormGroup({
@@ -127,7 +130,7 @@ export class JobFormComponent implements OnInit {
         this.SpinnerService.hide();
       });
     }
-    
+
   }
   populateFormValues() {
     let job: Job;
@@ -249,5 +252,8 @@ export class JobFormComponent implements OnInit {
         "audit": audit
       }
     });
+  }
+  ngOnDestroy() {
+    this.subsriptionResource.unsubscribe();
   }
 }

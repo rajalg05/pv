@@ -12,13 +12,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     loading = false;
     submitted = false;
     returnUrl: string;
-    private sub: any;
+    private sub: any = null;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private _AESEncryptDecryptService: AESEncryptDecryptService,
         private alertService: AlertService
     ) {
         // redirect to home if already logged in

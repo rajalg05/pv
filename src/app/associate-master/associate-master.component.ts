@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Injectable, ViewChild, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Injectable, ViewChild, ViewContainerRef, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { MessageService } from 'primeng/api';
@@ -15,8 +15,7 @@ import { Associate } from '../model/associateMaster';
   styleUrls: ['./associate-master.component.css'],
   providers:[MessageService]
 })
-export class AssociateComponent implements OnInit {
-  
+export class AssociateComponent implements OnInit, OnDestroy {
   storeData: any;
   condition: boolean;
   csvData: any;
@@ -27,6 +26,7 @@ export class AssociateComponent implements OnInit {
   public items = [];
   public selectedTabIndex: number = 0;
   associate: Associate;
+  private subsriptionResource: any = null;
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,
@@ -165,5 +165,8 @@ export class AssociateComponent implements OnInit {
       tab._selected = false;
     });
     this.tabView.tabs[index]._selected = true;
+  }
+  ngOnDestroy() {
+    this.subsriptionResource.unsubscribe();
   }
 }
