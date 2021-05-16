@@ -34,7 +34,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { RoleGuard } from './guards/role.guard';
 import { TabViewModule } from 'primeng/tabview';
 import { ResourceFormComponent } from './resource-master/resource-form/resource-form.component';
-import { Ng2TelInputModule } from 'ng2-tel-input';
 import { DropdownModule } from 'primeng/dropdown';
 import { DragDropDirective } from './directives/drag-drop.directive';
 import { CalendarModule } from 'primeng/calendar';
