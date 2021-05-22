@@ -10,6 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResourceService } from '../service/resource.service';
 import { Resource } from '../model/resource';
 import { Audit } from '../model/audit';
+import { JobService } from '../service/job.service';
 
 @Component({
   selector: 'app-job-master',
@@ -28,13 +29,15 @@ export class JobMasterComponent implements OnInit {
   public items = [];
   public selectedTabIndex: number = 0;
   @Input() job: Job;
+  audit: Audit = new Audit(); // used to pass the audit to audit tab 
   @ViewChild(TabView) tabView: TabView;
 
   constructor(public _coreService: CoreService,
     private messageService: MessageService,
     private viewContainerRef: ViewContainerRef,
     private cd: ChangeDetectorRef,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private jobService: JobService) { }
 
   ngOnInit(): void {
     this.items.push({
@@ -131,27 +134,46 @@ export class JobMasterComponent implements OnInit {
       this.items.splice(e.index, 1);
     }
   }
-  addTab() {
+  addNewJobTab() {
     this.job = null; // If other existing job tabs are clicked before this, then job will have data, so 
     // on click of new tab , the filled tab will be opened, to avoid that we need to null
-  let index: number = this.items.findIndex(x => x.header === "New Job");
+  let index: number = this.items.findIndex(x => x.header === "Job New");
    if (index == -1 )
       this.items.push({
-        'header': 'New Job',
-        'content': 'Content of New Job'
+        'header': 'Job New',
+        'content': 'Content of Job New'
       }); 
       this.selectedTabIndex = this.items.length - 1;
   }
-  public tabNameChangeEmit(job: Job): void {
-    let indexOfJobTab: number = this.items.findIndex(x => x.header === 'New Job');
+  public tabNameChangeEmit(job: Job): void { // from audit or job tab, send to job-master to job-view 
+    let indexOfJobTab: number = this.items.findIndex(x => x.header === 'Job New');
     if(indexOfJobTab != -1)
       this.items[indexOfJobTab]['header'] = job.jobName;
 
-    let indexOfAuditTab: number = this.items.findIndex(x => x.header.includes('New Audit'));  
+    let indexOfAuditTab: number = this.items.findIndex(x => x.header.includes('Audit New'));  
     if(indexOfAuditTab != -1)
       this.items[indexOfAuditTab]['header'] = job.jobName + ' - '+ job.audits[job.audits.length - 1].auditName;
 
       this.job = job; // pass this to job view html so that it shows the newly added job
+  }
+  public tabNameChangeAuditEmit(audit: Audit): void { // from audit tab, send to job-master and then to job-view 
+    let indexOfAuditTab: number = this.items.findIndex(x => x.header === 'Audit New - ' + audit.jobName);  
+     if(indexOfAuditTab != -1)
+      this.items[indexOfAuditTab]['header'] = 'Audit : ' + audit.auditName + ' - '+ audit.jobName;
+
+      if(this.jobService.jobs.length == 0) {
+        this.jobService.jobs = [];
+      }
+      let index: number = this.jobService.jobs.findIndex(t => t.id == audit.jobId);
+
+      this.audit = audit; // pass this to job view html so that it shows the newly added job
+
+      // pass to job-view tab, the changes of new audit into job 
+      if(this.jobService.jobs[index].audits == undefined) {
+        this.jobService.jobs[index].audits = [];
+      }
+      this.jobService.jobs[index].audits.push(audit);
+      this.job = this.jobService.jobs[index];
   }
   public receiveJob(job: Job) {
     this.items.push({
@@ -162,12 +184,18 @@ export class JobMasterComponent implements OnInit {
     this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
     this.tabView.tabs[this.selectedTabIndex]._selected = true;
   }
-  public receiveAudit(job: Job) {
-    this.items.push({
-      'header': job.jobName + ' - New Audit'
-    });
+  public receiveAudit(audit: Audit) { // pass audit from job-view to new audit tab
+    if(audit.auditName == undefined) {
+      this.items.push({
+        'header': 'Audit New - ' + audit.jobName
+      });
+    } else {
+      this.items.push({
+        'header': audit.auditName + ' - ' + audit.jobName
+      });
+    }
+    this.audit = audit;
     this.selectedTabIndex = this.items.length - 1;
-    this.job = job;
     this.resetTabIndexAndSelectActiveTab(this.selectedTabIndex);
     if(this.tabView.tabs[this.selectedTabIndex] != undefined)
       this.tabView.tabs[this.selectedTabIndex]._selected = true;

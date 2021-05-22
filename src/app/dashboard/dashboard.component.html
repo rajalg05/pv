@@ -8,15 +8,7 @@
     </ng-template>
 </p-carousel> -->
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-
-        </div>
-        <div class="col-6">
-            
-        </div>
-    </div>
+<div class="container" style="padding-top: 4px;"> 
     <p-table #dt [value]="audits" [(selection)]="selectedAudits" dataKey="id" styleClass="p-datatable-audits" [rowHover]="true"
     [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
     [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -40,6 +32,13 @@
                     Name
                     <p-sortIcon field="auditName"></p-sortIcon>
                     <p-columnFilter type="text" field="auditName" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="jobName">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Job
+                    <p-sortIcon field="jobName"></p-sortIcon>
+                    <p-columnFilter type="text" field="jobName" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="dateOfAudit">
@@ -77,6 +76,13 @@
                     <p-columnFilter type="text" field="auditStatus" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th>
+            <th pSortableColumn="auditStatus">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Allocated Resources
+                    <p-sortIcon field="auditStatus"></p-sortIcon>
+                    <p-columnFilter type="text" field="auditStatus" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
             <th style="width: 8rem">Actions</th>
         </tr>
     </ng-template>
@@ -88,6 +94,9 @@
             <td>
                 {{audit.auditName}}
             </td> 
+            <td>
+                {{audit.jobName}}
+            </td>
             <td>
                 {{audit.dateOfAudit | date: 'MM/dd/yyyy'}}
             </td>
@@ -104,7 +113,11 @@
                 {{audit.auditStatus}}
             </td>
             <td>
-                    <i style="padding-left:10px;" class="fa fa-tasks"></i> 
+                 
+            </td>
+            <td>
+                    <i style="padding-left:10px;" class="fa fa-tasks" (click)="allocateResource(audit)"
+                    pTooltip="Allocate Resource" tooltipPosition="bottom"></i> 
                     <i style="padding-left:10px;" class="fa fa-edit"></i> 
                     <i style="padding-left:10px;" class="fa fa-trash"></i> 
             </td>
@@ -118,6 +131,37 @@
 </p-table>
 </div>
 
+<div class="form-row" *ngIf="showPickList">
+    <div class="col-8">
+        <p-pickList 
+        [source]="list1" 
+        [target]="list2" 
+        sourceHeader="Available Resources" 
+        targetHeader="Selected Resources"
+        [dragdrop]="true"
+        [responsive]="true" 
+        [sourceStyle]="{'height':'30rem'}" 
+        [targetStyle]="{'height':'30rem'}" 
+        filterBy="name"
+        sourceFilterPlaceholder="Search by name" 
+        targetFilterPlaceholder="Search by name"
+            >
+            <ng-template let-resource pTemplate="item">
+                <div>
+                    <div style="font-size:14px;float:right;margin:15px 5px 0 0">
+                        {{resource.basicContactDetail.firstName}} {{resource.basicContactDetail.lastName}}
+                        <span class="product-description">, {{resource.resourceType}}</span>
+                        <span class="product-description">, {{resource.qualification}}</span>
+                        <span class="product-description">, Excel Skills : {{resource.excelSkills}}</span>
+                        <span class="product-description">, Stock Audit Exp : {{resource.stockAuditExp}}</span>
+                        <span class="product-description">, Having Bike : {{resource.bike}}</span>
+                    </div>
+                </div>
+            </ng-template>
+        </p-pickList>
+    </div>
+    <div class="col-4"></div>
+</div>
 <br>
 <br>
 <div class="container">

@@ -19,7 +19,7 @@
                     <p-accordionTab>
                         <ng-template pTemplate="header">
                             {{job.jobName}} - {{job.clientName}}
-                              <button pButton (click)="addAuditTab(job)" label="+ Audit" type="button" class="p-button-outlined p-button-rounded"></button>
+                              <button pButton (click)="addNewAuditTab(job)" label="+ Audit" type="button" class="p-button-outlined p-button-rounded"></button>
                               <i class="fa fa-trash" (click)="deleteJob(job)"></i>
                         </ng-template>
                         <ng-template pTemplate="content">
@@ -33,7 +33,7 @@
                                 <div>
                                     Audit Name : 
                                     <span *ngFor="let i of job.audits">
-                                        <a  href="#"  >{{i.auditName}}  ,  </a>
+                                        <a  (click)="addJobAuditTab(job, i)" style="color: blue;">{{i.auditName}}  ,  </a>
                                     </span>
                                 </div>
                             </div>

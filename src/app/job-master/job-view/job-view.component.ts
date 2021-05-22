@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig, SelectItem } from 'primeng/api';
 import { Associate } from 'src/app/model/associateMaster';
+import { Audit } from 'src/app/model/audit';
 import { Job } from 'src/app/model/job';
 import { AssociateService } from 'src/app/service/associate.service';
 import { JobService } from 'src/app/service/job.service';
@@ -15,6 +16,8 @@ export class JobViewComponent implements OnInit, OnChanges {
   jobs: Job[] = [];
 
   @Input() job: Job; // sent from resource-form on submit to resource-master which in turn sent via Input so update resource[] 
+
+  @Input() audit: Audit; // sent from resource-form on submit to resource-master which in turn sent via Input so update resource[] 
 
   sortOptions: SelectItem[];
 
@@ -45,8 +48,10 @@ export class JobViewComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.jobService.findAllJobs().subscribe(data => {
       console.log('associate = ', data);
-      this.jobs = data;
-      this.jobService.jobs = data;
+      if(data != null) {
+        this.jobs = data;
+        this.jobService.jobs = data;
+      }
     })
 
     this.sortOptions = [
@@ -73,10 +78,15 @@ export class JobViewComponent implements OnInit, OnChanges {
     this.sendJobEmitter.emit(job);
     job.auditOrJob = 'Job';
   }
-  addAuditTab(job: Job) {
+  addNewAuditTab(job: Job) {
+    let index: number = this.jobs.findIndex(t => t.id == job.id);
     console.log('job = ', job);
+    job = this.jobs[index];
     job.auditOrJob = 'Audit';
-    this.sendAuditEmitter.emit(job);
+    let audit: Audit = new Audit();
+    audit.jobId = job.id;
+    audit.jobName = job.jobName;
+    this.sendAuditEmitter.emit(audit);
   }
   deleteJob(job: Job) {
     this.jobs = this.jobs.filter(o => o !== job);
@@ -85,5 +95,11 @@ export class JobViewComponent implements OnInit, OnChanges {
       let index: number = this.jobService.jobs.findIndex(t => t.jobName == job['jobName']);
       this.jobService.jobs.splice(index, 1);
     });
+  }
+  addJobAuditTab(job: Job, audit: Audit) {
+    console.log('audit = ', audit.auditName);
+    //job.audits.push(audit);
+    audit.jobName = job.jobName;
+    this.sendAuditEmitter.emit(audit);
   }
 }

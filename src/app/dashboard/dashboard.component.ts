@@ -40,6 +40,13 @@ export class DashboardComponent implements OnInit {
   @ViewChild('dt') table: Table;
 
   activityValues: number[] = [0, 100];
+  
+  list1: Resource[] = [];
+
+  list2: Resource[] = [];
+
+  showPickList: boolean = false;
+
   constructor(resourceService: ResourceService,
     private primengConfig: PrimeNGConfig,
     private auditService: AuditService) {
@@ -63,6 +70,7 @@ export class DashboardComponent implements OnInit {
     ];
     this.subscriptionResource = resourceService.getResources().subscribe(resources => {
       this.resources = resources;
+      this.list1 = resources;
     },
     error => {
       console.log('error getResources : ', error)
@@ -106,6 +114,9 @@ export class DashboardComponent implements OnInit {
     // full calendar events
     /* this.events = calendarevents.data;
     */
+  }
+  allocateResource(audit: Audit) {
+    this.showPickList = true;
   }
   onActivityChange(event) {
     const value = event.target.value;

@@ -30,6 +30,11 @@ export class JobFormComponent implements OnInit, OnDestroy {
   list1: Resource[] = [];
 
   list2: Resource[] = [];
+  
+  auditNameDuplicate: boolean = false;
+  
+  jobNameDuplicate: boolean = false;
+
   private subsriptionResource: any = null;
   @Output() public tabNameChangeEmit = new EventEmitter();
   @Input() job: Job;
@@ -96,8 +101,7 @@ export class JobFormComponent implements OnInit, OnDestroy {
       });
     }
   }
-  auditNameDuplicate: boolean = false;
-  jobNameDuplicate: boolean = false;
+
   handleInput(e: any) {
     if (this.job.audits != null) {
       let auditNameIndex: number = this.job.audits.findIndex(audit => audit.auditName == this.jobForm.get('auditName').value);
@@ -128,6 +132,7 @@ export class JobFormComponent implements OnInit, OnDestroy {
       this.jobService.saveJob(job).subscribe(data => {
         console.log('saveJob data = ', data);
         this.SpinnerService.hide();
+        this.jobService.jobs.push(job); // this will be used in Audit page. Save new Audit, update the job details in that new Audit 
       });
     }
 

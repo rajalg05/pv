@@ -53,6 +53,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {CarouselModule} from 'primeng/carousel';
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import { ChartModule } from 'primeng/chart';
+import {TooltipModule} from 'primeng/tooltip';
 import 'chart.js/dist/Chart.min.js';
 import {FullCalendarModule} from 'primeng/fullcalendar';
 import { ResourceDialogComponent } from './resource-master/resource-form/resource-dialog/resource-dialog.component';
@@ -60,6 +61,7 @@ import { AssociateDialogComponent } from './associate-master/associate-form/asso
 import { NgxSpinnerModule } from "ngx-spinner";
 import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.component'; 
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { AuditFormComponent } from './job-master/audit-form/audit-form.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,8 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     DashboardComponent,
     ResourceDialogComponent,
     AssociateDialogComponent,
-    JobDialogComponent
+    JobDialogComponent,
+    AuditFormComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +123,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     FullCalendarModule,
     DynamicDialogModule,
     NgxSpinnerModule,  
+    TooltipModule,
     // Phone module
     NgxIntlTelInputModule
   ],
