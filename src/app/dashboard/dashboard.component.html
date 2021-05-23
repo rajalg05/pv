@@ -9,10 +9,22 @@
 </p-carousel> -->
 
 <div class="container" style="padding-top: 4px;"> 
-    <p-table #dt [value]="audits" [(selection)]="selectedAudits" dataKey="id" styleClass="p-datatable-audits" [rowHover]="true"
-    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
-    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
+    <p-table #dt 
+    [value]="audits" 
+    [(selection)]="selectedAudits" 
+    selectionMode="single" 
+    dataKey="code"
+    styleClass="p-datatable-audits" 
+    [rowHover]="true"
+    [rows]="10" 
+    [showCurrentPageReport]="true" 
+    [rowsPerPageOptions]="[10,25,50]" 
+    [loading]="loading"
+    [paginator]="true" 
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0" 
+    [globalFilterFields]="['name','country.name','representative.name','status']" 
+    >
     <ng-template pTemplate="caption">
         <div class="table-header">
             Pending Audits
@@ -24,9 +36,9 @@
     </ng-template>
     <ng-template pTemplate="header">
         <tr>
-            <th style="width: 3rem">
+           <!--  <th style="width: 3rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
+            </th> -->
             <th pSortableColumn="auditName">
                 <div class="p-d-flex p-jc-between p-ai-center">
                     Name
@@ -87,10 +99,10 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-audit>
-        <tr class="p-selectable-row">
-            <td>
+        <tr class="p-selectable-row" (click)="allocateResource(audit)">
+            <!-- <td>
                 <p-tableCheckbox [value]="audit"></p-tableCheckbox>
-            </td>
+            </td> -->
             <td>
                 {{audit.auditName}}
             </td> 
@@ -116,10 +128,11 @@
                  
             </td>
             <td>
-                    <i style="padding-left:10px;" class="fa fa-tasks" (click)="allocateResource(audit)"
+                    <i style="padding-left:10px;" class="fa fa-tasks" 
                     pTooltip="Allocate Resource" tooltipPosition="bottom"></i> 
                     <i style="padding-left:10px;" class="fa fa-edit"></i> 
                     <i style="padding-left:10px;" class="fa fa-trash"></i> 
+                    <i style="padding-left:10px;" class="fa fa-save" (click)="saveAllocateAuditAndResource(audit)"></i> 
             </td>
         </tr>
     </ng-template>
@@ -130,12 +143,39 @@
     </ng-template>
 </p-table>
 </div>
-
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <label>Allocated Resources: </label>
+        </div>
+        <div class="col-1">
+             {{allocatedResources}}
+        </div>
+        <div class="col-2">
+            <label>Allocated TLs: </label>
+        </div>
+        <div class="col-1">
+            {{allocatedTLs}}
+        </div>
+        <div class="col-2">
+            <label>Unallocated Resources: </label>
+        </div>
+        <div class="col-1">
+            {{unAllocatedResources}}
+        </div>
+        <div class="col-2">
+            <label>Unallocated TLs: </label>
+        </div>
+        <div class="col-1">
+            {{unAllocatedTLs}}
+        </div>
+    </div>
+</div>
 <div class="form-row" *ngIf="showPickList">
     <div class="col-8">
         <p-pickList 
-        [source]="list1" 
-        [target]="list2" 
+        [source]="sourceList" 
+        [target]="targetList" 
         sourceHeader="Available Resources" 
         targetHeader="Selected Resources"
         [dragdrop]="true"
@@ -145,10 +185,11 @@
         filterBy="name"
         sourceFilterPlaceholder="Search by name" 
         targetFilterPlaceholder="Search by name"
-            >
+        (onMoveToTarget)="onMoveToTarget($event)" 
+        (onMoveToSource)="onMoveToSource($event)"   >
             <ng-template let-resource pTemplate="item">
                 <div>
-                    <div style="font-size:14px;float:right;margin:15px 5px 0 0">
+                    <div style="font-size:14px;float:right;margin:15px 5px 0 0" [ngClass]="{tl: resource.resourceType == 'TL'}">
                         {{resource.basicContactDetail.firstName}} {{resource.basicContactDetail.lastName}}
                         <span class="product-description">, {{resource.resourceType}}</span>
                         <span class="product-description">, {{resource.qualification}}</span>

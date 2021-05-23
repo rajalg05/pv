@@ -1,5 +1,6 @@
 import { Job } from "./job";
 import { Address } from "./address";
+import { Resource } from "./resource";
 
 export class Audit { 
 
@@ -25,4 +26,6 @@ export class Audit {
 	public createdTs: Date;
     
 	public updatedTs: Date;
+
+	allocatedResources: Resource[] = [];
 }

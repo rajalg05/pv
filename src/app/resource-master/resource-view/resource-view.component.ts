@@ -10,7 +10,7 @@ import { ResourceService } from '../../service/resource.service';
 })
 export class ResourceViewComponent implements OnInit, OnChanges, OnDestroy {
 
-    resources: Resource[];
+    resources: Resource[] = [];
 
     @Input() resource: Resource; // sent from resource-form on submit to resource-master which in turn sent via Input so update resource[] 
 
@@ -27,7 +27,7 @@ export class ResourceViewComponent implements OnInit, OnChanges, OnDestroy {
     constructor(private primengConfig: PrimeNGConfig,
         private resourceService: ResourceService) { }
     ngOnChanges(changes: SimpleChanges): void {
-        if (this.resource != undefined && this.resource.basicContactDetail.firstName && this.resources.length == 0) { // if jobs array is empty and job added first time
+        if (this.resource != undefined && this.resource.basicContactDetail.firstName) { // if jobs array is empty and job added first time
             this.resources = [...this.resources, this.resource]; // update the Resource list tab when a new Resource is added in Resource form
         } else if (this.resource != undefined && this.resource.basicContactDetail.firstName && this.resources.length > 0) {
             let index: number = this.resources.findIndex(resource => resource.basicContactDetail.firstName == this.resource.basicContactDetail.firstName);

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Audit } from '../model/audit';
+import { AuditAllocation } from '../model/auditAllocation';
 import { Resource } from '../model/resource';
 import { AuditService } from '../service/audit.service';
 import { ResourceService } from '../service/resource.service';
@@ -40,12 +41,21 @@ export class DashboardComponent implements OnInit {
   @ViewChild('dt') table: Table;
 
   activityValues: number[] = [0, 100];
-  
-  list1: Resource[] = [];
 
-  list2: Resource[] = [];
+  sourceList: Resource[] = [];
+
+  targetList: Resource[] = [];
+
+  allocatedResources: number = 0;
+
+  allocatedTLs: number = 0;
+
+  unAllocatedResources: number = 0;
+
+  unAllocatedTLs: number = 0;
 
   showPickList: boolean = false;
+  allocatedAudits: AuditAllocation[] = [];
 
   constructor(resourceService: ResourceService,
     private primengConfig: PrimeNGConfig,
@@ -70,21 +80,29 @@ export class DashboardComponent implements OnInit {
     ];
     this.subscriptionResource = resourceService.getResources().subscribe(resources => {
       this.resources = resources;
-      this.list1 = resources;
+      this.sourceList = [...resources];
+      this.updateResourceCount(resources);
     },
-    error => {
-      console.log('error getResources : ', error)
-    });
+      error => {
+        console.log('error getResources : ', error)
+      });
 
+    this.auditService.findAllAllocatedAudits().subscribe(allocatedAudits => {
+      this.allocatedAudits = allocatedAudits;
+      // Loop thru to create source list
+      this.allocatedAudits.forEach(allocatedAudit => {
+        this.sourceList.splice(this.resources.indexOf(allocatedAudit.resource), 1);
+      });
+    });
   }
   ngOnInit() {
     this.subscriptionAudit = this.auditService.findAllAudits().subscribe(audits => {
       this.audits = audits;
       this.loading = false
     },
-    error => {
-      console.log('error findAllAudits : ', error)
-    });
+      error => {
+        console.log('error findAllAudits : ', error)
+      });
 
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
@@ -114,9 +132,6 @@ export class DashboardComponent implements OnInit {
     // full calendar events
     /* this.events = calendarevents.data;
     */
-  }
-  allocateResource(audit: Audit) {
-    this.showPickList = true;
   }
   onActivityChange(event) {
     const value = event.target.value;
@@ -156,6 +171,65 @@ export class DashboardComponent implements OnInit {
     this.subscriptionResource.unsubscribe();
     this.subscriptionAudit.unsubscribe();
   }
+
+  allocateResource(audit: Audit) {
+    //this.list1 = [];
+    if(audit.allocatedResources != null)
+      this.targetList = audit.allocatedResources;
+    else {
+      this.targetList = [];
+    }  
+    this.showPickList = true;
+    // loop through the source and target list 
+    /* this.allocatedAudits.forEach(allocatedAudit => {
+      if (allocatedAudit.audit['id'] == audit['id']) {
+        this.targetList.push(allocatedAudit.resource);
+      } else {
+        this.sourceList.push(allocatedAudit.resource);
+      }
+    }); */
+  }
+  updateResourceCount(resources: Resource[]) {
+    resources.forEach(r => {
+      if (r.resourceType == 'TL') {
+        this.unAllocatedTLs--;
+        this.allocatedTLs++;
+      } else if (r.resourceType == 'Non TL') {
+        this.unAllocatedResources--;
+        this.allocatedResources++;
+      }
+    });
+  }
+  //auditAllocations: AuditAllocation[] = [];
+  saveAllocateAuditAndResource(audit: Audit) {
+    let auditAllocations: AuditAllocation[] = [];
+    this.targetList.forEach(selectedResource => {
+      let auditAllocation: AuditAllocation = new AuditAllocation();
+      auditAllocation.auditDate = audit.dateOfAudit;
+      auditAllocation.audit = audit;
+      auditAllocation.resource = selectedResource;
+      // check if the Audit & Resource are already added in Audit Allocation
+      let index: number = auditAllocations.findIndex(a => a.audit.auditName == audit.auditName
+        && a.resource.basicContactDetail.firstName == selectedResource.basicContactDetail.firstName);
+
+      if (index == -1)
+        auditAllocations.push(auditAllocation);
+    });
+
+    this.auditService.allocateAudits(auditAllocations).subscribe(data => {
+      console.log('allocateAudits response = ', data);
+    });
+  }
+
+  onMoveToTarget(event) {
+    console.log('event onMoveToTarget = ', event);
+  }
+
+  onMoveToSource(event) {
+    console.log('event onMoveToSource = ', event);
+  }
 }
+
+
 
 
