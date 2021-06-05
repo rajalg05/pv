@@ -90,7 +90,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-audit>
-        <tr class="p-selectable-row" (click)="allocateResource(audit)" [pSelectableRow]="audit">
+        <tr class="p-selectable-row"  [pSelectableRow]="audit" (click)="allocateResource(audit)">
             <!-- <td>
                 <p-tableCheckbox [value]="audit"></p-tableCheckbox>
             </td> -->
@@ -120,7 +120,7 @@
             </td>
             <td>
                     <i style="padding-left:10px;" class="fa fa-tasks" 
-                    pTooltip="Allocate Resource" tooltipPosition="bottom"></i> 
+                    pTooltip="Allocate Resource" tooltipPosition="bottom" ></i> 
                     <i style="padding-left:10px;" class="fa fa-edit"></i> 
                     <i style="padding-left:10px;" class="fa fa-trash" (click)="deleteAudit(audit)"></i> 
                     <i style="padding-left:10px;" class="fa fa-save" (click)="saveAllocateAuditAndResource(audit)"></i> 

@@ -150,7 +150,8 @@ export class ResourceFormComponent implements OnInit {
     resource.resourceType = this.resourceForm.get('tlNonTl').value;
     resource.stockAuditExp = this.resourceForm.get('stockAuditExp').value;
     resource.bike = this.resourceForm.get('bike').value;
-
+    resource.allocated = 'false';
+    
     basicContactDetail.firstName = this.resourceForm.get('firstName').value;
     basicContactDetail.lastName = this.resourceForm.get('lastName').value;
     

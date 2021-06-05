@@ -79,7 +79,7 @@ export class JobViewComponent implements OnInit, OnChanges {
     job.auditOrJob = 'Job';
   }
   addNewAuditTab(job: Job) {
-    let index: number = this.jobs.findIndex(t => t.id == job.id);
+    let index: number = this.jobs.findIndex(t => t.jobName == job.jobName);
     console.log('job = ', job);
     job = this.jobs[index];
     job.auditOrJob = 'Audit';

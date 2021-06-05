@@ -28,7 +28,7 @@
                 <div class="col-5">
                     <div class="controls"> 
                         <p-calendar formControlName="dateOfAudit" [showIcon]="true" dateFormat="dd/MM/yy" showButtonBar="true"
-                            [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"></p-calendar>
+                            [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" appendTo="body"></p-calendar>
                         <p class="lblError" *ngIf="auditForm.get('dateOfAudit').hasError('required')
                               && !auditForm.get('dateOfAudit').pristine">
                               Date Of Audit is Required

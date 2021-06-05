@@ -5,6 +5,10 @@ import { KYC } from "./kyc";
 export class Resource {
     public constructor() {} 
 
+	public id: number;
+
+	public allocated: string;
+
 	public  basicContactDetail: BasicContactDetail ;  
 	
 	public  kyc: KYC;

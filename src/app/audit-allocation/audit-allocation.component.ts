@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Audit } from '../model/audit';
@@ -12,7 +12,7 @@ import { ResourceService } from '../service/resource.service';
   templateUrl: './audit-allocation.component.html',
   styleUrls: ['./audit-allocation.component.css']
 })
-export class AuditAllocationComponent implements OnInit {
+export class AuditAllocationComponent implements OnInit, OnChanges {
 
   resources: Resource[] = [];
 
@@ -38,6 +38,8 @@ export class AuditAllocationComponent implements OnInit {
   activityValues: number[] = [0, 100];
 
   sourceList: Resource[] = [];
+  
+  sourceListFiltered: Resource[] = [];
 
   targetList: Resource[] = [];
 
@@ -55,7 +57,7 @@ export class AuditAllocationComponent implements OnInit {
   constructor(resourceService: ResourceService,
     private auditService: AuditService) {
 
-    this.subscriptionResource = resourceService.getResources().subscribe(resources => {
+    this.subscriptionResource = resourceService.unAllocatedResources().subscribe(resources => {
       this.resources = resources;
       this.sourceList = [...resources];
       this.updateResourceCount(resources);
@@ -64,13 +66,7 @@ export class AuditAllocationComponent implements OnInit {
         console.log('error getResources : ', error)
       });
 
-    this.auditService.findAllAllocatedAudits().subscribe(allocatedAudits => {
-      this.allocatedAudits = allocatedAudits;
-      // Loop thru to create source list
-      this.allocatedAudits.forEach(allocatedAudit => {
-        this.sourceList.splice(this.resources.indexOf(allocatedAudit.resource), 1);
-      });
-    });
+
   }
   ngOnInit() {
     this.subscriptionAudit = this.auditService.findAllAudits().subscribe(audits => {
@@ -79,8 +75,11 @@ export class AuditAllocationComponent implements OnInit {
     },
       error => {
         console.log('error findAllAudits : ', error)
-      });
-
+      }); 
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    // TO DO - Audits newly created/added to job should be stacked here as well. 
+    
   }
   onActivityChange(event) {
     const value = event.target.value;
@@ -160,6 +159,7 @@ export class AuditAllocationComponent implements OnInit {
       auditAllocation.auditDate = audit.dateOfAudit;
       auditAllocation.allocatedAt = new Date();
       auditAllocation.audit = audit;
+      selectedResource.allocated = 'true'; 
       auditAllocation.resource = selectedResource;
       // check if the Audit & Resource are already added in Audit Allocation
       let index: number = auditAllocations.findIndex(a => a.audit.auditName == audit.auditName
