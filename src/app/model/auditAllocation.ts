@@ -8,4 +8,5 @@ export class AuditAllocation {
      public allocatedBy: String;
      public auditDate: Date;
      public auditDay: number;
+     constructor() {}
 }

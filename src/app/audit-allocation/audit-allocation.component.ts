@@ -19,7 +19,6 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
   events: any[];
 
   options: any;
-  // table data 
 
   audits: Audit[] = [];
 
@@ -52,7 +51,10 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
   unAllocatedTLs: number = 0;
 
   showPickList: boolean = false;
+
   allocatedAudits: AuditAllocation[] = [];
+
+  unAllocatedAudits: AuditAllocation[] = [];
 
   constructor(resourceService: ResourceService,
     private auditService: AuditService) {
@@ -124,21 +126,12 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
   }
 
   allocateResource(audit: Audit) {
-    //this.list1 = [];
     if(audit.allocatedResources != null)
       this.targetList = audit.allocatedResources;
     else {
       this.targetList = [];
     }  
     this.showPickList = true;
-    // loop through the source and target list 
-    /* this.allocatedAudits.forEach(allocatedAudit => {
-      if (allocatedAudit.audit['id'] == audit['id']) {
-        this.targetList.push(allocatedAudit.resource);
-      } else {
-        this.sourceList.push(allocatedAudit.resource);
-      }
-    }); */
   }
   updateResourceCount(resources: Resource[]) {
     resources.forEach(r => {
@@ -151,27 +144,38 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       }
     });
   }
-  //auditAllocations: AuditAllocation[] = [];
-  saveAllocateAuditAndResource(audit: Audit) {
-    let auditAllocations: AuditAllocation[] = [];
-    this.targetList.forEach(selectedResource => {
-      let auditAllocation: AuditAllocation = new AuditAllocation();
-      auditAllocation.auditDate = audit.dateOfAudit;
-      auditAllocation.allocatedAt = new Date();
-      auditAllocation.audit = audit;
-      selectedResource.allocated = 'true'; 
-      auditAllocation.resource = selectedResource;
-      // check if the Audit & Resource are already added in Audit Allocation
-      let index: number = auditAllocations.findIndex(a => a.audit.auditName == audit.auditName
-        && a.resource.basicContactDetail.firstName == selectedResource.basicContactDetail.firstName);
+  saveAllocateAuditAndResource(resource: Resource) {
+    let aa: AuditAllocation = new AuditAllocation();
+    aa.resource = resource;
+    aa.resource.allocated = 'true';
+    aa.audit = this.selectedAudit;
 
-      if (index == -1)
-        auditAllocations.push(auditAllocation);
-    });
+    let saveAllocatedAudits: AuditAllocation[] = [];
 
-    this.auditService.allocateAudits(auditAllocations).subscribe(data => {
-      console.log('allocateAudits response = ', data);
+    saveAllocatedAudits.push(aa);
+
+    this.auditService.allocateAudits(saveAllocatedAudits).subscribe(data => {
+      console.log('allocatedAudits response = ', data);
     });
+    // let auditAllocations: AuditAllocation[] = [];
+    // this.targetList.forEach(selectedResource => {
+    //   let auditAllocation: AuditAllocation = new AuditAllocation();
+    //   auditAllocation.auditDate = audit.dateOfAudit;
+    //   auditAllocation.allocatedAt = new Date();
+    //   auditAllocation.audit = audit;
+    //   selectedResource.allocated = 'true'; 
+    //   auditAllocation.resource = selectedResource;
+    //   // check if the Audit & Resource are already added in Audit Allocation
+    //   let index: number = auditAllocations.findIndex(a => a.audit.auditName == audit.auditName
+    //     && a.resource.basicContactDetail.firstName == selectedResource.basicContactDetail.firstName);
+
+    //   if (index == -1)
+    //     auditAllocations.push(auditAllocation);
+    // });
+
+    // this.auditService.allocateAudits(auditAllocations).subscribe(data => {
+    //   console.log('allocateAudits response = ', data);
+    // });
   }
   deleteAudit(audit: Audit) {
     this.auditService.deleteAudit(audit).subscribe(data => {
@@ -182,12 +186,31 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
   onMoveToTarget(event) {
     console.log('event onMoveToTarget = ', event);
+    event.items.forEach(item => {
+      this.saveAllocateAuditAndResource(item);
+    });
   }
 
   onMoveToSource(event) {
     console.log('event onMoveToSource = ', event);
+    event.items.forEach(item => {
+      this.unAllocateAuditAndResource(item);  
+    });
+    
   }
   onRowSelect(event) {
-    console.log('event onRowSelect = ', event);
+    console.log('event.data onRowSelect = ', event.data);
+   
+  }
+  unAllocateAuditAndResource(resource: Resource) {
+    let aa: AuditAllocation = new AuditAllocation();
+    aa.resource = resource;
+    aa.resource.allocated = 'false';
+    aa.audit = this.selectedAudit;
+
+    this.unAllocatedAudits.push(aa);
+    this.auditService.unallocateAudits(this.unAllocatedAudits).subscribe(data => {
+      console.log('unAllocatedAudits response = ', data);
+    });
   }
 }
