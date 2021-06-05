@@ -30,7 +30,7 @@ export class AuthenticationService {
         headers.set('Access-Control-Allow-Origin', '*');
         return this.http.post<User>(this.BASE_URL + '/login', user, { headers: headers })
             .pipe(map(user => { // TO DO - the username & password need to be fixed    
-                localStorage.setItem('currentUser', JSON.stringify(user));
+                localStorage.setItem('JSESSIONID', JSON.stringify(user));
                 this.currentUserSubject.next(user);
             })
                 //catchError(this.handleError('saveUser'))

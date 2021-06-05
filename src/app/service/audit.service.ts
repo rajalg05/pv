@@ -19,6 +19,12 @@ export class AuditService {
     return this.http.post<string>(this.BASE_URL + '/saveAudit', audit, {headers: headers});
   }
 
+  deleteAudit(audit: Audit): Observable<string> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<string>(this.BASE_URL + '/deleteAudit', audit, {headers: headers});
+  }
+
   findAllAudits(): Observable<Audit[]> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');
@@ -43,6 +49,16 @@ export class AuditService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');
     return this.http.post<AuditAllocation[]>(this.BASE_URL + '/allocateAudits', auditAllocation, {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('findAllJobs'))
+      );
+  }
+
+  unallocateAudits(auditAllocation: AuditAllocation[]): Observable<AuditAllocation[]> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.post<AuditAllocation[]>(this.BASE_URL + '/unallocateAudits', auditAllocation, {headers: headers})
     
       .pipe(
         //catchError(this.handleError('findAllJobs'))

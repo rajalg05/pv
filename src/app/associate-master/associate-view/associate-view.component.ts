@@ -68,6 +68,7 @@ export class AssociateViewComponent implements OnInit, OnDestroy {
     }
    
     ngOnDestroy() {
-        this.subsriptionAssociate.unsubscribe();
+        if(this.subsriptionAssociate != undefined)
+            this.subsriptionAssociate.unsubscribe();
     } 
 }

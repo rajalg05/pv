@@ -4,6 +4,8 @@ import { Resource } from "./resource";
 
 export class Audit { 
 
+	public id: number;
+	
 	public jobId: number;
 
 	public jobName: string; // use it when new Audit tab is added from job-view 
@@ -28,4 +30,6 @@ export class Audit {
 	public updatedTs: Date;
 
 	allocatedResources: Resource[] = [];
+
+	unAllocatedResources: Resource[] = [];
 }

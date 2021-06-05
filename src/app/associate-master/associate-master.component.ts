@@ -168,6 +168,7 @@ export class AssociateComponent implements OnInit, OnDestroy {
       this.tabView.tabs[index]._selected = true;
   }
   ngOnDestroy() {
-    this.subsriptionResource.unsubscribe();
+    // if(this.subsriptionResource != undefined)
+    //     this.subsriptionResource.unsubscribe();
   }
 }

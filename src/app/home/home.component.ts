@@ -27,7 +27,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // unsubscribe to ensure no memory leaks
-        this.currentUserSubscription.unsubscribe();
+        if(this.currentUserSubscription != undefined)
+            this.currentUserSubscription.unsubscribe();
     }
 
     deleteUser(id: number) {

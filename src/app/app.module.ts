@@ -62,6 +62,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.component'; 
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { AuditFormComponent } from './job-master/audit-form/audit-form.component';
+import { AuditAllocationComponent } from './audit-allocation/audit-allocation.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { AuditFormComponent } from './job-master/audit-form/audit-form.component
     ResourceDialogComponent,
     AssociateDialogComponent,
     JobDialogComponent,
-    AuditFormComponent
+    AuditFormComponent,
+    AuditAllocationComponent
   ],
   imports: [
     BrowserModule,

@@ -259,6 +259,7 @@ export class JobFormComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.subsriptionResource.unsubscribe();
+    if(this.subsriptionResource != undefined)
+      this.subsriptionResource.unsubscribe();
   }
 }
