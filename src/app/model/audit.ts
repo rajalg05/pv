@@ -15,7 +15,7 @@ export class Audit {
 	
 	public auditStatus: string;
     
-	public dateOfAudit: Date;
+	public datesOfAudits: string;
 
 	public auditName: string;
     

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api'; 
 import { Job } from 'src/app/model/job'; 
 import { Resource } from 'src/app/model/resource';
@@ -10,6 +10,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { AuditService } from 'src/app/service/audit.service'; 
 import { Audit } from 'src/app/model/audit';
 import { Address } from 'src/app/model/address';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-audit-form',
@@ -49,11 +50,13 @@ export class AuditFormComponent implements OnInit {
       { label: 'Chennai', value: 'chn' }
     ];
   }
+  dateOfAudit: Date[] = [];
 
   ngOnInit(): void {
+
     if (this.audit.auditName == undefined) {
       this.auditForm = new FormGroup({
-        dateOfAudit: new FormControl(new Date()),
+        dateOfAudit: new FormControl(),
         paymentReceived: new FormControl(null),
         auditName: new FormControl(null),
         addressLine1: new FormControl(null),
@@ -64,8 +67,12 @@ export class AuditFormComponent implements OnInit {
         country: new FormControl('India')
       });
     } else {
+      let dates: Date[] = [];
+      this.audit.datesOfAudits.split(';').map(dateOfAudit => {
+        dates.push(new Date(dateOfAudit));
+      })
       this.auditForm = new FormGroup({
-        dateOfAudit: new FormControl(new Date(this.audit.dateOfAudit)),
+        dateOfAudit: new FormControl(dates),
         paymentReceived: new FormControl(this.audit.paymentReceived),
         auditName: new FormControl(this.audit.auditName),
         addressLine1: new FormControl(this.audit.address.addressLine1),
@@ -107,7 +114,12 @@ export class AuditFormComponent implements OnInit {
 
     //audit.auditLocationAddressId = null;
     this.audit.auditStatus = 'Audit created';
-    this.audit.dateOfAudit = this.auditForm.get('dateOfAudit').value;
+    let dateOfAuditStrings: string[] = this.auditForm.get('dateOfAudit').value;
+    let tempDateString = '';
+    dateOfAuditStrings.forEach(element => {
+      tempDateString = tempDateString + moment(element).format("ll") + ';'
+    });
+    this.audit.datesOfAudits = tempDateString.substring(0, tempDateString.length - 1);
     this.audit.paymentReceived = this.auditForm.get('paymentReceived').value;
     this.audit.auditName = this.auditForm.get('auditName').value;
 
@@ -116,5 +128,8 @@ export class AuditFormComponent implements OnInit {
   reset(e: any) {
     this.auditForm.reset();
   }
-   
+
+  get auditDate() {
+    return this.auditForm.controls['auditDate'] as FormArray;
+  }
 }

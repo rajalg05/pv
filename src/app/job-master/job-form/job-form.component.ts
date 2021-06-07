@@ -229,7 +229,7 @@ export class JobFormComponent implements OnInit, OnDestroy {
 
     //audit.auditLocationAddressId = null;
     audit.auditStatus = 'Audit created';
-    audit.dateOfAudit = this.jobForm.get('dateOfAudit').value;
+    //audit.dateOfAudit = this.jobForm.get('dateOfAudit').value;
     audit.paymentReceived = this.jobForm.get('paymentReceived').value;
     audit.auditName = this.jobForm.get('auditName').value;
 
