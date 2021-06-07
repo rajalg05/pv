@@ -121,7 +121,7 @@
             <td>
                     <i style="padding-left:10px;" class="fa fa-edit"></i> 
                     <i style="padding-left:10px;" class="fa fa-trash" (click)="deleteAudit(audit)"></i> 
-                    <i style="padding-left:10px;" class="fa fa-save" (click)="saveAllocateAuditAndResource(audit)"></i> 
+                    <!-- <i style="padding-left:10px;" class="fa fa-save" (click)="saveAllocateAuditAndResource(audit)"></i>  -->
             </td>
         </tr>
     </ng-template>
@@ -132,7 +132,7 @@
     </ng-template>
 </p-table>
 </div>
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="col-2">
             <label>Allocated Resources: </label>
@@ -159,7 +159,7 @@
             {{unAllocatedTLs}}
         </div>
     </div>
-</div>
+</div> -->
 <div class="form-row" *ngIf="showPickList">
     <div class="col-8">
         <p-pickList 

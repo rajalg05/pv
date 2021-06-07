@@ -1,3 +1,4 @@
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -38,8 +39,6 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
   sourceList: Resource[] = [];
   
-  sourceListFiltered: Resource[] = [];
-
   targetList: Resource[] = [];
 
   allocatedResources: number = 0;
@@ -62,7 +61,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     this.subscriptionResource = resourceService.unAllocatedResources().subscribe(resources => {
       this.resources = resources;
       this.sourceList = [...resources];
-      this.updateResourceCount(resources);
+      //this.updateResourceCount(resources);
     },
       error => {
         console.log('error getResources : ', error)
@@ -156,26 +155,15 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
     this.auditService.allocateAudits(saveAllocatedAudits).subscribe(data => {
       console.log('allocatedAudits response = ', data);
-    });
-    // let auditAllocations: AuditAllocation[] = [];
-    // this.targetList.forEach(selectedResource => {
-    //   let auditAllocation: AuditAllocation = new AuditAllocation();
-    //   auditAllocation.auditDate = audit.dateOfAudit;
-    //   auditAllocation.allocatedAt = new Date();
-    //   auditAllocation.audit = audit;
-    //   selectedResource.allocated = 'true'; 
-    //   auditAllocation.resource = selectedResource;
-    //   // check if the Audit & Resource are already added in Audit Allocation
-    //   let index: number = auditAllocations.findIndex(a => a.audit.auditName == audit.auditName
-    //     && a.resource.basicContactDetail.firstName == selectedResource.basicContactDetail.firstName);
-
-    //   if (index == -1)
-    //     auditAllocations.push(auditAllocation);
-    // });
-
-    // this.auditService.allocateAudits(auditAllocations).subscribe(data => {
-    //   console.log('allocateAudits response = ', data);
-    // });
+      this.audits.map(audit => {
+        if(audit.id == aa.audit.id && audit.allocatedResources == null) {
+          audit.allocatedResources = [];
+          audit.allocatedResources.push(resource);
+        } else if(audit.id == aa.audit.id && audit.allocatedResources != null) {
+          audit.allocatedResources.push(resource);
+        }
+      });
+    }); 
   }
   deleteAudit(audit: Audit) {
     this.auditService.deleteAudit(audit).subscribe(data => {
@@ -211,6 +199,12 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     this.unAllocatedAudits.push(aa);
     this.auditService.unallocateAudits(this.unAllocatedAudits).subscribe(data => {
       console.log('unAllocatedAudits response = ', data);
+      this.audits.map(audit => {
+        if(audit.id == aa.audit.id && audit.allocatedResources != null) {
+          let index: number = audit.allocatedResources.findIndex(r => r.id == resource.id);
+          audit.allocatedResources.splice(index, 1);
+        }
+      });
     });
   }
 }
