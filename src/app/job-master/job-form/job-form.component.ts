@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { Address } from 'src/app/model/address';
 import { Associate } from 'src/app/model/associateMaster';
 import { Audit } from 'src/app/model/audit';
@@ -42,7 +42,8 @@ export class JobFormComponent implements OnInit, OnDestroy {
     private auditService: AuditService,
     private resourceService: ResourceService,
     public dialogService: DialogService,
-    private SpinnerService: NgxSpinnerService) {
+    private SpinnerService: NgxSpinnerService,
+    private messageService: MessageService) {
     this.cities = [
       { label: 'Pune', value: 'pun' },
       { label: 'Mumbai', value: 'mum' },
@@ -132,6 +133,7 @@ export class JobFormComponent implements OnInit, OnDestroy {
       this.jobService.saveJob(job).subscribe(data => {
         console.log('saveJob data = ', data);
         this.SpinnerService.hide();
+        this.messageService.add({ severity: 'info', summary: 'Job Saved', detail: '' });
         this.jobService.jobs.push(job); // this will be used in Audit page. Save new Audit, update the job details in that new Audit 
       });
     }

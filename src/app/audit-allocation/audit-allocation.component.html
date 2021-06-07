@@ -13,7 +13,7 @@
     [paginator]="true" 
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [filterDelay]="0" 
-    [globalFilterFields]="['name','country.name','representative.name','status']" 
+    [globalFilterFields]="['name','country.name','jobName','status']" 
     (onRowSelect)="onRowSelect($event)"
     >
     <ng-template pTemplate="caption">
@@ -30,18 +30,18 @@
            <!--  <th style="width: 3rem">
                 <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th> -->
-            <th pSortableColumn="auditName">
-                <div class="p-d-flex p-jc-between p-ai-center">
-                    Name
-                    <p-sortIcon field="auditName"></p-sortIcon>
-                    <p-columnFilter type="text" field="auditName" display="menu" class="p-ml-auto"></p-columnFilter>
-                </div>
-            </th>
             <th pSortableColumn="jobName">
                 <div class="p-d-flex p-jc-between p-ai-center">
                     Job
                     <p-sortIcon field="jobName"></p-sortIcon>
                     <p-columnFilter type="text" field="jobName" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
+            <th pSortableColumn="auditName">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Audit
+                    <p-sortIcon field="auditName"></p-sortIcon>
+                    <p-columnFilter type="text" field="auditName" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="dateOfAudit">
@@ -89,17 +89,17 @@
             <th style="width: 8rem">Actions</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-audit>
+    <ng-template pTemplate="body" let-audit let-rowIndex="rowIndex">
         <tr class="p-selectable-row"  [pSelectableRow]="audit" (click)="allocateResource(audit)">
             <!-- <td>
                 <p-tableCheckbox [value]="audit"></p-tableCheckbox>
             </td> -->
+            <td *ngIf="rowGroupMetadata[audit.jobName].index === rowIndex" [attr.rowspan]="rowGroupMetadata[audit.jobName].size">
+                {{audit.jobName}}
+            </td>
             <td>
                 {{audit.auditName}}
             </td> 
-            <td>
-                {{audit.jobName}}
-            </td>
             <td>
                 {{audit.dateOfAudit | date: 'MM/dd/yyyy'}}
             </td>
@@ -178,7 +178,7 @@
         (onMoveToSource)="onMoveToSource($event)"   >
             <ng-template let-resource pTemplate="item">
                 <div>
-                    <div style="font-size:14px;float:right;margin:15px 5px 0 0" [ngClass]="{tl: resource.resourceType == 'TL'}">
+                    <div style="font-size:14px;margin:15px 5px 0 0" [ngClass]="{tl: resource.resourceType == 'TL'}">
                         {{resource.basicContactDetail.firstName}} {{resource.basicContactDetail.lastName}}
                         <span class="product-description">, {{resource.resourceType}}</span>
                         <span class="product-description">, {{resource.qualification}}</span>

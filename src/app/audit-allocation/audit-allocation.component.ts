@@ -55,6 +55,8 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
   unAllocatedAudits: AuditAllocation[] = [];
 
+  rowGroupMetadata: any;
+
   constructor(resourceService: ResourceService,
     private auditService: AuditService) {
 
@@ -73,6 +75,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     this.subscriptionAudit = this.auditService.findAllAudits().subscribe(audits => {
       this.audits = audits;
       this.loading = false
+      this.updateRowGroupMetaData();
     },
       error => {
         console.log('error findAllAudits : ', error)
@@ -207,4 +210,26 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       });
     });
   }
+  updateRowGroupMetaData() {
+    this.rowGroupMetadata = {};
+
+    if (this.audits) {
+        for (let i = 0; i < this.audits.length; i++) {
+            let rowData = this.audits[i];
+            let jobName = rowData.jobName;
+            
+            if (i == 0) {
+                this.rowGroupMetadata[jobName] = { index: 0, size: 1 };
+            }
+            else {
+                let previousRowData = this.audits[i - 1];
+                let previousRowGroup = previousRowData.jobName;
+                if (jobName === previousRowGroup)
+                    this.rowGroupMetadata[jobName].size++;
+                else
+                    this.rowGroupMetadata[jobName] = { index: i, size: 1 };
+            }
+        }
+    }
+}
 }
