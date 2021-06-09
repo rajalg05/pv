@@ -11,6 +11,7 @@ import { AuditService } from 'src/app/service/audit.service';
 import { Audit } from 'src/app/model/audit';
 import { Address } from 'src/app/model/address';
 import * as moment from 'moment';
+import { AuditDate } from 'src/app/model/auditDate';
 
 @Component({
   selector: 'app-audit-form',
@@ -27,7 +28,7 @@ export class AuditFormComponent implements OnInit {
   list1: Resource[] = [];
 
   list2: Resource[] = [];
-  
+  auditDates: Date[] = [];
   auditNameDuplicate: boolean = false;
   
   jobNameDuplicate: boolean = false;
@@ -112,16 +113,22 @@ export class AuditFormComponent implements OnInit {
 
     //audit.auditLocationAddressId = null;
     this.audit.auditStatus = 'Audit created';
-    let dateOfAuditStrings: string[] = this.auditForm.get('dateOfAudit').value;
-    let tempDateString = '';
-    dateOfAuditStrings.forEach(element => {
-      tempDateString = tempDateString + moment(element).format("ll") + ';'
-    });
+   
     this.audit.auditDates;
     this.audit.paymentReceived = this.auditForm.get('paymentReceived').value;
     this.audit.auditName = this.auditForm.get('auditName').value;
 
     this.audit.statusUpdatedBy = 'LG';
+
+    this.auditDates = this.auditForm.get('dateOfAudit').value;
+    this.audit.auditDates = [];
+    this.auditDates.forEach(dt => {
+      let auditDate = new AuditDate();
+      auditDate.auditDate = dt;
+      // auditDate.audit = this.audit // dont put parent ref in audit - it gies circular dependency error 
+      auditDate.auditId = this.audit.id;
+      this.audit.auditDates.push(auditDate);
+    });
   }
   reset(e: any) {
     this.auditForm.reset();

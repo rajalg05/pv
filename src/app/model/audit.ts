@@ -17,7 +17,7 @@ export class Audit {
 
 	public auditName: string;
     
-	public auditDates: AuditDate[];
+	public auditDates: AuditDate[] = [];
 
 	public auditAllocations: AuditAllocation[];
 
