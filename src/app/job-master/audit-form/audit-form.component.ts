@@ -69,7 +69,9 @@ export class AuditFormComponent implements OnInit {
       });
     } else {
       let dates: Date[] = [];
-      this.audit.auditDates; // TO DO 
+      this.audit.auditDates.forEach(ad => {
+        dates.push(new Date(ad.auditDate));
+      }); 
       this.auditForm = new FormGroup({
         dateOfAudit: new FormControl(dates),
         paymentReceived: new FormControl(this.audit.paymentReceived),
@@ -125,6 +127,8 @@ export class AuditFormComponent implements OnInit {
     this.auditDates.forEach(dt => {
       let auditDate = new AuditDate();
       auditDate.auditDate = dt;
+      auditDate.name = moment(dt).format("DD/MM/YYYY");
+      auditDate.code = moment(dt).format("DD/MM/YYYY");
       // auditDate.audit = this.audit // dont put parent ref in audit - it gies circular dependency error 
       auditDate.auditId = this.audit.id;
       this.audit.auditDates.push(auditDate);

@@ -97,8 +97,9 @@
             <td>
                 {{audit.auditName}}
             </td> 
+            
             <td>
-                {{audit.dateOfAudit | date: 'MM/dd/yyyy'}}
+               <p-dropdown [options]="audit.auditDates" optionLabel="name"></p-dropdown> 
             </td>
             <td>
                 {{audit.paymentReceived}}
