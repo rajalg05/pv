@@ -13,10 +13,10 @@ export class JobService {
   constructor(private http: HttpClient) { }
   BASE_URL: string = 'http://localhost:8080/audit';
   
-  saveJob(job: Job): Observable<string> {
+  saveJob(job: Job): Observable<Job> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<string>(this.BASE_URL + '/saveJob', job, {headers: headers});
+    return this.http.post<Job>(this.BASE_URL + '/saveJob', job, {headers: headers});
   }
 
   findAllJobs(): Observable<Job[]> {

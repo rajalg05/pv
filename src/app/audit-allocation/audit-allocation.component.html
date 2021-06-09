@@ -89,12 +89,9 @@
             <th style="width: 8rem">Actions</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-audit let-rowIndex="rowIndex">
-        <tr class="p-selectable-row"  [pSelectableRow]="audit" (click)="allocateResource(audit)">
-            <!-- <td>
-                <p-tableCheckbox [value]="audit"></p-tableCheckbox>
-            </td> -->
-            <td *ngIf="rowGroupMetadata[audit.jobName].index === rowIndex" [attr.rowspan]="rowGroupMetadata[audit.jobName].size">
+    <ng-template pTemplate="body" let-audit >
+        <tr class="p-selectable-row"  [pSelectableRow]="audit" (click)="allocateResource(audit)"> 
+            <td>
                 {{audit.jobName}}
             </td>
             <td>

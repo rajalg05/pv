@@ -128,13 +128,14 @@ export class JobFormComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.SpinnerService.show();
     let job: Job = this.populateFormValues();
-    this.tabNameChangeEmit.emit(job);
+    
     if (this.job == null) { // only for Add job, save the job, not during save Audit, you should be able to edit job  
       this.jobService.saveJob(job).subscribe(data => {
         console.log('saveJob data = ', data);
+        this.tabNameChangeEmit.emit(data);
         this.SpinnerService.hide();
         this.messageService.add({ severity: 'info', summary: 'Job Saved', detail: '' });
-        this.jobService.jobs.push(job); // this will be used in Audit page. Save new Audit, update the job details in that new Audit 
+        this.jobService.jobs.push(data); // this will be used in Audit page. Save new Audit, update the job details in that new Audit 
       });
     }
 

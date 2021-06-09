@@ -1,6 +1,7 @@
-import { Job } from "./job";
 import { Address } from "./address";
 import { Resource } from "./resource";
+import { AuditDate } from "./auditDate";
+import { AuditAllocation } from "./auditAllocation";
 
 export class Audit { 
 
@@ -9,18 +10,21 @@ export class Audit {
 	public jobId: number;
 
 	public jobName: string; // use it when new Audit tab is added from job-view 
-	//public job: Job;
 	
 	public address: Address;
 	
 	public auditStatus: string;
-    
-	public datesOfAudits: string;
 
 	public auditName: string;
     
-	//public auditLocationAddressId: number;
-    
+	public auditDates: AuditDate[];
+
+	public auditAllocations: AuditAllocation[];
+
+	public allocatedResources: Resource[] = [];
+
+	public unAllocatedResources: Resource[] = [];
+
 	public statusUpdatedBy: string;
     
 	public paymentReceived: number;
@@ -29,7 +33,4 @@ export class Audit {
     
 	public updatedTs: Date;
 
-	allocatedResources: Resource[] = [];
-
-	unAllocatedResources: Resource[] = [];
 }

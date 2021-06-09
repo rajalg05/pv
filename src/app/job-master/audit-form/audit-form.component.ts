@@ -68,9 +68,7 @@ export class AuditFormComponent implements OnInit {
       });
     } else {
       let dates: Date[] = [];
-      this.audit.datesOfAudits.split(';').map(dateOfAudit => {
-        dates.push(new Date(dateOfAudit));
-      })
+      this.audit.auditDates; // TO DO 
       this.auditForm = new FormGroup({
         dateOfAudit: new FormControl(dates),
         paymentReceived: new FormControl(this.audit.paymentReceived),
@@ -119,7 +117,7 @@ export class AuditFormComponent implements OnInit {
     dateOfAuditStrings.forEach(element => {
       tempDateString = tempDateString + moment(element).format("ll") + ';'
     });
-    this.audit.datesOfAudits = tempDateString.substring(0, tempDateString.length - 1);
+    this.audit.auditDates;
     this.audit.paymentReceived = this.auditForm.get('paymentReceived').value;
     this.audit.auditName = this.auditForm.get('auditName').value;
 
