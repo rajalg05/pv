@@ -125,8 +125,8 @@ export class AuditFormComponent implements OnInit {
     this.auditDates.forEach(dt => {
       let auditDate = new AuditDate();
       auditDate.auditDate = dt;
-      auditDate.name = moment(dt).format("DD/MM/YYYY");
-      auditDate.code = moment(dt).format("DD/MM/YYYY");
+      auditDate.name = moment(dt).format("YYYY-MM-DD");
+      auditDate.code = moment(dt).format("YYYY-MM-DD");
       // auditDate.audit = this.audit // dont put parent ref in audit - it gies circular dependency error 
       auditDate.auditId = this.audit.id;
       this.audit.auditDates.push(auditDate);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Audit } from '../model/audit';
@@ -6,12 +6,11 @@ import { AuditAllocation } from '../model/auditAllocation';
 import { Resource } from '../model/resource';
 import { AuditService } from '../service/audit.service';
 import { ResourceService } from '../service/resource.service';
-//import calendarevents from '../../assets/calendarevents';
-import {FullCalendarModule} from 'primeng/fullcalendar';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { EventService } from '../service/event.service';
+import { AuditDate } from '../model/auditDate';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,22 +20,31 @@ import { EventService } from '../service/event.service';
 })
 export class DashboardComponent implements OnInit {
   // begin full calendar fields
-  events: any[];
+  public events: any[] = [];
 
   options: any;
+
+  private subscriptionAudit: any = null;
+
+  private subscriptionAuditDate: any = null;
+
+  audits: Audit[] = [];
+
+  auditDates: AuditDate[] = [];
+
+  loading: boolean = false;
   // end full calendar fields
   basicData: any;
 
   basicOptions: any;
-  
+
   responsiveOptions;
 
   statuses: any[];
 
   constructor(resourceService: ResourceService,
     private primengConfig: PrimeNGConfig,
-    private auditService: AuditService,
-    private eventService: EventService) {
+    private auditService: AuditService) {
 
     this.responsiveOptions = [
       {
@@ -55,19 +63,17 @@ export class DashboardComponent implements OnInit {
         numScroll: 1
       }
     ];
-     
-  }
+
+  } 
   ngOnInit() {
-    this.eventService.getEvents().then(events => {this.events = events;});
-        
     this.options = {
-        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-        defaultDate: '2021-06-01',
-        header: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        }
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      defaultDate: '2021-06-01',
+      header: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      }
     }
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
@@ -93,12 +99,34 @@ export class DashboardComponent implements OnInit {
         }
       ]
     };
+    this.subscriptionAudit = this.auditService.findAllAudits().subscribe(audits => {
+      this.audits = audits;
+      this.loading = false;
 
-    // full calendar events
-    /* this.events = calendarevents.data;
-    */
+      this.subscriptionAuditDate = this.auditService.findAllAuditDates().subscribe(auditDates => {
+        this.auditDates = auditDates;
+        let id: number = 0;
+        auditDates.map(auditDate => {
+          let audit: Audit = this.audits.find(a => a.id == auditDate.auditId);
+          this.events = [...this.events, {
+            "id": id + 1,
+            "title": audit.auditName,
+            "start": moment(auditDate.auditDate).format("YYYY-MM-DD")
+          }];
+        }); 
+      },
+        error => {
+          console.log('error findAllAudits : ', error)
+        }); 
+    },
+      error => {
+        console.log('error findAllAudits : ', error)
+      });
+
+    
+    this.loading = false; 
   }
- 
+
 }
 
 

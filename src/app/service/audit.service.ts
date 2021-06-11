@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { Audit } from '../model/audit';
 import { AuditAllocation } from '../model/auditAllocation';
+import { AuditDate } from '../model/auditDate';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,16 @@ export class AuditService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');
     return this.http.get<Audit[]>(this.BASE_URL + '/findAllAudits', {headers: headers})
+    
+      .pipe(
+        //catchError(this.handleError('findAllJobs'))
+      );
+  }
+
+  findAllAuditDates(): Observable<AuditDate[]> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return this.http.get<AuditDate[]>(this.BASE_URL + '/findAllAuditDates', {headers: headers})
     
       .pipe(
         //catchError(this.handleError('findAllJobs'))
