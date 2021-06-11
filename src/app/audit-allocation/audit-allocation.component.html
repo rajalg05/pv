@@ -99,7 +99,7 @@
             </td> 
             
             <td>
-               <p-dropdown [options]="audit.auditDates" optionLabel="name"></p-dropdown> 
+               <p-dropdown [options]="audit.auditDates" optionLabel="name" [(ngModel)]="selectedAuditDate"></p-dropdown> 
             </td>
             <td>
                 {{audit.paymentReceived}}

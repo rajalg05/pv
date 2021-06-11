@@ -19,6 +19,8 @@ export class Audit {
     
 	public auditDates: AuditDate[] = [];
 
+	selectedAuditDate: AuditDate; // required in audit allocation page while passing the date to pick list
+
 	public auditAllocations: AuditAllocation[];
 
 	public allocatedResources: Resource[] = [];

@@ -4,6 +4,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Audit } from '../model/audit';
 import { AuditAllocation } from '../model/auditAllocation';
+import { AuditDate } from '../model/auditDate';
 import { Resource } from '../model/resource';
 import { AuditService } from '../service/audit.service';
 import { ResourceService } from '../service/resource.service';
@@ -25,9 +26,13 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
   selectedAudit: Audit;
 
+  selectedAuditDate: AuditDate
+
   private subscriptionResource: any = null;
 
   private subscriptionAudit: any = null;
+
+  private subscriptionAuditAllocation: any = null;
 
   statuses: any[];
 
@@ -76,7 +81,16 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     },
       error => {
         console.log('error findAllAudits : ', error)
-      }); 
+      });
+
+    this.subscriptionAuditAllocation = this.auditService.findAllAllocatedAudits().subscribe(allocatedAudits => {
+      this.allocatedAudits = allocatedAudits;
+      this.loading = false
+    },
+      error => {
+        console.log('error findAllAudits : ', error)
+      });
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     // TO DO - Audits newly created/added to job should be stacked here as well. 
@@ -122,6 +136,10 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
     if(this.subscriptionAudit != undefined)  
       this.subscriptionAudit.unsubscribe();
+
+    if(this.subscriptionAuditAllocation != undefined)  
+      this.subscriptionAuditAllocation.unsubscribe();
+      
   }
 
   allocateResource(audit: Audit) {
@@ -148,7 +166,14 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     aa.resource = resource;
     aa.resource.allocated = 'true';
     aa.audit = this.selectedAudit;
-
+    if (this.selectedAuditDate == undefined) { // when user has selected any dates in the row
+      aa.audit.selectedAuditDate = aa.audit.auditDates[0]; // TO DO populate the auditDateId into the this.selectedAuditDate
+      aa.auditDate = aa.audit.auditDates[0];
+    } else {
+      aa.audit.selectedAuditDate = this.selectedAuditDate; // TO DO populate the auditDateId into the this.selectedAuditDate
+      aa.auditDate = this.selectedAuditDate;
+    }
+    
     let saveAllocatedAudits: AuditAllocation[] = [];
 
     saveAllocatedAudits.push(aa);

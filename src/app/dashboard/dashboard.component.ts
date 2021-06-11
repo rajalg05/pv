@@ -7,6 +7,12 @@ import { Resource } from '../model/resource';
 import { AuditService } from '../service/audit.service';
 import { ResourceService } from '../service/resource.service';
 //import calendarevents from '../../assets/calendarevents';
+import {FullCalendarModule} from 'primeng/fullcalendar';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { EventService } from '../service/event.service';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,6 +20,11 @@ import { ResourceService } from '../service/resource.service';
   providers: []
 })
 export class DashboardComponent implements OnInit {
+  // begin full calendar fields
+  events: any[];
+
+  options: any;
+  // end full calendar fields
   basicData: any;
 
   basicOptions: any;
@@ -24,7 +35,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(resourceService: ResourceService,
     private primengConfig: PrimeNGConfig,
-    private auditService: AuditService) {
+    private auditService: AuditService,
+    private eventService: EventService) {
 
     this.responsiveOptions = [
       {
@@ -46,6 +58,17 @@ export class DashboardComponent implements OnInit {
      
   }
   ngOnInit() {
+    this.eventService.getEvents().then(events => {this.events = events;});
+        
+    this.options = {
+        plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        defaultDate: '2021-06-01',
+        header: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        }
+    }
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
       { label: 'Qualified', value: 'qualified' },

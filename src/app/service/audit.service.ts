@@ -13,10 +13,10 @@ export class AuditService {
   BASE_URL: string = 'http://localhost:8080/audit';
 
   
-  saveAudit(audit: Audit): Observable<string> {
+  saveAudit(audit: Audit): Observable<Audit> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     headers.set('Access-Control-Allow-Origin', '*');
-    return this.http.post<string>(this.BASE_URL + '/saveAudit', audit, {headers: headers});
+    return this.http.post<Audit>(this.BASE_URL + '/saveAudit', audit, {headers: headers});
   }
 
   deleteAudit(audit: Audit): Observable<string> {
