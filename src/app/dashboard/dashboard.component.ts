@@ -19,6 +19,8 @@ import * as moment from 'moment';
   providers: []
 })
 export class DashboardComponent implements OnInit {
+  stateOptions: any[];
+  value1: string = "Calendar";
   // begin full calendar fields
   public events: any[] = [];
 
@@ -43,9 +45,13 @@ export class DashboardComponent implements OnInit {
   statuses: any[];
 
   constructor(resourceService: ResourceService,
-    private primengConfig: PrimeNGConfig,
+    private primeNGConfig: PrimeNGConfig,
     private auditService: AuditService) {
 
+    this.stateOptions = [
+      { label: "Chart", value: "Chart" },
+      { label: "Calendar", value: "Calendar" }
+    ];
     this.responsiveOptions = [
       {
         breakpoint: '1024px',
@@ -66,6 +72,8 @@ export class DashboardComponent implements OnInit {
 
   } 
   ngOnInit() {
+    this.primeNGConfig.ripple = true;
+
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       defaultDate: '2021-06-01',
@@ -73,6 +81,17 @@ export class DashboardComponent implements OnInit {
         left: 'prev,next',
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      eventClick: (eventClickEvent) => {
+        console.log("EVENT CLICKED !!!", eventClickEvent);
+      },
+      eventMouseEnter : (eventClickEvent) => {
+        this.showDialog();
+        console.log("eventMouseEnter CLICKED !!!", eventClickEvent);
+      },
+      eventMouseLeave : (eventClickEvent) => {
+        this.hideDialog();
+        console.log("eventMouseLeave CLICKED !!!", eventClickEvent);
       }
     }
     this.statuses = [
@@ -83,7 +102,6 @@ export class DashboardComponent implements OnInit {
       { label: 'Renewal', value: 'renewal' },
       { label: 'Proposal', value: 'proposal' }
     ]
-    this.primengConfig.ripple = true;
     this.basicData = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
@@ -111,7 +129,8 @@ export class DashboardComponent implements OnInit {
           this.events = [...this.events, {
             "id": id + 1,
             "title": audit.auditName,
-            "start": moment(auditDate.auditDate).format("YYYY-MM-DD")
+            "start": moment(auditDate.auditDate).format("YYYY-MM-DD"),
+            "auditId": audit.id
           }];
         }); 
       },
@@ -126,7 +145,20 @@ export class DashboardComponent implements OnInit {
     
     this.loading = false; 
   }
+  handleDateClick(dateClickEvent) {
+    dateClickEvent.preventDefault();
+    console.log("DATE CLICKED !!!");
+  
+    // access member variables and functions using `this` keyword
+  }
+  display: boolean = false;
 
+  showDialog() {
+      this.display = true;
+  }
+  hideDialog() {
+    this.display = false;
+}
 }
 
 

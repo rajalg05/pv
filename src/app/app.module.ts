@@ -63,6 +63,7 @@ import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { AuditFormComponent } from './job-master/audit-form/audit-form.component';
 import { AuditAllocationComponent } from './audit-allocation/audit-allocation.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { AuditAllocationComponent } from './audit-allocation/audit-allocation.co
     DynamicDialogModule,
     NgxSpinnerModule,  
     TooltipModule,
+    SelectButtonModule,
     // Phone module
     NgxIntlTelInputModule
   ],

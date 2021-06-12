@@ -1,22 +1,21 @@
 
-<p-fullCalendar [events]="events" [options]="options"></p-fullCalendar>
+<p-selectButton [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value"></p-selectButton>
 
-<!-- <p-carousel [value]="resources" [autoplayInterval]="5000" [numVisible]="3" [numScroll]="3" [circular]="true"
-[responsiveOptions]="responsiveOptions">
+<p-fullCalendar [events]="events" [options]="options" *ngIf="value1 == 'Calendar'"></p-fullCalendar>
+
+<p-dialog [(visible)]="display">
     <ng-template pTemplate="header">
-        <h5>Upcomging Audits</h5>
+        Header content here
     </ng-template>
-    <ng-template let-resource pTemplate="item">
-        {{resource.basicContactDetail.firstName}}
-    </ng-template>
-</p-carousel> -->
+    Content
+    <p-footer>
+        //buttons
+    </p-footer>
+</p-dialog>
+ 
 
-
-
-<br>
-<br>
 <div class="container">
     <h5>Profit vs Cost</h5>
-    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" *ngIf="value1 == 'Chart'"></p-chart>
 </div>
 
