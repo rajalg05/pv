@@ -7,5 +7,6 @@ export class AuditDate {
      public auditDay: number;
      public name: string;
      public code: string;
+     public id: string;
      constructor() {}
 }

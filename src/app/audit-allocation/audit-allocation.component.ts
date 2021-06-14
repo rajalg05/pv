@@ -26,7 +26,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
   selectedAudit: Audit;
 
-  selectedAuditDate: AuditDate
+  selectedAuditDate: string;
 
   private subscriptionResource: any = null;
 
@@ -143,10 +143,24 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       this.subscriptionAuditAllocation.unsubscribe();
       
   }
+  @ViewChild('auditDateDropDown') auditDateDropDown;
 
   allocateResource(audit: Audit) {
-    if(audit.allocatedResources != null)
-      this.targetList = audit.allocatedResources;
+    this.targetList = [];
+    if(audit.allocatedResources != null) {
+      audit.auditDates.forEach(auditDate => {
+        if(auditDate.code == this.auditDateDropDown.selectedOption.code) {
+          this.allocatedAudits.forEach(aa => {
+            if(aa.auditDate.id == auditDate.id) {
+              if(!this.targetList.includes(aa.resource)) {
+                this.targetList.push(aa.resource);
+              }
+            }
+          });
+        }
+      });
+      //this.targetList = audit.allocatedResources;
+    }
     else {
       this.targetList = [];
     }  
@@ -172,8 +186,11 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       aa.audit.selectedAuditDate = aa.audit.auditDates[0]; // TO DO populate the auditDateId into the this.selectedAuditDate
       aa.auditDate = aa.audit.auditDates[0];
     } else {
-      aa.audit.selectedAuditDate = this.selectedAuditDate; // TO DO populate the auditDateId into the this.selectedAuditDate
-      aa.auditDate = this.selectedAuditDate;
+      // aa.audit.selectedAuditDate = this.selectedAuditDate; // TO DO populate the auditDateId into the this.selectedAuditDate
+      // aa.auditDate = this.selectedAuditDate;
+      let index = aa.audit.auditDates.findIndex(t => t.code == this.selectedAuditDate);
+      aa.audit.selectedAuditDate = aa.audit.auditDates[index];
+      aa.auditDate = aa.audit.auditDates[index];
     }
     
     let saveAllocatedAudits: AuditAllocation[] = [];
