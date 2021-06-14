@@ -20,7 +20,7 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit {
   stateOptions: any[];
-  value1: string = "Calendar";
+  value1: string = "Chart";
   // begin full calendar fields
   public events: any[] = [];
 
@@ -103,16 +103,16 @@ export class DashboardComponent implements OnInit {
       { label: 'Proposal', value: 'proposal' }
     ]
     this.basicData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['Audit1', 'Audit2', 'Audit3', 'Audit4', 'Audit5', 'Audit6', 'Audit7'],
       datasets: [
         {
-          label: 'My First dataset',
-          backgroundColor: '#42A5F5',
+          label: 'Cost',
+          backgroundColor: '#116fbf',
           data: [65, 59, 80, 81, 56, 55, 40]
         },
         {
-          label: 'My Second dataset',
-          backgroundColor: '#FFA726',
+          label: 'Profit',
+          backgroundColor: '#c8c8c8',
           data: [28, 48, 40, 19, 86, 27, 90]
         }
       ]

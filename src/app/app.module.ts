@@ -47,23 +47,24 @@ import { AssociateViewComponent } from './associate-master/associate-view/associ
 import { AssociateFormComponent } from './associate-master/associate-form/associate-form.component';
 import { JobFormComponent } from './job-master/job-form/job-form.component';
 import { JobViewComponent } from './job-master/job-view/job-view.component';
-import {StepsModule} from 'primeng/steps'; 
-import {EditorModule} from 'primeng/editor';
+import { StepsModule } from 'primeng/steps';
+import { EditorModule } from 'primeng/editor';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {CarouselModule} from 'primeng/carousel';
-import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import { CarouselModule } from 'primeng/carousel';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ChartModule } from 'primeng/chart';
-import {TooltipModule} from 'primeng/tooltip';
+import { TooltipModule } from 'primeng/tooltip';
 import 'chart.js/dist/Chart.min.js';
-import {FullCalendarModule} from 'primeng/fullcalendar';
+import { FullCalendarModule } from 'primeng/fullcalendar';
 import { ResourceDialogComponent } from './resource-master/resource-form/resource-dialog/resource-dialog.component';
 import { AssociateDialogComponent } from './associate-master/associate-form/associate-dialog/associate-dialog.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.component'; 
+import { JobDialogComponent } from './job-master/job-form/job-dialog/job-dialog.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { AuditFormComponent } from './job-master/audit-form/audit-form.component';
 import { AuditAllocationComponent } from './audit-allocation/audit-allocation.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { KnobModule } from 'primeng/knob';
 
 @NgModule({
   declarations: [
@@ -115,17 +116,18 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     DropdownModule,
     CalendarModule,
     DialogModule,
+    KnobModule,
     DataViewModule,
     PickListModule,
     GMapModule,
     AccordionModule,
-    StepsModule, 
+    StepsModule,
     EditorModule,
     ChartModule,
     CarouselModule,
     FullCalendarModule,
     DynamicDialogModule,
-    NgxSpinnerModule,  
+    NgxSpinnerModule,
     TooltipModule,
     SelectButtonModule,
     // Phone module

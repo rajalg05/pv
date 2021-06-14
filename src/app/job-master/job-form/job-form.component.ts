@@ -19,7 +19,7 @@ import { AuditService } from 'src/app/service/audit.service';
   selector: 'app-job-form',
   templateUrl: './job-form.component.html',
   styleUrls: ['./job-form.component.css'],
-  providers: [DialogService]
+  providers: [DialogService, MessageService]
 })
 export class JobFormComponent implements OnInit, OnDestroy {
   jobForm: FormGroup;  //declaring our form variable

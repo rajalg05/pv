@@ -17,7 +17,7 @@ import { AuditDate } from 'src/app/model/auditDate';
   selector: 'app-audit-form',
   templateUrl: './audit-form.component.html',
   styleUrls: ['./audit-form.component.css'],
-  providers: [DialogService]
+  providers: [DialogService, MessageService]
 })
 export class AuditFormComponent implements OnInit {
   auditForm: FormGroup;  //declaring our form variable
@@ -95,7 +95,7 @@ export class AuditFormComponent implements OnInit {
       console.log('saveAudit data = ', data);
       this.tabNameChangeAuditEmit.emit(data);
       this.SpinnerService.hide();
-      this.messageService.add({ severity: 'info', summary: 'Audit Saved', detail: '' });
+      this.messageService.add({ severity: 'info', summary: 'Audit Saved', detail: 'Audit Saved' });
     });
   }
 

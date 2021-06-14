@@ -60,6 +60,8 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
   unAllocatedAudits: AuditAllocation[] = [];
 
+  knobValue: number = 15;
+
   constructor(resourceService: ResourceService,
     private auditService: AuditService) {
 
@@ -166,7 +168,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     aa.resource = resource;
     aa.resource.allocated = 'true';
     aa.audit = this.selectedAudit;
-    if (this.selectedAuditDate == undefined) { // when user has selected any dates in the row
+    if (this.selectedAuditDate == undefined) { // when user has NOT selected any dates in the row
       aa.audit.selectedAuditDate = aa.audit.auditDates[0]; // TO DO populate the auditDateId into the this.selectedAuditDate
       aa.auditDate = aa.audit.auditDates[0];
     } else {
