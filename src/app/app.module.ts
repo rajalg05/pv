@@ -65,6 +65,8 @@ import { AuditFormComponent } from './job-master/audit-form/audit-form.component
 import { AuditAllocationComponent } from './audit-allocation/audit-allocation.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { KnobModule } from 'primeng/knob';
+import { IsNaNPipe } from './pipe/is-na-n.pipe';
+
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { KnobModule } from 'primeng/knob';
     AssociateDialogComponent,
     JobDialogComponent,
     AuditFormComponent,
-    AuditAllocationComponent
+    AuditAllocationComponent,
+    IsNaNPipe
   ],
   imports: [
     BrowserModule,

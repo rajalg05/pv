@@ -188,7 +188,22 @@
             </ng-template>
         </p-pickList>
     </div>
-    <div class="col-6">
-        <p-knob [(ngModel)]="knobValue" [min]="-50" [max]="50" valueColor="SlateGray" rangeColor="MediumTurquoise" [size]="400" readonly="false"></p-knob>
+
+    <div>
+        <p>
+            Approved Amount : {{approvedAmount}}
+        </p>     
+        <p>
+            Profit : {{(profit | isNaN) ? '' : profit }}
+        </p>
+        <p *ngFor="let t of targetList">
+            Cost of {{t.basicContactDetail.firstName}} : {{t.paymentAmount}}
+        </p>
+        <p>
+            Profit % : {{(profitPercentage | isNaN) ? '' : profitPercentage }}
+        </p>
     </div>
+    <!-- <div class="col-6">
+        <p-knob [(ngModel)]="knobValue" [min]="-50" [max]="50" valueColor="SlateGray" rangeColor="MediumTurquoise" [size]="400" readonly="false"></p-knob>
+    </div> -->
 </div>

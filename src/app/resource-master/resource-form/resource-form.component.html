@@ -158,7 +158,7 @@
         </div>
 
         <div class="form-row">
-            <div class="form-check form-check-inline col-1">
+            <!-- <div class="form-check form-check-inline col-1">
                 <label class="form-check-label" for="genderMale">Male</label>
             </div>
             <div class="col-1">
@@ -169,6 +169,19 @@
             </div>
             <div class="col-1">
                 <input type="radio" id="genderFemale" class="form-check-input" formControlName="gender" value="Female">
+            </div> -->
+            <div class="col-1">
+                <label for="paymentType">Payment Type : <span class="lblError">*</span></label>
+            </div>
+            <div class="col-5">
+                <p-dropdown [options]="payments" formControlName="paymentType" optionLabel="label" optionValue="value"
+                    filter="true" placeholder="Payment Type"  filter="false"></p-dropdown>
+            </div>
+            <div class="col-1">
+                <label for="paymentAmount">Payment Amount : <span class="lblError">*</span></label>
+            </div>
+            <div class="col-5">
+                <input type="text" id="paymentAmount" class="form-control" formControlName="paymentAmount">
             </div>
         </div>
         <div class="form-row">

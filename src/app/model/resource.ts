@@ -29,6 +29,10 @@ export class Resource {
 
 	public  tlNonTl: string;
 
+	public 	paymentType: string;
+
+	public 	paymentAmount: number;
+
 	public  createdTs; Date;
 	
 	public  updatedTs: Date;

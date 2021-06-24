@@ -144,8 +144,14 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       
   }
   @ViewChild('auditDateDropDown') auditDateDropDown;
-
+  isNaN: Function = Number.isNaN;
+  approvedAmount: number;
+  profit: number;
+  profitPercentage: number;
+  
   allocateResource(audit: Audit) {
+    this.approvedAmount = audit.paymentReceived;
+
     this.targetList = [];
     if(audit.allocatedResources != null) {
       audit.auditDates.forEach(auditDate => {
@@ -154,6 +160,8 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
             if(aa.auditDate.id == auditDate.id) {
               if(!this.targetList.includes(aa.resource)) {
                 this.targetList.push(aa.resource);
+                this.profit = this.approvedAmount - aa.resource.paymentAmount;
+                this.profitPercentage = (this.approvedAmount - aa.resource.paymentAmount) * 100 / this.approvedAmount;
               }
             }
           });

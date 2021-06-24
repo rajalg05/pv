@@ -26,6 +26,10 @@ export class ResourceFormComponent implements OnInit {
 	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
   cities: SelectItem[];
   city: SelectItem;
+  
+  payments: SelectItem[];
+  payment: SelectItem;
+  
 
   bikes: SelectItem[];
   bike: SelectItem;
@@ -48,6 +52,11 @@ export class ResourceFormComponent implements OnInit {
       { label: 'New Delhi', value: 'New Delhi' },
       { label: 'Kolkata', value: 'Kolkata' },
       { label: 'Chennai', value: 'Chennai' }
+    ];
+
+    this.payments = [
+      { label: 'Monthly', value: 'Monthly' },
+      { label: 'Daily', value: 'Daily' }
     ];
 
     this.bikes = [
@@ -101,7 +110,9 @@ export class ResourceFormComponent implements OnInit {
         excelSkill: new FormControl(null),
         stockAuditExp: new FormControl(null),
         tlNonTl: new FormControl(null),
-        gender: new FormControl('Male')
+        gender: new FormControl('Male'),
+        paymentType: new FormControl(null),
+        paymentAmount: new FormControl(null)
       });
     } else {
       this.resourceForm = new FormGroup({
@@ -123,7 +134,9 @@ export class ResourceFormComponent implements OnInit {
         excelSkill: new FormControl(this.resource.excelSkills),
         stockAuditExp: new FormControl(this.resource.stockAuditExp),
         tlNonTl: new FormControl(this.resource.resourceType),
-        gender: new FormControl('Male')
+        gender: new FormControl('Male'),
+        paymentType: new FormControl(this.resource.paymentType),
+        paymentAmount: new FormControl(this.resource.paymentAmount)
       }); 
     }
   }
