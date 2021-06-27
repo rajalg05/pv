@@ -197,7 +197,7 @@
             Profit : {{(profit | isNaN) ? '' : profit }}
         </p>
         <p *ngFor="let t of targetList">
-            Cost of {{t.basicContactDetail.firstName}} : {{t.paymentAmount}}
+            Cost of {{t.basicContactDetail.firstName}} : {{t.paymentAmount}}  per {{t.paymentType}}
         </p>
         <p>
             Profit % : {{(profitPercentage | isNaN) ? '' : profitPercentage }}

@@ -215,6 +215,8 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
           audit.allocatedResources.push(resource);
         }
       });
+      this.profit = this.approvedAmount - aa.resource.paymentAmount;
+      this.profitPercentage = (this.approvedAmount - aa.resource.paymentAmount) * 100 / this.approvedAmount;
     }); 
   }
   deleteAudit(audit: Audit) {
@@ -248,6 +250,17 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     aa.resource.allocated = 'false';
     aa.audit = this.selectedAudit;
 
+    if (this.selectedAuditDate == undefined) { // when user has NOT selected any dates in the row
+      aa.audit.selectedAuditDate = aa.audit.auditDates[0]; // TO DO populate the auditDateId into the this.selectedAuditDate
+      aa.auditDate = aa.audit.auditDates[0];
+    } else {
+      // aa.audit.selectedAuditDate = this.selectedAuditDate; // TO DO populate the auditDateId into the this.selectedAuditDate
+      // aa.auditDate = this.selectedAuditDate;
+      let index = aa.audit.auditDates.findIndex(t => t.code == this.selectedAuditDate);
+      aa.audit.selectedAuditDate = aa.audit.auditDates[index];
+      aa.auditDate = aa.audit.auditDates[index];
+    }
+    
     this.unAllocatedAudits.push(aa);
     this.auditService.unallocateAudits(this.unAllocatedAudits).subscribe(data => {
       console.log('unAllocatedAudits response = ', data);
@@ -257,6 +270,8 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
           audit.allocatedResources.splice(index, 1);
         }
       });
+      this.profit = this.approvedAmount + aa.resource.paymentAmount;
+      this.profitPercentage = (this.approvedAmount + aa.resource.paymentAmount) * 100 / this.approvedAmount;
     });
   } 
 
