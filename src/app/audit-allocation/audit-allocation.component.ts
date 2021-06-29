@@ -149,20 +149,20 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
   profit: number;
   profitPercentage: number;
   
-  allocateResource(audit: Audit) {
+  allocateResource(audit: Audit, event: string) {
+    console.log('dt =', this.table);
     this.approvedAmount = audit.paymentReceived;
 
     this.targetList = [];
     if(audit.allocatedResources != null) {
       audit.auditDates.forEach(auditDate => {
-        if(auditDate.code == this.auditDateDropDown.selectedOption.code) {
+       // if(auditDate.code == this.auditDateDropDown.selectedOption.code) { // TO DO on row click the row selection should happen
+        if(auditDate.code == this.selectedAuditDate) { 
           this.allocatedAudits.forEach(aa => {
-            if(aa.auditDate.id == auditDate.id) {
-              if(!this.targetList.includes(aa.resource)) {
+            if(aa.auditDate.id == auditDate.id && !this.targetList.includes(aa.resource)) {
                 this.targetList.push(aa.resource);
                 this.profit = this.approvedAmount - aa.resource.paymentAmount;
                 this.profitPercentage = (this.approvedAmount - aa.resource.paymentAmount) * 100 / this.approvedAmount;
-              }
             }
           });
         }
@@ -171,6 +171,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
     }
     else {
       this.targetList = [];
+      this.refreshSourceAndTargetList();
     }  
     this.showPickList = true;
   }
@@ -207,6 +208,11 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
 
     this.auditService.allocateAudits(saveAllocatedAudits).subscribe(data => {
       console.log('allocatedAudits response = ', data);
+      // TO DO explore - seems audit.allocatedResources is not required. Because the allocated resources should be determined 
+      // by allocatedAudits object per Audit Date 
+
+      // TO DO - refresh sourceList & targetList
+      this.refreshSourceAndTargetList();
       this.audits.map(audit => {
         if(audit.id == aa.audit.id && audit.allocatedResources == null) {
           audit.allocatedResources = [];
@@ -218,6 +224,42 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       this.profit = this.approvedAmount - aa.resource.paymentAmount;
       this.profitPercentage = (this.approvedAmount - aa.resource.paymentAmount) * 100 / this.approvedAmount;
     }); 
+  }
+  refreshSourceAndTargetList() {
+    this.targetList = [];
+    this.loading = true;
+    // update the allocated audits list in UI - hence call again the backend service 
+    this.subscriptionAuditAllocation = this.auditService.findAllAllocatedAudits().subscribe(allocatedAudits => {
+      this.allocatedAudits = allocatedAudits;
+      this.loading = false
+      if(this.selectedAudit != null && this.selectedAudit.allocatedResources != null) {
+        this.selectedAudit.auditDates.forEach(auditDate => {
+          if(auditDate.code == this.auditDateDropDown.selectedOption.code) {
+            this.allocatedAudits.forEach(allocatedAudit => {
+              if(allocatedAudit.auditDate.id == auditDate.id) {
+                if(!this.targetList.includes(allocatedAudit.resource)) {
+                  this.targetList.push(allocatedAudit.resource);
+                    let index: number = this.sourceList.findIndex(r => r.id == allocatedAudit.resource.id);
+                    this.sourceList.splice(index, 1);
+                  this.profit = this.approvedAmount - allocatedAudit.resource.paymentAmount;
+                  this.profitPercentage = (this.approvedAmount - allocatedAudit.resource.paymentAmount) * 100 / this.approvedAmount;
+                }
+              }
+            });
+          }
+        });
+        //this.targetList = audit.allocatedResources;
+      }
+      else {
+        this.targetList = [];
+      } 
+    },
+      error => {
+        console.log('error findAllAudits : ', error)
+      });
+
+    
+   
   }
   deleteAudit(audit: Audit) {
     this.auditService.deleteAudit(audit).subscribe(data => {
@@ -260,7 +302,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
       aa.audit.selectedAuditDate = aa.audit.auditDates[index];
       aa.auditDate = aa.audit.auditDates[index];
     }
-    
+
     this.unAllocatedAudits.push(aa);
     this.auditService.unallocateAudits(this.unAllocatedAudits).subscribe(data => {
       console.log('unAllocatedAudits response = ', data);
@@ -268,6 +310,7 @@ export class AuditAllocationComponent implements OnInit, OnChanges {
         if(audit.id == aa.audit.id && audit.allocatedResources != null) {
           let index: number = audit.allocatedResources.findIndex(r => r.id == resource.id);
           audit.allocatedResources.splice(index, 1);
+          this.refreshSourceAndTargetList();
         }
       });
       this.profit = this.approvedAmount + aa.resource.paymentAmount;
